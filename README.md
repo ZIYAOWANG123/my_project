@@ -1,2 +1,4 @@
-# my_project
-ETC5543 Project
+# ETC5543 Creativity Project - "Hexmap"
+
+BY **ZIYAO WANG (Billy)**
+

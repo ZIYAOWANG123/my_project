@@ -1,7 +1,7 @@
 ---
-title: "my_project"
+title: "Project-reference_articles"
 author: "ZIYAO WANG (Billy)"
-date: "2022/7/7"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
