@@ -1,11 +1,125 @@
 ---
-title: "Project-reference_articles"
+title: "Project reference articles"
 author: "ZIYAO WANG (Billy)"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+      number_sections: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 Sys.setlocale("LC_ALL","English")
 ```
+
+Summary of "A Hexagon Tile Map Algorithm for Displaying Spatial Data"
+by _Stephanie Kobakian, Dianne Cook, and Earl Duncan_
+
+# Focus   
+
+An R package ("sugarbag") applies the hexagon to preserve the spatial information of the geographic units to pinpoint the interests. It highlights the spatial distribution detail of those overlooked geographical regions with proper amplification on the geographic maps. 
+
+
+# Introduction
+
+## 1. Related background
+
+The cancer atlases ([The Australian Cancer Atlas](https://atlas.cancer.org.au/)). Its main purpose is to illustrate the landmass overlaid with administrative boundaries, with possible highlights on geographic patterns.
+
+## 2. Initiative
+
+With the increasing population in urban areas, the population density in various administrative geographic units (such as states and electorates) is substantially different. When using a choropleth map to display the statistic information for each unit in the geographic units on the map, it will cause some statistical values to be emphasized over others and lead to a misrepresentation of the spatial distribution of human-related statistics due to this area-size bias ([Skowronnek, 2016](https://alsino.io/static/papers/BeyondChoropleths_AlsinoSkowronnek.pdf)).
+
+  * _Figure 1_ - Example of misrepresentation.
+
+## 3. Possible solution to the issue
+
+Using alternative maps (e.g. cartograms) to shift the focus from land area to the interest of statistics value. These approaches may distort the map space to present the features of the statistical distribution across the geographic areas according to the interests. ([Dougenik et al., 1985](https://www.tandfonline.com/doi/abs/10.1111/j.0033-0124.1985.00075.x)). 
+
+
+# Main Parts
+
+## Existing Mapping Practices
+
+The choropleth map display helps the users in observing the potential geographic patterns while diminishes the features of the distribution in densely populated areas due to the small size of the display ([Dorling, 2011](https://onlinelibrary.wiley.com/doi/epdf/10.1002/9780470979587.ch33?saml_referrer)).             
+Using the census data which contains aggregated population information for different administrative areas provides the opportunity to compare different map transformations (in this case: contiguous cartogram, non-contiguous cartogram, Dorling cartogram). These methods is attempting to minimize the impact of geographic area size or shape and administrative boundaries while focusing on the relationship of human-related statistics. Hence, the information about the population can be properly represented and communicated via the map display.      
+
+  * _Figure 2_ - Comparison among three alternative maps on Australian state of Tasmania at SA2 level.        
+    * a.) contiguous cartogram - re-scaled the map according to the population to illustrate the smaller geographic units. Yet, the display will create twisted and unfamiliar shapes of the geographic units as the algorithms must satisfy the topology conditions, especially when communities that are located geographically far from their neighbors.        
+    * b.) non-contiguous cartogram - it re-scaled the map similar to contiguous cartogram, yet doesn't distort the geographic shape. This may cause them loses the connection with their neighbors. The amount of background space can be meaningful in non-contiguous cartograms ([Keim et al., 2002](https://ieeexplore.ieee.org/abstract/document/1173144)).      
+    * c.) Dorling cartogram - it presents each geographic unit as a circle, and allocates the size according to the population of each area. This display illustrates the approximation of equal population is not esay to fulfill as the displayed disparity in the sizes of the circles.    
+
+  * _Other approaches_ - Treat all geographic units as equal, regardless of the population or other information (especially the human related ones), and gegnerate equal size spatial polygons.      
+    * R package [`statebins`](https://cran.r-project.org/web/packages/statebins/index.html) (Rudis, 2020) - Transformed USA geography into square-binned tile map.    
+
+## Algorithm   
+
+### Purpose
+
+To create an alternative map display to highlight the spatial distributions for population factors. This is to address the issue of the constantly increasing population in urban areas.        
+
+The algorithm intends to maintain the spatial relationships of a group of geographic units using the relationship between each unit and the closest focal points. It allocates the geographic units to a representative hexagon and then proximity to the closest focal point.   
+
+  * _Figure 3_ - Sample display on the thyroid cancer rate of females in each SA2 areas of Australia (with comparison to _Figure 1_).     
+
+### User guidance
+
+  1. Two compulsory inputs: the shape file + ID variable (uniquely identify each geographic unit in the shape file).     
+  2. The derived centroids -> appropriate grid -> each grid point is located a hexagon size distance from the next closet point in all six directions + buffer distance to account for densely populated areas and allows the hexagon locations to spread beyond the coastline (over the sea).  
+  3. Centroid set + hexagon tilemap grid + (provided reference locations for customized focal points) -> allocation process (users can specify the variable used to determine the order of this allocation).     
+  The `width` parameter can adjust the flexibility of positioning, as a larger value will increase the number of available hexagons nearer to the original centroid of the geographic unit, and vice versa.     
+  4. Users should provide a set of polygons to define geographic units by their administrative boundaries. It arranges the geographic units in order of proximity to a set of locations provided such as the centre of major cities. The centroid location of each geographic unit is used to measure the proximity.
+
+  
+  * _Figure 4_ - A flow chart of the algorithm application steps.     
+  * Relevant R package [`sf`](https://cran.r-project.org/web/packages/sf/index.html) - [Pebesma, 2018](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html)
+
+
+**Detail application example with steps is indicated in section "Algorithm steps"!** & __Figure 5__ - *Visualization of key application steps*.
+  
+
+### Animation
+
+* Relevant R package ([`gganimate`](https://cran.r-project.org/web/packages/gganimate/index.html)) - (Pedersen and Robinson, 2019)
+
+
+# Discussion
+ 
+## Main idea       
+The hexagon tile map display acknowledges the number of residents can differ but each administrative area is equally important. This solution uses equally sized areas and maintains neighborhood boundary connections.     
+
+## Limitation
+
+  1. It doesn't allow the size of the hexagons to represent another variable (i.e. other than geographical units) and restricts each geographic area to only one hexagon.    
+  2. The algorithm is heavily dependent on the focal point provided, as this determines the order of allocation.     
+  3. The `buffer` parameter allows extension beyond the furthest centroids, there is no protection for the borders to be within the geographic borders of a country.     
+
+## Possible Improvements
+
+  1. The filter process for the final selection of a hexagon grid point for each centroid can be refined to obtain higher efficiency.       
+  2. A logarithmic function can be used to help the choice of a closer hexagon to the original centroid location as the algorithm is currently using a direct angle approach which may narrowly miss appropriate hexagons.  
+ 
+
+# *Reference List*
+
+Cancer Council Queensland, Queensland University of Technology, and Cooperative Research Centre for Spatial Information. Australian Cancer Atlas, 2018. URL https://atlas.cancer.org.au. 
+
+A. Skowronnek. Beyond Choropleth Maps – A Review of Techniques to Visualize Quantitative Areal Geodata, 2016. URL https://alsino.io/static/papers/BeyondChoropleths_AlsinoSkowronnek. pdf
+
+J. A. Dougenik, N. R. Chrisman, and D. R. Niemeyer. An Algorithm to Construct Continuous Area
+Cartograms. The Professional Geographer, 37(1):75–81, 1985. doi: 10.1111/j.0033-0124.1985.00075.x. URL https://doi.org/10.1111/j.0033-0124.1985.00075.x
+
+D. Dorling. Area Cartograms: Their Use and Creation, volume 59, pages 252 – 260. 04 2011. ISBN 9780470979587. doi: 10.1002/9780470979587.ch33.
+
+D. Keim, S. North, C. Panse, and J. Schneidewind. Efficient Cartogram Generation: A Comparison. In IEEE Symposium on Information Visualization, 2002. INFOVIS 2002, volume 2002, pages 33–36. IEEE, 2002. ISBN 076951751X.
+
+B. Rudis. statebins: Create United States Uniform Cartogram Heatmaps, 2020. URL https://CRAN.Rproject.org/package=statebins. R package version 1.4.0.
+
+E. Pebesma. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal, 10(1):439–446, 2018. doi: 10.32614/RJ-2018-009. URL https://doi.org/10.32614/RJ-2018-009
+
+T. L. Pedersen and D. Robinson. gganimate: A Grammar of Animated Graphics, 2019. URL https:
+//CRAN.R-project.org/package=gganimate. R package version 1.0.3. 
