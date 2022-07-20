@@ -13,24 +13,21 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+Sys.setlocale("LC_ALL","English")
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Summary of relevant articles/packages
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## 1. [Tilegrams](https://github.com/PitchInteractiveInc/tilegrams) - `22/09/2016`
 
-```{r cars}
-summary(cars)
-```
+  * [Blog](http://pitchinteractive.com/latest/tilegrams-more-human-maps/)      
+  * [Package Manual](https://github.com/PitchInteractiveInc/tilegrams/blob/master/MANUAL.md)        
+  * Algorithm Briefing: 
+  
+  * Relevant codes (JavaScript) - [Cartogram](https://github.com/PitchInteractiveInc/tilegrams/blob/efdfad1f3206856d47d85604c85f0032f2f2e448/source/Canvas.js#L26-L31), [Tiles](https://github.com/PitchInteractiveInc/tilegrams/blob/efdfad1f3206856d47d85604c85f0032f2f2e448/source/graphics/GridGraphic.js#L308-L328)
 
-## Including Plots
+## 2. 
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
