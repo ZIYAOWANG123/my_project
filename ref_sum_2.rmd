@@ -47,12 +47,13 @@ Sys.setlocale("LC_ALL","English")
 
 
 
-## 2. [Fivethirtyeight](https://projects.fivethirtyeight.com/facebook-primary/) 
+## 2. Fivethirtyeight [Examples](https://projects.fivethirtyeight.com/facebook-primary/) 
 
   * ![](image/538.png)     
   
   * [fivethirtyeight-2016 US Election Post](https://projects.fivethirtyeight.com/2016-election-forecast/)
-  * [Author Post](https://medium.com/civic-tech-thoughts-from-joshdata/how-that-map-you-saw-on-538-under-represents-minorities-by-half-and-other-reasons-to-consider-a-4a98f89cbbb1)       * [358 Map Github link](https://github.com/JoshData/why-use-cartograms)     
+  * [Author Post](https://medium.com/civic-tech-thoughts-from-joshdata/how-that-map-you-saw-on-538-under-represents-minorities-by-half-and-other-reasons-to-consider-a-4a98f89cbbb1) - Methodology in it.         
+  * [358 Map Github link](https://github.com/JoshData/why-use-cartograms)     
   * Using [Albers equal-area conic projection](https://en.wikipedia.org/wiki/Albers_projection)        
   * Calculating the number of pixels used by original geographic map, then computing the actual pixels display based on the population of the region.     
 
@@ -64,9 +65,27 @@ Sys.setlocale("LC_ALL","English")
   * [The Guardian - UK 2017 general election](https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017)        
   
   
-## 4. [uk-hex-cartograms-noncontiguous - Github](https://github.com/houseofcommonslibrary/uk-hex-cartograms-noncontiguous#uk-hex-cartograms-noncontiguous)     
+## 4. uk-hex-cartograms-noncontiguous - [Github](https://github.com/houseofcommonslibrary/uk-hex-cartograms-noncontiguous#uk-hex-cartograms-noncontiguous)     
 
-  * 
+  * __Package Briefing__      
+    * Load any of the geopackage files into a GIS program like `QGIS`. The project CRS should be set to EPSG:27700 (British National Grid) in order for the layers to display correctly. To visualise data you will need to join data to the relevant cartogram layer (e.g. MSOA, LTLA 2018) using the [normal method](https://www.qgistutorials.com/en/docs/3/performing_table_joins.html).   
+    
+    * Non-contiguous cartogram formation:     
+    
+      1. The areas will be grouped by ceremonial county of English and other recognisable sub-national geographical areas.      
+      2. These groups are resized based on their population - directly (as in the local authority and constituency versions) or indirectly (as in MSOA version, i.e. one hexagon represents one MSOA).     
+      3. These groups will be separated and arranged according to the approximate geographic location to result a shape resembles the UK.
+
+    * The exact shape for each group differs between the four versions of the template because of the different subdivisions within county groups (e.g. MSOAs, local authorities).      
+      
+      * In the MSOA version, MSOAs are arranged approximately geographically within the wider local authority shape, according to the relative position of their [population-weighted](https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0/explore?location=52.910974%2C-2.000000%2C7.38) centroid. Note that the MSOA version only includes England and Wales because Scotland and Northern Ireland have different, non-equivalent census geographical divisions.
+      * The MSOA cartogram was made by aligning [MSOA population-weighted centroids](https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0/explore) to a hex grid in QGIS. This involved manual work to get an arrangement that was both geographically acceptable and aesthetically acceptable. 
+      The other versions were produced by iterating on the MSOA version - by adding and removing hexagons as required to produce the correct population equivalent for each area, and then re-arranging the shapes.        
+      * The templates are most useful for data about `people and populations`, because they resized based on the population.       
+      * The background shape of the British Island can be disabled, when it is on, the separated islands (such as  "Isles of Wight, Anglesey, and Arran") will be included as it represents the outer border of the visualization area.      
+  
+
+    * Alternative cartogram - [UK General Election 2019](https://visual.parliament.uk/research/visualisations/general-election-2019-constituencies/?map=party)
 
 
 
