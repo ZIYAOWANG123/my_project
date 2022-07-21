@@ -22,12 +22,51 @@ Sys.setlocale("LC_ALL","English")
 ## 1. [Tilegrams](https://github.com/PitchInteractiveInc/tilegrams) - `22/09/2016`
 
   * [Blog](http://pitchinteractive.com/latest/tilegrams-more-human-maps/)      
-  * [Package Manual](https://github.com/PitchInteractiveInc/tilegrams/blob/master/MANUAL.md)        
-  * Algorithm Briefing: 
+  * [Package Manual](https://github.com/PitchInteractiveInc/tilegrams/blob/master/MANUAL.md)       
+  * [Google News Lab Post](https://medium.com/google-news-lab/tilegrams-make-your-own-cartogram-hexmaps-with-our-new-tool-df46894eeec1) 
+  * [NPR US Election Post](https://www.npr.org/2022/06/30/1107868327/trump-election-fraud-jan-6)
+  
+  * __Package Briefing__           
+    * Mainly using data from US.       
+    * With existing tilegrams:         
+        1. Will provide some existing tilegrams for user exploration (US map). Users can export the SVG files and the [TopoJSON](https://github.com/topojson/topojson-specification/blob/master/README.md) into web application for customized display.      
+        2. Moving tiles in single, a range or a specific region with highlight of each region on the sidebar area.     
+        3. Users can remove or add a tile on the map.     
+        4. The statistical accuracy of the display is summarized an indicator "delta". If it is positive, it represents the region has too many tiles than it should have, vice versa.
+
+    * Generating new tilegrams:     
+        1. Users can select from a few prepared data sets or input their own CSV (in a specified format using US FIPS codes). It will start from a conventional geographic map then resizing the regions to the selected data.     
+        2. Users can adjust the number of value for each tile manually or using the `Resolution` slider.    
+        * Need to alter the `delta` to `0` to make reasonable tilegrams for inferring.    
+
+**_How does the computation of delta works?_**      
+
+  - Calculated the proposed number of tiles of each region based on the population (`500,000 per tile`), then compute the difference between the data sets to obtain `delta` value.     
   
   * Relevant codes (JavaScript) - [Cartogram](https://github.com/PitchInteractiveInc/tilegrams/blob/efdfad1f3206856d47d85604c85f0032f2f2e448/source/Canvas.js#L26-L31), [Tiles](https://github.com/PitchInteractiveInc/tilegrams/blob/efdfad1f3206856d47d85604c85f0032f2f2e448/source/graphics/GridGraphic.js#L308-L328)
 
-## 2. 
+
+
+## 2. [Fivethirtyeight](https://projects.fivethirtyeight.com/facebook-primary/) 
+
+  * ![](image/538.png)     
+  
+  * [fivethirtyeight-2016 US Election Post](https://projects.fivethirtyeight.com/2016-election-forecast/)
+  * [Author Post](https://medium.com/civic-tech-thoughts-from-joshdata/how-that-map-you-saw-on-538-under-represents-minorities-by-half-and-other-reasons-to-consider-a-4a98f89cbbb1)       * [358 Map Github link](https://github.com/JoshData/why-use-cartograms)     
+  * Using [Albers equal-area conic projection](https://en.wikipedia.org/wiki/Albers_projection)        
+  * Calculating the number of pixels used by original geographic map, then computing the actual pixels display based on the population of the region.     
+
+
+
+## 3. The Guardian - Hexmap examples for UK election
+
+  * [The Guardian - UK 2015 general election](https://www.theguardian.com/politics/ng-interactive/2015/may/07/live-uk-election-results-in-full)         
+  * [The Guardian - UK 2017 general election](https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017)        
+  
+  
+## 4. [uk-hex-cartograms-noncontiguous - Github](https://github.com/houseofcommonslibrary/uk-hex-cartograms-noncontiguous#uk-hex-cartograms-noncontiguous)     
+
+  * 
 
 
 
