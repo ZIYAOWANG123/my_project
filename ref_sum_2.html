@@ -11,7 +11,7 @@
 
 <meta name="author" content="ZIYAO WANG (Billy)" />
 
-<meta name="date" content="2022-07-21" />
+<meta name="date" content="2022-07-22" />
 
 <title>Project reference summary2</title>
 
@@ -247,7 +247,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Project reference summary2</h1>
 <h4 class="author">ZIYAO WANG (Billy)</h4>
-<h4 class="date">2022-07-21</h4>
+<h4 class="date">2022-07-22</h4>
 
 </div>
 
@@ -342,6 +342,28 @@ div.tocify {
 </ul></li>
 <li><p>Alternative cartogram - <a href="https://visual.parliament.uk/research/visualisations/general-election-2019-constituencies/?map=party">UK General Election 2019</a></p></li>
 </ul></li>
+</ul>
+</div>
+<div id="bloomberg---u.k.-election-2017" class="section level2">
+<h2>5. <a href="https://www.bloomberg.com/graphics/2017-uk-election/">Bloomberg</a> - U.K. Election 2017</h2>
+</div>
+<div id="literature-review" class="section level2">
+<h2>6. Literature Review</h2>
+<ul>
+<li><a href="https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3">Malaysia Election Data Visualization Using Hexagon Tile Grid Map</a>
+<ul>
+<li>Set up 4 files: 1. <code>setting.json</code>, 2. <code>parliament.json</code>, 3. <code>election.json</code>, 4. <code>demographic.json</code><br />
+</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Setting up the settings for the SVG elements, hexagon radius, tooltip functionality and colors used.<br />
+</li>
+<li>Using the <code>parliament.json</code> file to set up each hexagon to represent each parliament by states (it has unique information such parliament code and coordinate of the hexagon).<br />
+</li>
+<li>The unique key (i.e. “parliament code”) will find the election data related to the parliament in <code>election.json</code> (it contains the actual election data for each parliament, such as voting and party information), then populate the hexagons for each particular parliament area.<br />
+</li>
+<li><code>demographic.json</code> will have both state and the corrsponding parliaments demographic information, which will be incorporated with these three files (using <code>d3.json()</code> function).</li>
+</ol></li>
 </ul>
 </div>
 </div>
