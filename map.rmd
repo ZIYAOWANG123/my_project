@@ -18,6 +18,7 @@ Sys.setlocale("LC_ALL","English")
 
 ```{r setup}
 library(tidyverse)
+library(sf)
 ```
 
 
