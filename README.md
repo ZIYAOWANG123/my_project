@@ -17,4 +17,4 @@ Data Sources:
 
   * Election Data [2022](https://www.aec.gov.au/Electorates/gis/gis_datadownload.htm)
 
-Week 4 (8/1-) -
+Week 4 (8/1-8/5) - Producing geographic maps for both Census & Election data sets (separately).
