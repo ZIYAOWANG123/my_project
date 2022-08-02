@@ -55,8 +55,10 @@ ggplot(map_data) +
 ## National Maps
 
 ```{r}
+sf_use_s2(T)
 aec_map <- read_sf(here::here("data/Cwlth_electoral_boundaries_ESRI/2021_ELB_region.shp")) %>% 
   select(-c(Total_Popu, Australian)) %>% 
+  st_make_valid(geometry) %>% 
   mutate(centroid = st_centroid(geometry))
 
 aec_data <- read.csv(here::here("data/2022Election_HouseTppByDivision.csv"))
