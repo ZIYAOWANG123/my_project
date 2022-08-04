@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = F, warning = F)
 Sys.setlocale("LC_ALL","English")
 ```
 
-```{r load-lib, include=FALSE}
+```{r load-lib, message=FALSE}
 library(tidyverse)
 library(sf)
 library(leaflet)
@@ -52,9 +52,17 @@ ggplot(map_data) +
 
 ```
 
+### Interaction Maps - VIC Election
+
+```{r vic-leaflet}
+
+```
+
+
+
 ## National Maps
 
-```{r}
+```{r au-map}
 sf_use_s2(T)
 aec_map <- read_sf(here::here("data/Cwlth_electoral_boundaries_ESRI/2021_ELB_region.shp")) %>% 
   select(-c(Total_Popu, Australian)) %>% 
@@ -80,6 +88,11 @@ ggplot(aec_mapdata) +
   theme(legend.position="bottom")
 ```
 
+### Interaction Maps - Australian Election
+
+```{r au-leaflet}
+
+```
 
 
 
