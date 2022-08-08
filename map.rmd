@@ -19,7 +19,7 @@ Sys.setlocale("LC_ALL","English")
 ```{r load-lib, message=FALSE}
 library(tidyverse)
 library(sf)
-library(tamp)
+library(tmap)
 library(geogrid)
 ```
 
@@ -30,21 +30,22 @@ library(geogrid)
 ```{r vic-map}
 vic_elect_map <- read_sf(here::here("data/vic-july-2021-esri/E_VIC21_region.shp")) %>% 
   select(-c(Total_Popu, Australian)) %>% 
+  st_make_valid(geometry) %>% 
   mutate(centroid = st_centroid(geometry))
 
 vic_elect_data <- read.csv(here::here("data/2022Election_HouseTppByDivision.csv")) %>% 
   filter(StateAb == "VIC")
 
-map_data <- left_join(vic_elect_data,vic_elect_map,
+vic_mapdata <- left_join(vic_elect_data,vic_elect_map,
                       by = c("DivisionNm" = "Elect_div"))
 
-ggplot(map_data, aes(fill =  PartyAb))+
+ggplot(vic_mapdata, aes(fill =  PartyAb))+
   geom_sf(aes(geometry = geometry))+
   guides(fill = guide_legend("Party"))+
   theme_void() + 
   theme(legend.position="bottom")
 
-ggplot(map_data) + 
+ggplot(vic_mapdata) + 
   geom_sf(aes(geometry = geometry)) + 
   geom_sf(aes(geometry = centroid, color = PartyAb)) +
   guides(color = guide_legend("Party"))+
@@ -53,10 +54,22 @@ ggplot(map_data) +
 
 ```
 
-### Interaction Maps - VIC Election
+### Hex Maps using `geogrid` - VIC Election
 
-```{r vic-leaflet}
+```{r vic-hex}
+vic_hex <- st_as_sf(vic_mapdata)
 
+for (i in 1:6) {
+  new_cells_vic <- calculate_grid(shape = vic_hex, grid_type = "hexagonal", seed = i)
+  plot(new_cells_vic, main = paste("Seed", i, sep = " "))
+}
+
+new_vic_hex <- calculate_grid(shape = vic_hex, grid_type = "hexagonal", seed = 5)
+result_vic_hex <- assign_polygons(vic_hex, new_vic_hex)
+
+tm_shape(result_vic_hex) + 
+  tm_polygons("TotalVotes", palette = "viridis") +
+  tm_text("PartyAb")
 ```
 
 
@@ -89,10 +102,22 @@ ggplot(aec_mapdata) +
   theme(legend.position="bottom")
 ```
 
-### Interaction Maps - Australian Election
+### Hex Maps using `geogrid` - Australian Election
 
-```{r au-leaflet}
+```{r au-hex}
+au_hex <- st_as_sf(aec_mapdata)
 
+for (i in 1:6) {
+  new_cells_au <- calculate_grid(shape = au_hex, grid_type = "hexagonal", seed = i)
+  plot(new_cells_au, main = paste("Seed", i, sep = " "))
+}
+
+new_au_hex <- calculate_grid(shape = au_hex, grid_type = "hexagonal", seed = 5)
+result_au_hex <- assign_polygons(au_hex, new_au_hex)
+
+tm_shape(result_au_hex) + 
+  tm_polygons("TotalVotes", palette = "viridis") +
+  tm_text("PartyAb")
 ```
 
 
