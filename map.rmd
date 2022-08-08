@@ -19,7 +19,8 @@ Sys.setlocale("LC_ALL","English")
 ```{r load-lib, message=FALSE}
 library(tidyverse)
 library(sf)
-library(leaflet)
+library(tamp)
+library(geogrid)
 ```
 
 # 2022 Election data (House of representatives - Two party preferred by division)
