@@ -101,7 +101,23 @@ Sys.setlocale("LC_ALL","English")
     4. `demographic.json` will have both state and the corrsponding parliaments demographic information, which will be incorporated with these three files (using `d3.json()` function).     
 
 
+# R package 
+
+`geogrid` ([github](https://github.com/jbaileyh/geogrid))
+ 
+ **`C++` -> core calculating algorithm for minimizing the total distance between the centroid of every original geography and its new centroid on the grid ([Hungarian algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm)) + `R` **
+  
+  * Limitation:         
+   1. The calculation time for a large data set will be considerable long as the calcultion will try to find the minimum distance between the new centroid and the orignial ones. 
+   
+   2. The core algorithm (__*Hungarian algorithm*__) is written in C++, so object optimization should be implemented to boost the calculation efficiency.        
+   
+   3. Before the calculation of number of hex tiles for the grid, the grid generation process need to be evaluated (i.e. choose which `seed` to use for the `assign_ploygons`). The process may be time-consuming as the calculation iss*ue for big data processing (i.e. above two points*).
+   
+   4. The output hex-map will only allocate one hex tile to a particular region/area to fill the hex grid, which creates two crucial issues: 1. It may not be applicable to data sets that have multiple objects in one particular region such as the 2022 AU election data. 2. The location / allocation of the hexagons may not be accurate due to the calculation algorithm issue.     
 
 
+
+`tilemaps` ([github](https://github.com/kaerosen/tilemaps))
 
 
