@@ -21,6 +21,7 @@ library(tidyverse)
 library(sf)
 library(tmap)
 library(geogrid)
+library(tilemaps)
 ```
 
 # 2022 Election data (House of representatives - Two party preferred by division)
@@ -119,7 +120,6 @@ tm_shape(result_au_hex) +
   tm_polygons("TotalVotes", palette = "viridis") +
   tm_text("PartyAb")
 ```
-
 
 
 

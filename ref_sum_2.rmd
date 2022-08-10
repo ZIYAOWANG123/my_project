@@ -107,7 +107,7 @@ Sys.setlocale("LC_ALL","English")
  
  **`C++` -> core calculating algorithm for minimizing the total distance between the centroid of every original geography and its new centroid on the grid ([Hungarian algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm)) + `R` **
   
-  * Limitation:         
+  * Limitations:         
    1. The calculation time for a large data set will be considerable long as the calcultion will try to find the minimum distance between the new centroid and the orignial ones. 
    
    2. The core algorithm (__*Hungarian algorithm*__) is written in C++, so object optimization should be implemented to boost the calculation efficiency.        
@@ -119,5 +119,13 @@ Sys.setlocale("LC_ALL","English")
 
 
 `tilemaps` ([github](https://github.com/kaerosen/tilemaps))
+
+  * The core algorithm used is [Generating Tile Maps](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13200#:~:text=To%20generate%20multiple%20tile%20maps,well%20as%20their%20boundary%20roughness.).
+
+  * Limitations:
+  
+    1. The algorithm can only produce a single hex-tile for each area, and the allocation of the hex-tile to the geographical locations may not be accurate if there are multiple sub-areas for that particular region.
+    
+    2. This package can only output a contiguous cartogram, and have to manually allocate the separate geographical locations alongside with the main map.
 
 
