@@ -21,7 +21,8 @@ library(tidyverse)
 library(sf)
 library(tmap)
 library(geogrid)
-library(tilemaps)
+library(cartogram)
+library(maptools)
 ```
 
 # 2022 Election data (House of representatives - Two party preferred by division)
@@ -121,5 +122,31 @@ tm_shape(result_au_hex) +
   tm_text("PartyAb")
 ```
 
-### Non-contiguous Area Cartogram
+### Non-contiguous Area Cartogram - using `cartogram`
+
+
+```{r}
+
+au <- st_transform(au_hex, crs = "+init=epsg:3112")
+
+au_sf_cont1 <- cartogram_cont(au_sf_cont, "TotalVotes", 3)
+au_sf_cont2 <- cartogram_cont(au_sf_cont1, "TotalVotes", 15) # was using 18 
+
+tm_shape(au_sf_cont2) + tm_polygons("TotalVotes", style = "jenks", legend.show = FALSE) +
+  tm_layout(frame = FALSE)
+```
+
+Using result from `cartogram` on `geogrid` to check if the `calculation_grid` function can be improved.
+
+```{r try-improve}
+new_cart_hex <- calculate_grid(shape = au_sf_cont2, grid_type = "hexagonal", seed = 5)
+result_cart_hex <- assign_polygons(au_sf_cont2, new_cart_hex)
+
+tm_shape(result_cart_hex) + 
+  tm_polygons("StateAb", palette = "viridis") +
+  tm_text("PartyAb")+
+  tm_layout(legend.outside= T)
+
+```
+
 
