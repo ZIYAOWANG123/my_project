@@ -1,0 +1,188 @@
+---
+title: "Hexmap_Election"
+author: "ZIYAO WANG (Billy)"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+      number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = F)
+Sys.setlocale("LC_ALL","English")
+```
+
+```{r load-lib, message=FALSE}
+library(tidyverse)
+library(sf)
+library(tmap)
+library(geogrid)
+library(cartogram)
+library(maptools)
+```
+
+# Hex Maps using `geogrid` - VIC Election
+
+```{r vic-hex}
+vic_elect_map <- read_sf(here::here("data/vic-july-2021-esri/E_VIC21_region.shp")) %>% 
+  select(-c(Total_Popu, Australian)) %>% 
+  st_make_valid(geometry) %>% 
+  mutate(centroid = st_centroid(geometry))
+
+vic_elect_data <- read.csv(here::here("data/2022Election_HouseTppByDivision.csv")) %>% 
+  filter(StateAb == "VIC")
+
+vic_mapdata <- left_join(vic_elect_data,vic_elect_map,
+                      by = c("DivisionNm" = "Elect_div"))
+
+# Make sf object
+vic_hex <- st_as_sf(vic_mapdata)
+
+# for loop to see the 6 alternative grids for plotting
+par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
+for (i in 1:6) {
+  new_cells_vic <- calculate_grid(shape = vic_hex, grid_type = "hexagonal", seed = i)
+  plot(new_cells_vic, main = paste("Seed", i, sep = " "))
+}
+
+new_vic_hex <- calculate_grid(shape = vic_hex, grid_type = "hexagonal", seed = 5)
+result_vic_hex <- assign_polygons(vic_hex, new_vic_hex)
+
+tm_shape(result_vic_hex) + 
+  tm_polygons("PartyAb", palette = "viridis") +
+  tm_text("PartyAb")
+```
+
+# Hex Maps using `geogrid` - Australian Election
+
+```{r aec-hex}
+aec_map <- read_sf(here::here("data/Cwlth_electoral_boundaries_ESRI/2021_ELB_region.shp")) %>% 
+  select(-c(Total_Popu, Australian)) %>% 
+  st_make_valid(geometry) %>% 
+  mutate(centroid = st_centroid(geometry))
+
+aec_data <- read.csv(here::here("data/2022Election_HouseTppByDivision.csv"))
+
+aec_mapdata <- left_join(aec_data,aec_map,
+                      by = c("DivisionNm" = "Elect_div"))
+
+# Make sf object
+aec_hex <- st_as_sf(aec_mapdata)
+
+# for loop to see the 6 alternative grids for ploting
+par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
+for (i in 1:6) {
+  new_cells_aec <- calculate_grid(shape = aec_hex, grid_type = "hexagonal", seed = i)
+  plot(new_cells_aec, main = paste("Seed", i, sep = " "))
+}
+
+new_aec_hex <- calculate_grid(shape = aec_hex, grid_type = "hexagonal", seed = 5)
+result_aec_hex <- assign_polygons(aec_hex, new_aec_hex)
+
+tm_shape(result_aec_hex) + 
+  tm_polygons("StateAb", palette = "viridis") +
+  tm_text("StateAb")
+```
+
+# Contiguous Area Cartogram - using `cartogram`
+
+Using result from `cartogram` on `geogrid` to check if the `calculation_grid` function can be improved.
+
+## Distorting cartogram using "TotalVotes"
+
+```{r 1st-attempt}
+# To check the number of electorals in each state
+# aec_mapdata %>%
+#  group_by(StateAb) %>%
+#  summarise(n = n())
+
+au <- aec_mapdata %>% 
+  select(-c(DivisionID, 
+            Liberal.National.Coalition.Votes,
+            Liberal.National.Coalition.Percentage,
+            Australian.Labor.Party.Votes,
+            Australian.Labor.Party.Percentage,
+            TotalVotes,
+            Swing,
+            E_div_numb,
+            Numccds,
+            Actual,
+            Projected,
+            Area_SqKm,
+            Sortname
+            )) %>% 
+  mutate(num_ele = case_when(StateAb == "ACT" ~ 3,
+                             StateAb == "NSW" ~ 47,
+                             StateAb == "NT" ~ 2,
+                             StateAb == "QLD" ~ 30,
+                             StateAb == "SA" ~ 10,
+                             StateAb == "TAS" ~ 5,
+                             StateAb == "VIC" ~ 39,
+                             StateAb == "WA" ~ 15)) %>% 
+  st_as_sf() %>% 
+  st_transform(crs = "+init=epsg:3112")
+
+
+au_sf <- cartogram_cont(au, "TotalVotes", 15) # was done by 20
+
+# Show Distorted Contiguous Cartogram
+tm_shape(au_sf) + tm_polygons("TotalVotes", style = "jenks", legend.show = FALSE) +
+  tm_layout(frame = FALSE)
+
+# for loop to see the 6 alternative grids for plotting
+par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
+for (j in 1:6) {
+  new_cells_au <- calculate_grid(shape = vic_hex, grid_type = "hexagonal", seed = i)
+  plot(new_cells_au, main = paste("Seed", i, sep = " "))
+}
+
+### import the output of distorted cartogram to geogrid
+
+new_cart_hex <- calculate_grid(shape = au_sf, grid_type = "hexagonal", seed = 3)
+result_cart_hex <- assign_polygons(au_sf, new_cart_hex)
+
+tm_shape(result_cart_hex) + 
+  tm_polygons("StateAb", palette = "Dark2") +
+  tm_text("StateAb")+
+  tm_layout(legend.outside= T)
+```
+
+
+## Distorting cartogram using "Number of Electorals (num_ele)"
+
+```{r 2nd-attempt}
+
+au_sf_new <- cartogram_cont(au, "num_ele", 15) # was done by 20
+
+# Show Distorted Contiguous Cartogram
+tm_shape(au_sf_new) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
+  tm_layout(frame = FALSE)
+
+
+### import the output of distorted cartogram to geogrid
+
+# for loop to see the 6 alternative grids for ploting
+par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
+for (k in 1:6) {
+  new_cells_au1 <- calculate_grid(shape = au_new, grid_type = "hexagonal", seed = i)
+  plot(new_cells_au1, main = paste("Seed", i, sep = " "))
+}
+
+# choose a grid (i.e. seed = i) with less warnings
+# the warning message see - https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html, 
+# may hint the reason of misallocation of hex tiles (or just due to not enough hex grid for particular state?)
+
+new_cart_hex1 <- calculate_grid(shape = au_sf_new, grid_type = "hexagonal", seed = 1)
+result_cart_hex1 <- assign_polygons(au_sf_new, new_cart_hex1)
+
+tm_shape(result_cart_hex1) + 
+  tm_polygons("StateAb", palette = "Dark2") +
+  tm_text("StateAb")+
+  tm_layout(legend.outside= T)
+```
+
+
