@@ -127,8 +127,9 @@ tm_shape(result_au_hex) +
 
 ```{r}
 
-au <- st_transform(au_hex, crs = "+init=epsg:3112")
+au1 <- st_transform(au_hex, crs = "+init=epsg:3112")
 
+au_sf_cont <- cartogram_cont(au1, "TotalVotes", 3)
 au_sf_cont1 <- cartogram_cont(au_sf_cont, "TotalVotes", 3)
 au_sf_cont2 <- cartogram_cont(au_sf_cont1, "TotalVotes", 15) # was using 18 
 
@@ -137,6 +138,7 @@ tm_shape(au_sf_cont2) + tm_polygons("TotalVotes", style = "jenks", legend.show =
 ```
 
 Using result from `cartogram` on `geogrid` to check if the `calculation_grid` function can be improved.
+
 
 ```{r try-improve}
 new_cart_hex <- calculate_grid(shape = au_sf_cont2, grid_type = "hexagonal", seed = 5)
@@ -149,4 +151,48 @@ tm_shape(result_cart_hex) +
 
 ```
 
+```{r 2nd-attempt}
+aec_mapdata %>% 
+  group_by(StateAb) %>% 
+  summarise(n = n())
+
+au <- aec_mapdata %>% 
+  mutate(num_ele = case_when(StateAb == "ACT" ~ 3,
+                             StateAb == "NSW" ~ 47,
+                             StateAb == "NT" ~ 2,
+                             StateAb == "QLD" ~ 30,
+                             StateAb == "SA" ~ 10,
+                             StateAb == "TAS" ~ 5,
+                             StateAb == "VIC" ~ 39,
+                             StateAb == "WA" ~ 15))
+
+au_new <- st_as_sf(au) %>% 
+  st_transform(crs = "+init=epsg:3112")
+
+au_sf_new <- cartogram_cont(au_new, "num_ele", 20)
+
+tm_shape(au_sf_new) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
+  tm_layout(frame = FALSE)
+
+
+### import the output of distorted cartogram to geogrid
+
+# for loop to see the 6 alternative grids for ploting
+for (i in 1:6) {
+  new_cells_au <- calculate_grid(shape = au_new, grid_type = "hexagonal", seed = i)
+  plot(new_cells_au, main = paste("Seed", i, sep = " "))
+}
+
+# choose a grid (i.e. seed = i) with less warnings
+# the warning message see - https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html, 
+# may hint the reason of mis-allocation of hex tiles (or just due to not enough hex grid for particular state?)
+
+new_cart_hex1 <- calculate_grid(shape = au_sf_new, grid_type = "hexagonal", seed = 1)
+result_cart_hex1 <- assign_polygons(au_sf_new, new_cart_hex1)
+
+tm_shape(result_cart_hex1) + 
+  tm_polygons("StateAb", palette = "viridis") +
+  tm_text("StateAb")+
+  tm_layout(legend.outside= T)
+```
 
