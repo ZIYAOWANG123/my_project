@@ -17,4 +17,10 @@ Data Sources:
 
   * Election Data [2022](https://www.aec.gov.au/Electorates/gis/gis_datadownload.htm)
 
-Week 4 (8/1-8/5) - Producing geographic maps for both Census & Election data sets (separately).
+Week 4 (8/1-5) - Producing geographic maps for both Census & Election data sets (separately).
+
+Week 5 (8/8-12) - Present the project progress & produce the hex maps for 2022 Australia Election data.
+
+Week 6 (8/15-19) - Research a way to expand the original geographic map to multiple hex tiles for each region/area.    
+
+Week 7 (8/22-26) - 

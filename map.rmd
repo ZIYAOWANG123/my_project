@@ -121,5 +121,5 @@ tm_shape(result_au_hex) +
   tm_text("PartyAb")
 ```
 
-
+### Non-contiguous Area Cartogram
 
