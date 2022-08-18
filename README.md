@@ -23,4 +23,9 @@ Week 5 (8/8-12) - Present the project progress & produce the hex maps for 2022 A
 
 Week 6 (8/15-19) - Research a way to expand the original geographic map to multiple hex tiles for each region/area.    
 
-Week 7 (8/22-26) - 
+Week 7 (8/22-26) - Read and understand the relevant documents of "Hungarian algorithm" in `geogrid` [package](https://github.com/jbaileyh/geogrid), then try to adjust the **cost** function while assigning hex-tile in the algorithm (i.e. considering squared distance instead of the absolute value, and aim for multiple iteration for better solution instead of the optimal/best one).
+
+Week 8 (8/29-9/2) - 
+
+
+
