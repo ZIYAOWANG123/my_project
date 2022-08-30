@@ -25,7 +25,9 @@ Week 6 (8/15-19) - Research a way to expand the original geographic map to multi
 
 Week 7 (8/22-26) - Read and understand the relevant documents of "Hungarian algorithm" in `geogrid` [package](https://github.com/jbaileyh/geogrid), then try to adjust the **cost** function while assigning hex-tile in the algorithm (i.e. considering squared distance instead of the absolute value, and aim for multiple iteration for better solution instead of the optimal/best one).
 
-Week 8 (8/29-9/2) - 
+Week 8 (8/29-9/2) - Learn the Rcpp and the relevant packages in R to understand the "Hungarian algorithm". Meanwhile, researching in general for suitable algorithms in solving quadratic problems such as "Genetic Algorithms".   
+
+Week 9 (9/5-9) - 
 
 
 

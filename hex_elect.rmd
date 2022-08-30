@@ -23,6 +23,8 @@ library(tmap)
 library(geogrid)
 library(cartogram)
 library(maptools)
+library(geojsonsf)
+library(rjson)
 ```
 
 # Hex Maps using `geogrid` - VIC Election
@@ -73,6 +75,9 @@ aec_mapdata <- left_join(aec_data,aec_map,
 # Make sf object
 aec_hex <- st_as_sf(aec_mapdata)
 
+# geo <- sf_geojson(aec_map, atomise = T)
+# st_write(aec_map, here::here("data/aec.geojson"))
+
 # for loop to see the 6 alternative grids for ploting
 par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
 for (i in 1:6) {
@@ -115,14 +120,15 @@ au <- aec_mapdata %>%
             Area_SqKm,
             Sortname
             )) %>% 
-  mutate(num_ele = case_when(StateAb == "ACT" ~ 3,
-                             StateAb == "NSW" ~ 47,
-                             StateAb == "NT" ~ 2,
-                             StateAb == "QLD" ~ 30,
-                             StateAb == "SA" ~ 10,
-                             StateAb == "TAS" ~ 5,
-                             StateAb == "VIC" ~ 39,
-                             StateAb == "WA" ~ 15)) %>% 
+  mutate(num_ele = 1) %>% 
+  # mutate(num_ele = case_when(StateAb == "ACT" ~ 3,
+  #                            StateAb == "NSW" ~ 47,
+  #                            StateAb == "NT" ~ 2,
+  #                            StateAb == "QLD" ~ 30,
+  #                            StateAb == "SA" ~ 10,
+  #                            StateAb == "TAS" ~ 5,
+  #                            StateAb == "VIC" ~ 39,
+  #                            StateAb == "WA" ~ 15)) %>% 
   st_as_sf() %>% 
   st_transform(crs = "+init=epsg:3112")
 
@@ -136,8 +142,8 @@ tm_shape(au_sf) + tm_polygons("TotalVotes", style = "jenks", legend.show = FALSE
 # for loop to see the 6 alternative grids for plotting
 par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
 for (j in 1:6) {
-  new_cells_au <- calculate_grid(shape = vic_hex, grid_type = "hexagonal", seed = i)
-  plot(new_cells_au, main = paste("Seed", i, sep = " "))
+  new_cells_au <- calculate_grid(shape = au_sf, grid_type = "hexagonal", seed = j)
+  plot(new_cells_au, main = paste("Seed", j, sep = " "))
 }
 
 ### import the output of distorted cartogram to geogrid
@@ -156,7 +162,7 @@ tm_shape(result_cart_hex) +
 
 ```{r 2nd-attempt}
 
-au_sf_new <- cartogram_cont(au, "num_ele", 15) # was done by 20
+au_sf_new <- cartogram_cont(au, "num_ele", 20) # try 25 next time
 
 # Show Distorted Contiguous Cartogram
 tm_shape(au_sf_new) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
@@ -168,15 +174,15 @@ tm_shape(au_sf_new) + tm_polygons("num_ele", style = "jenks", legend.show = FALS
 # for loop to see the 6 alternative grids for ploting
 par(mfrow = c(2, 3), mar = c(0, 0, 2, 0))
 for (k in 1:6) {
-  new_cells_au1 <- calculate_grid(shape = au_new, grid_type = "hexagonal", seed = i)
-  plot(new_cells_au1, main = paste("Seed", i, sep = " "))
+  new_cells_au1 <- calculate_grid(shape = au_sf_new, grid_type = "hexagonal", seed = k)
+  plot(new_cells_au1, main = paste("Seed", k, sep = " "))
 }
 
 # choose a grid (i.e. seed = i) with less warnings
 # the warning message see - https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html, 
 # may hint the reason of misallocation of hex tiles (or just due to not enough hex grid for particular state?)
 
-new_cart_hex1 <- calculate_grid(shape = au_sf_new, grid_type = "hexagonal", seed = 1)
+new_cart_hex1 <- calculate_grid(shape = au_sf_new, grid_type = "hexagonal", seed = 5)
 result_cart_hex1 <- assign_polygons(au_sf_new, new_cart_hex1)
 
 tm_shape(result_cart_hex1) + 
