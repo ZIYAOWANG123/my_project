@@ -27,7 +27,7 @@ Week 7 (8/22-26) - Read and understand the relevant documents of "Hungarian algo
 
 Week 8 (8/29-9/2) - Learn the Rcpp and the relevant packages in R to understand the "Hungarian algorithm". Meanwhile, researching in general for suitable algorithms in solving quadratic problems such as "Genetic Algorithms".   
 
-Week 9 (9/5-9) - 
+Week 9 (9/5-9) - Adjusting the parameters in the distortion of the geographical map function to obtain better input map data. Following with the use of the `calculate_grid` function in `geogrid` to examine and identify the quality of distortions.      
 
 
 
