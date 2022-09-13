@@ -138,15 +138,15 @@ au <- aec_mapdata %>%
             Area_SqKm,
             Sortname
             )) %>% 
-  # mutate(num_ele = 1) %>% 
-  mutate(num_ele = case_when(StateAb == "ACT" ~ 3/151,
-                             StateAb == "NSW" ~ 47/151,
-                             StateAb == "NT" ~ 2/151,
-                             StateAb == "QLD" ~ 30/151,
-                             StateAb == "SA" ~ 10/151,
-                             StateAb == "TAS" ~ 5/151,
-                             StateAb == "VIC" ~ 39/151,
-                             StateAb == "WA" ~ 15/151)) %>%
+  mutate(weight = 1) %>% 
+  mutate(num_ele = case_when(StateAb == "ACT" ~ 3,
+                             StateAb == "NSW" ~ 47,
+                             StateAb == "NT" ~ 2,
+                             StateAb == "QLD" ~ 30,
+                             StateAb == "SA" ~ 10,
+                             StateAb == "TAS" ~ 5,
+                             StateAb == "VIC" ~ 39,
+                             StateAb == "WA" ~ 15)) %>%
   st_as_sf() %>% 
   st_transform(crs = "+init=epsg:3112")
 ```
@@ -182,11 +182,11 @@ tm_shape(result_cart_hex) +
 
 ```{r 2nd-attempt}
 
-au_sf_new <- cartogram_cont(au, "num_ele", itermax = 20, prepare = "adjust")
+au_sf_new <- cartogram_cont(au, "weight", itermax = 20, prepare = "adjust")
 
 
 # Show Distorted Contiguous Cartogram
-tm_shape(au_sf_new) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
+tm_shape(au_sf_new) + tm_polygons("weight", style = "jenks", legend.show = FALSE) +
   tm_layout(frame = FALSE)
 
 
@@ -213,97 +213,20 @@ tm_shape(result_cart_hex1) +
 ```
 
 
-# Testing for better inputs
+# Hierarchical by `State`
 
-```{r test-cartogram}
-# ---------------------------------------------------------------------- Change-prepare-adjust
+```{r}
 
-au_sf_adjust <- cartogram_cont(au, "num_ele", itermax = 20, prepare = "adjust", threshold = 0.005)
+# au_state <- aec_mapdata %>%
+#   group_by(StateAb, geometry) %>%
+#   summarise(n = n()) %>% 
+#   mutate(num_ele = n) %>% 
+#   select(-n) %>% 
+#   st_as_sf() %>% 
+#   st_transform(crs = "+init=epsg:3112")
 
-# Show Distorted Contiguous Cartogram
-tm_shape(au_sf_adjust) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
-  tm_layout(frame = FALSE)
-
-
-# for loop to see the 6 alternative grids for plotting
-par(mfrow = c(4, 4), mar = c(0, 0, 2, 0))
-for (a in 1:16) {
-  new_cells_adjust <- calculate_grid(shape = au_sf_adjust, grid_type = "hexagonal", seed = a)
-  plot(new_cells_adjust, main = paste("Seed", a, sep = " "))
-}
-
-# ----------------------------------------------------------------------- Change-prepare-remove
-au_sf_remove <- cartogram_cont(au, "num_ele", itermax = 20, prepare = "remove", threshold = 0.005)
-
-# Show Distorted Contiguous Cartogram
-tm_shape(au_sf_remove) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
-  tm_layout(frame = FALSE)
-
-
-# for loop to see the 6 alternative grids for plotting
-par(mfrow = c(4, 4), mar = c(0, 0, 2, 0))
-for (b in 1:16) {
-  new_cells_remove <- calculate_grid(shape = au_sf_remove, grid_type = "hexagonal", seed = b)
-  plot(new_cells_remove, main = paste("Seed", b, sep = " "))
-}
-
-# ----------------------------------------------------------------------- Change-prepare-none
-au_sf_none <- cartogram_cont(au, "num_ele", itermax = 20, prepare = "none", threshold = 0.005)
-
-# Show Distorted Contiguous Cartogram
-tm_shape(au_sf_none) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
-  tm_layout(frame = FALSE)
-
-# for loop to see the 6 alternative grids for plotting
-par(mfrow = c(4, 4), mar = c(0, 0, 2, 0))
-for (c in 1:16) {
-  new_cells_none <- calculate_grid(shape = au_sf_none, grid_type = "hexagonal", seed = c)
-  plot(new_cells_none, main = paste("Seed", c, sep = " "))
-}
+# au_sf_state <- cartogram_cont(au_state, num_ele, itermax = 20, prepare = "adjust")
 ```
 
-```{r change-weight}
-auvote <- aec_mapdata %>% 
-  select(-c(DivisionID, 
-            Liberal.National.Coalition.Votes,
-            Liberal.National.Coalition.Percentage,
-            Australian.Labor.Party.Votes,
-            Australian.Labor.Party.Percentage,
-            Swing,
-            E_div_numb,
-            Numccds,
-            Actual,
-            Projected,
-            Area_SqKm,
-            Sortname
-            )) %>% 
-  # mutate(num_ele = 1) %>% 
-  mutate(num_ele = case_when(StateAb == "ACT" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "NSW" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "NT" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "QLD" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "SA" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "TAS" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "VIC" ~ TotalVotes/sum(TotalVotes),
-                             StateAb == "WA" ~ TotalVotes/sum(TotalVotes)),
-         num_ele = num_ele*100) %>%
-  select(-TotalVotes) %>% 
-  st_as_sf() %>% 
-  st_transform(crs = "+init=epsg:3112")
 
-auvote_sf_adjust <- cartogram_cont(auvote, "num_ele", itermax = 20, prepare = "adjust", threshold = 0.005)
-
-# Show Distorted Contiguous Cartogram
-tm_shape(auvote_sf_adjust) + tm_polygons("num_ele", style = "jenks", legend.show = FALSE) +
-  tm_layout(frame = FALSE)
-
-
-# for loop to see the 6 alternative grids for plotting
-par(mfrow = c(4, 4), mar = c(0, 0, 2, 0))
-for (d in 1:16) {
-  adjust <- calculate_grid(shape = auvote_sf_adjust, grid_type = "hexagonal", seed = d)
-  plot(adjust, main = paste("Seed", d, sep = " "))
-}
-
-```
 
