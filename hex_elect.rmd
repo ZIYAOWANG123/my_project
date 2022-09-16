@@ -217,13 +217,13 @@ tm_shape(result_cart_hex1) +
 
 ```{r}
 
-# au_state <- aec_mapdata %>%
-#   group_by(StateAb, geometry) %>%
-#   summarise(n = n()) %>% 
-#   mutate(num_ele = n) %>% 
-#   select(-n) %>% 
-#   st_as_sf() %>% 
-#   st_transform(crs = "+init=epsg:3112")
+au_state <- aec_mapdata %>%
+  group_by(StateAb) %>%
+  st_union() %>%
+  mutate(num_ele = n) %>%
+  select(-n) %>%
+  st_as_sf() %>%
+  st_transform(crs = "+init=epsg:3112")
 
 # au_sf_state <- cartogram_cont(au_state, num_ele, itermax = 20, prepare = "adjust")
 ```
