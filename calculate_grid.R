@@ -21,14 +21,16 @@ hexgrid <- function(data, weights = NULL){
   if(is.null(weights)) {data %>% mutate(weights = rep(1))}
   
   # function to obtain proper cellsize for creating the hexagon grid
-  # area = total area of AU; nhex = number of hexagons for the "area"
-  cellsize <- function(area, nhex){
-    area <- 
+  # tot_area = total area of AU; land = total land area of AU; nhex = number of hexagons wanted by user
+  cellsize <- function(data){
     
-    nhex <- 
+    land <- st_area(data)
+    tot_area <- sum(st_area(data))
+    hex_land = nhex
     
-    # ratio to determine the cellsize
-    beta <- area / nhex
+    # ratio to determine the cellsize [(land / no. of hex_land) = (tot_area / *no. of hex_tot)] * is unknown
+    ## calculate the number of hexagons
+    hex_tot <- round(min(tot_area / (land / hex_land)), digits = 0)
     
     cellsize <- 
     
@@ -65,5 +67,11 @@ hexgrid <- function(data, weights = NULL){
 }
 
 # Test and debug function
-hexgrid(data = ozmap_states, weight = "")
+# hexgrid(data = ozmap_states, weight = "")
+
+# data(ozmap_states)
+# 
+# c <- st_coordinates(ozmap_states) %>% as_tibble() %>% select(c(X, Y))
+# 
+# a <- st_boundary(ozmap_states)
 
