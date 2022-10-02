@@ -22,19 +22,38 @@ hexgrid <- function(data, weights = NULL){
   
   # function to obtain proper cellsize for creating the hexagon grid
   # tot_area = total area of AU; land = total land area of AU; nhex = number of hexagons wanted by user
-  cellsize <- function(data){
+  cellsize <- function(data, offset){
     
-    land <- st_area(data)
-    tot_area <- sum(st_area(data))
-    hex_land = nhex
+    offset = st_bbox(data)[c("xmin", "ymin")]
     
-    # ratio to determine the cellsize [(land / no. of hex_land) = (tot_area / *no. of hex_tot)] * is unknown
-    ## calculate the number of hexagons
-    hex_tot <- round(min(tot_area / (land / hex_land)), digits = 0)
+  }
+
+  ## 1. how to link the "offset" in both functions? 2. how to replace "dx" and "dy" with no "cellsize" in them?
+  make_hex_grid <- function (data, pt, dx) 
+  {
+    dx = cellsize[1]/sqrt(3)
+    dy = sqrt(3) * dx/2
+    pt = offset
+    bb = st_bbox(data)
+    xlim = bb[c("xmin", "xmax")]
+    ylim = bb[c("ymin", "ymax")]
     
-    cellsize <- 
+    offset = c(x = (offset[1] - xlim[1])%%dx, y = (pt[2] - ylim[1])%%(2 * dy))
     
-    return(cellsize)
+    # using formula to calculate the proper cellsize based on the # of hexagons
+    ## total area and land area of the data
+    area = (xlim[2] - xlim[1]) * (ylim[2] - ylim[1])
+    land <- sum(st_area(data))
+    ## land-area ratio
+    p = land / area
+    
+    ## number of hexagons for each col and row
+    nx = floor((bb[3] - offset[1])/cellsize[1])
+    ny = floor((bb[4] - offset[2])/cellsize[2])
+    n = nx * ny * p
+    
+    # formula
+    cellsize = sqrt((area * p * 2 * sqrt(3))/ n )
   }
   
   
@@ -71,7 +90,6 @@ hexgrid <- function(data, weights = NULL){
 
 # data(ozmap_states)
 # 
-# c <- st_coordinates(ozmap_states) %>% as_tibble() %>% select(c(X, Y))
-# 
-# a <- st_boundary(ozmap_states)
+# coord <- st_coordinates(ozmap_states) %>% as_tibble() %>% select(c(X, Y))
+
 
