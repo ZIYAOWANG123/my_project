@@ -13,12 +13,6 @@
 #'
 #' @export calculate_grid
 
-
-
-library(sf)
-library(dplyr)
-library(ozmaps)
-
 calculate_grid <- function(data, weights = NULL){
 
   # Check if the input data is in SF class

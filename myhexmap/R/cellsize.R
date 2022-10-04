@@ -16,11 +16,6 @@
 #'
 #'
 
-
-library(sf)
-library(dplyr)
-library(ozmaps)
-
 ## 1. how to link the "offset" in both functions? 2. how to replace "dx" and "dy" with no "cellsize" in them?
 cellsize <- function (data, pt, nhex)
 {
