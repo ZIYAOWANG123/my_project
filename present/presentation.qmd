@@ -1,0 +1,76 @@
+---
+title: "Presentation - Hexmap Research project"
+author: "Ziyao(Billy) Wang"
+format: revealjs
+editor: visual
+---
+
+## Introduction
+
+The purpose of "Hexmap" package is to
+
+### Motivation
+
+Map illustration takes a vital role in exploratory data analysis as it not only provides the statistical information visualization but also adding the geographical information to allow insightful analysis based on a specific region or area. While map is delivering geographical and statistical information to help users for a better understanding of the data and facts, it sometimes can convey misleading information or conclusion. \[Example image: AEC example for electoral\].
+
+Therefore, Hexmap is here to resolve this issue by reshaping the geographical area into multiple hexagons and allocating the statistics properly thus to conclude reasonable and proper inference. \[ABC news screenshots\] \[Image: show Emi's gif\]
+
+###  \*Background Research \[This part may not be necessary - timing issue\]
+
+#### Academic reviews
+
+Malaysia one - summary
+
+Stephanie & Di's - summary - similarities + differences
+
+#### Relevant news releases
+
+386 - US election map
+
+UK election map
+
+tilegram - using python or Json
+
+## Hexmap Tour
+
+#### General workflow
+
+-   Note the package is still under development \[**On progress\]**
+
+Step 1 - Refining the input data
+
+Using the "Cartogram" package function to distort the original data according to a specific variable set by users (For example, in AEC example, using the number of electoral - equal weight for each one). Optimal: Applying a hierarchical structure, that is using one group variable like states then calculate to the number of electoral in each states to capture the "weight" for each state then do the distortion of the map to ensure the next step result in a faster and less complicated computation.
+
+Step 2 - Calculating the proper number of hexagons for each region
+
+Taking the output from 1st step, input it into the function ("map_grid") to obtain the proper number of hexagons for the entire geographic region (or suitable for the sample data). \[Explanation of the function with image and math illustrations\].
+
+Step 3 - Allocating / assigning of the statistical information onto the hexagons accurately
+
+Assigning the statistical information (set by the users, such as winning party for each electoral) using an algorithm (currently testing "Hungarian Algorithm") to ensure the allocation correctly.
+
+\[Explanation of the "Hungarian Algorithm" with its distance matrix illustration\]
+
+#### Examples illustrates using the Hexmap functions
+
+Step 1 - Cartogram distortion
+
+Step 2- Map_grid - calculate the number of hexagons
+
+Step 3 - Different distance matrix on "Hungarian Algorithm"
+
+#### Future development
+
+-   For step 1 - Instead of using "Cartogram" package, writing a new function to distort or refine the input data that can result in a more efficient calculation of the number of hexagons. (That is better pre-processing on the data for later steps.)
+
+-   For step 2 - Instead of the "Good approximation", calculate the wanted number of hexagon exactly.
+
+-   For step 3 - Searching for a better algorithm if possible or the "Hungarian Algorithm" is not effective enough in allocating the statistical information correctly. Most likely, the assignment of hexagons with the statistical information will be measured by some sorts of distance matrix to find the "best" result (yet may not be optimal as pursuing optimization may trigger "NP hard problem")
+
+#### 
+
+## Reference
+
+```{r}
+1 + 1
+```

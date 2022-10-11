@@ -1,13 +1,29 @@
 ---
-title: "ETC5543-Creative Activity - Hexmap Presentation"
+title: "ETC5543-Creative Activity - Hexmap Report"
 author: "Ziyao(Billy) Wang"
 format: html
 editor: visual
 ---
 
-## Quarto
+# Hex-map
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## Abstract:
+
+## Background:
+
+## Motivation:
+
+## Objectives & Significance:
+
+## Methodology:
+
+### Data:
+
+### Result:
+
+### Discussion:
+
+## Conclusion:
 
 ## Running Code
 
