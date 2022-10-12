@@ -65,4 +65,12 @@ Assigning the statistical information (set by the users, such as winning party f
 
 ### Discussion:
 
+Future developments
+
+\- For step 1 - Instead of using "Cartogram" package, writing a new function to distort or refine the input data that can result in a more efficient calculation of the number of hexagons. (That is better pre-processing on the data for later steps.)
+
+\- For step 2 - Instead of the "Good approximation", calculate the wanted number of hexagon exactly.
+
+\- For step 3 - Searching for a better algorithm if possible or the "Hungarian Algorithm" is not effective enough in allocating the statistical information correctly. Most likely, the assignment of hexagons with the statistical information will be measured by some sorts of distance matrix to find the "best" result (yet may not be optimal as pursuing optimization may trigger "NP hard problem")
+
 ## Conclusion:

@@ -387,10 +387,38 @@
   <p class="author">Ziyao(Billy) Wang</p>
 </section>
 
+<section class="slide level2">
+
+<div class="cell">
+
+</div>
+</section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/auselection-2022.gif" width="434" height="402"></p>
+</figure>
+</div>
+<ul>
+<li>Code for installing the package.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>) <span class="co"># or</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"numbats/hexmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
 
-<img data-src="images/paste-43C26528.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p>The purpose of <code>Hexmap</code> package is to automate the conversion of geo-spatial polygons into hexagonal grids. This conversion allows users to better visualize statistical values associated with each geo-spatial region. (<a href="https://github.com/numbats/hexmap">Github</a>)</p>
+<ul>
+<li><p>Purpose of <a href="https://github.com/numbats/hexmap"><code>Hexmap</code></a> package:</p>
+<div>
+<ul>
+<li class="fragment"><p>To automate the conversion of <strong>spatial polygons into hexagonal grids</strong>.</p></li>
+<li class="fragment"><p>This conversion allows users to better <u>visualize statistical values associated with each geographic region</u>.</p></li>
+</ul>
+</div></li>
+</ul>
 <div>
 <ul>
 <li class="fragment">Sample data - 2022 Australian Election Data from <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a>.</li>
@@ -402,50 +430,64 @@
 <h3 id="motivation">Motivation</h3>
 <div>
 <ul>
-<li class="fragment"><p>Map illustration takes a vital role in exploratory data analysis (EDA)</p></li>
+<li class="fragment"><p>Map illustration takes a vital role in exploratory data analysis (EDA).</p></li>
 <li class="fragment"><p><strong>However</strong>, it sometimes can convey <strong><em>misleading information or conclusion</em></strong>.</p></li>
 </ul>
 </div>
 </section>
 <section class="slide level2">
 
+<p><strong>Example</strong></p>
 <div>
 <ul>
-<li class="fragment">From the example, who is winning the election? LNP looks dominating?</li>
-<li class="fragment">In fact, ALP is the winning party in this election.</li>
+<li class="fragment">Who is winning the election?</li>
+<li class="fragment">LNP looks dominating? It must be the winner, right?</li>
+<li class="fragment">In fact, <strong>ALP</strong> was the winner in this (2022) election.</li>
 </ul>
 </div>
 
-<img data-src="images/paste-EB66B39E.png" width="437" class="r-stretch quarto-figure-center"><p class="caption">2022 AU Election</p></section>
+<img data-src="images/paste-EB66B39E.png" width="437" class="r-stretch quarto-figure-center"><p class="caption">2022 AU Election Data</p></section>
 <section class="slide level2">
 
 <ul>
-<li><p>Now, let’s change a way to view the election result.</p>
+<li><p>Now, let’s use another way to view the election result.</p>
 <div>
 <ul>
-<li class="fragment">It represents the statistical values (i.e.&nbsp;the winning party) better.</li>
+<li class="fragment">Different colours represent the statistical values (i.e.&nbsp;the winning party).
+<ul>
+<li class="fragment"><p>Red - <strong>ALP</strong>; Blue - <strong>LNP</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paste-592B5C3C.png" width="382"></p>
+<p></p><figcaption>2022 AU Election - Hexgrid</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
 </ul>
 </div></li>
 </ul>
-
-<img data-src="images/paste-4FF0870F.png" width="315" class="r-stretch quarto-figure-center"><p class="caption">2022 AU Election - Hexgrid</p></section>
+</section>
 <section class="slide level2">
 
-<p><code>Hexmap</code> is here to resolve this issue by reshaping the geographical area into multiple hexagons and allocating the statistics properly thus to conclude reasonable and proper inference.</p>
-<p>Example from <a href="https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016">ABC</a> News release:</p>
+<p><code>Hexmap</code> is here to resolve this issue:</p>
+<ul>
+<li><p>By reshaping the geographical area into multiple hexagons and allocating the statistics properly.</p></li>
+<li><p>Example from <a href="https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016">ABC</a> News release:</p></li>
+</ul>
 
 <img data-src="images/mot_2.png" width="328" class="r-stretch quarto-figure-center"><p class="caption">1st - Spread hex_grid onto regions</p></section>
 <section class="slide level2">
 
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/mot_3.png" width="320"></p>
+<p><img data-src="images/mot_3.png" width="306" height="310"></p>
 <p></p><figcaption>2nd - Group statistical values by states</figcaption><p></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/mot_4.png" width="333"></p>
+<p><img data-src="images/mot_4.png" width="347" height="248"></p>
+<p></p><figcaption>Example of information in state level</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -454,76 +496,124 @@
 <p>The final Hexmap by overlaying the statistical information and combing each state together.</p>
 <div>
 <ul>
-<li class="fragment"><strong>Notes</strong>: although the illustration shows a separation of each state, yet in <code>Hexmap</code> they are <u><em>connected geographic regions</em></u>.</li>
+<li class="fragment"><p><strong>Notes</strong>: although the illustration shows a separation of each state, yet in <code>Hexmap</code> they are <u><em>connected geographic regions</em></u>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paste-592B5C3C.png" width="382"></p>
+</figure>
+</div></li>
 </ul>
 </div>
-
-<img data-src="images/paste-592B5C3C.png" width="382" class="r-stretch quarto-figure-center"></section>
+</section>
 <section class="slide level2">
 
-<p>Another animation example by <a href="https://github.com/emitanaka">Emi Tanaka</a>.</p>
+<p>Another example in <code>Hexmap</code> by <a href="https://github.com/emitanaka"><strong>Emi Tanaka</strong></a>.</p>
 
-<img data-src="images/auselection-2022.gif" width="391" class="r-stretch quarto-figure-center"></section>
+<img data-src="images/paste-43C26528.png" style="width:69.0%" class="r-stretch quarto-figure-center"></section>
+<section class="slide level2">
+
+<p><strong>How does this <code>Hexmap</code> work?</strong></p>
+
+<img data-src="images/dino-wonder.gif" width="272" class="r-stretch quarto-figure-center"><p><a href="https://tenor.com/view/dino-wonder-think-hmm-gif-16104056">Credit</a></p>
+</section>
 <section id="hexmap-tour" class="slide level2">
 <h2>Hexmap Tour</h2>
-<h4 id="general-workflow">General workflow</h4>
+<h3 id="general-workflow">General workflow</h3>
 <ul>
-<li>Note the package is still under development [<strong>On progress]</strong></li>
+<li>Note the package is <u>still under development</u> [<strong>On progress]</strong></li>
 </ul>
-<div>
-<ol type="1">
-<li class="fragment">Step 1 - Refining the input data</li>
-</ol>
-</div>
+<h4 id="step-1---refining-the-input-data">Step 1 - Refining the input data</h4>
 <div>
 <ul>
-<li class="fragment"><p>Using the <code>Cartogram</code> package function to distort the original data according to a specific variable set by users. (For example, in AEC example, using the number of electoral - equal weight for each one).</p></li>
+<li class="fragment"><p>Using the <a href="https://github.com/sjewo/cartogram"><code>Cartogram</code></a> package function to distort the original data according to a specific variable set by users.</p></li>
 <li class="fragment"><p>To improve the accuracy and computation efficiency for later calculation.</p></li>
+<li class="fragment"><p>For example, in AEC example, using the number of electoral - equal weight for each one.</p></li>
 </ul>
 </div>
 </section>
 <section class="slide level2">
 
 <ul>
-<li><p><strong>Example code &amp; result illustration</strong></p>
+<li><p><strong>Example illustration - Cartogram distortion</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(au, <span class="st">"weight"</span>, <span class="at">itermax =</span> <span class="dv">20</span>, <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(au, <span class="at">weight =</span> <span class="st">"weight"</span>, <span class="at">itermax =</span> <span class="dv">20</span>, <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># weight: weighting variable in data</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># itermax: Number of iterations for distortion</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># prepare: Methods to help convergence of hte distortion </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 
 <img data-src="images/paste-FFA7FEBC.png" width="587" class="r-stretch quarto-figure-center"></section>
 <section class="slide level2">
 
-<div>
-<ol start="2" type="1">
-<li class="fragment">Step 2 - Calculating the proper number of hexagons for each region</li>
-</ol>
-</div>
+<h4 id="step-2---calculating-the-number-of-hexagons-for-each-region">Step 2 - Calculating the number of hexagons for each region</h4>
 <div>
 <ul>
-<li class="fragment">Taking the output from 1st step, input it into the function (<code>map_tile</code>) to obtain the proper number of hexagons for the entire geographic region (or suitable for the sample data).</li>
+<li class="fragment">Using function (<a href="https://github.com/numbats/hexmap/blob/master/R/map-tile.R"><code>map_tile</code></a>) to obtain the <u><strong>proper/wanted</strong></u> number of hexagons for the entire geographic region.</li>
+<li class="fragment">Credit to <a href="https://github.com/mitchelloharawild"><strong>Mitchell O’Hara-Wild</strong></a></li>
 </ul>
 </div>
 </section>
 <section class="slide level2">
 
 <ul>
-<li>Math prove process [<a href="https://numbats.github.io/hexmap/articles/calculate-grid.html"><strong>Help Page</strong></a>]</li>
+<li>Math procedure explanation [<a href="https://numbats.github.io/hexmap/articles/calculate-grid.html"><strong>Help Page</strong></a>]</li>
 </ul>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>hex_grid <span class="ot">&lt;-</span> <span class="cf">function</span>(object, <span class="at">n_tiles =</span> <span class="dv">100</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="co"># Get map data</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  map_width <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="fu">unname</span>(<span class="fu">st_bbox</span>(object))[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)])</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  map_height <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="fu">unname</span>(<span class="fu">st_bbox</span>(object))[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)])</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  map_area <span class="ot">&lt;-</span> <span class="fu">st_area</span>(<span class="fu">st_as_sfc</span>(<span class="fu">st_bbox</span>(object)))</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  map_ratio <span class="ot">&lt;-</span> map_width <span class="sc">/</span> map_height</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="co"># Compute ratio of land to map</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  land_area <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">st_area</span>(object))</span>
+<span id="cb3-10"><a href="#cb3-10"></a>  land_ratio <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(land_area <span class="sc">/</span> map_area)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="co"># Number of hexagons to tile map such that ~n_tiles hexagons overlap land</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  map_hex <span class="ot">&lt;-</span> n_tiles <span class="sc">/</span> land_ratio</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="co"># Size of hexagons</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  hex_height <span class="ot">&lt;-</span> map_height <span class="sc">/</span> <span class="fu">sqrt</span>(map_hex<span class="sc">/</span>map_ratio)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>  hex_width <span class="ot">&lt;-</span> hex_height <span class="sc">/</span> (<span class="fl">1.5</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">3</span>))</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a>  <span class="co"># Create grid</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  hex_grid <span class="ot">&lt;-</span> <span class="fu">st_make_grid</span>(object, <span class="at">cellsize =</span> hex_width, <span class="at">square =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-21"><a href="#cb3-21"></a>  hex_grid <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(hex_grid, <span class="at">hex_id =</span> <span class="fu">seq_along</span>(hex_grid))</span>
+<span id="cb3-22"><a href="#cb3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23"></a>  <span class="co"># Choose most overlapping n_tiles hexagons for map tiling</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a>  hex_best <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(hex_grid, object) <span class="sc">%&gt;%</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>    dplyr<span class="sc">::</span><span class="fu">group_by</span>(<span class="sc">!!</span><span class="fu">sym</span>(<span class="st">"hex_id"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">area =</span> <span class="fu">sum</span>(<span class="fu">st_area</span>(hex_grid))) <span class="sc">%&gt;%</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>    dplyr<span class="sc">::</span><span class="fu">top_n</span>(n_tiles, <span class="at">wt =</span> <span class="sc">!!</span><span class="fu">sym</span>(<span class="st">"area"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>    dplyr<span class="sc">::</span><span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">sym</span>(<span class="st">"hex_id"</span>))</span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a>  <span class="co"># Return the best hexagons</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>  sf<span class="sc">::</span><span class="fu">st_geometry</span>(hex_grid)[hex_grid<span class="sc">$</span>hex_id <span class="sc">%in%</span> hex_best]</span>
+<span id="cb3-32"><a href="#cb3-32"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div>
-<ol start="3" type="1">
-<li class="fragment">Step 3 - Allocating / assigning the statistical information onto hexagons accurately</li>
-</ol>
-</div>
 <ul>
-<li>Assigning the statistical information (set by the users, such as winning party for each electoral) using an algorithm (currently testing “Hungarian Algorithm”).</li>
+<li><strong>Example illustration - <code>map_tile</code></strong></li>
 </ul>
+<p>a</p>
+</section>
+<section class="slide level2">
+
+<h4 id="step-3---allocating-statistical-information-onto-hexagons">Step 3 - Allocating statistical information onto hexagons</h4>
+<div>
+<ul>
+<li class="fragment">Assigning the statistical information (can be set by the users), using an algorithm.</li>
+<li class="fragment">Example
+<ul>
+<li class="fragment"><p>statistical information: winning party for each electoral;</p></li>
+<li class="fragment"><p>Algorithm: “<a href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Hungarian Algorithm</a>” from <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></p></li>
+</ul></li>
+</ul>
+</div>
 </section>
 <section class="slide level2">
 
@@ -534,25 +624,63 @@
 </section>
 <section class="slide level2">
 
-<h4 id="examples-illustrates-using-the-hexmap-functions">Examples illustrates using the <code>Hexmap</code> functions</h4>
-<p>Step 1 - Cartogram distortion</p>
-</section>
-<section class="slide level2">
-
-<p>Step 2- <code>map_tile</code> - calculate the number of hexagons</p>
-</section>
-<section class="slide level2">
-
-<p>Step 3 - Different distance matrix on <code>Hungarian Algorithm</code></p>
-</section>
-<section class="slide level2">
-
-<h4 id="discussion-future-developments">Discussion &amp; Future developments</h4>
 <ul>
-<li><p>For step 1 - Instead of using “Cartogram” package, writing a new function to distort or refine the input data that can result in a more efficient calculation of the number of hexagons. (That is better pre-processing on the data for later steps.)</p></li>
-<li><p>For step 2 - Instead of the “Good approximation”, calculate the wanted number of hexagon exactly.</p></li>
-<li><p>For step 3 - Searching for a better algorithm if possible or the “Hungarian Algorithm” is not effective enough in allocating the statistical information correctly. Most likely, the assignment of hexagons with the statistical information will be measured by some sorts of distance matrix to find the “best” result (yet may not be optimal as pursuing optimization may trigger “NP hard problem”)</p></li>
+<li>Examples illustrates using <code>calculate_grid &amp; assign_polygons</code> functions from <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></li>
 </ul>
+
+<img data-src="images/paste-91C64537.png" width="524" class="r-stretch quarto-figure-center"><div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>data_grid <span class="ot">&lt;-</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">calculate_grid</span>(<span class="at">shape =</span> <span class="st">"input data"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                 <span class="at">grid_type =</span> <span class="st">"hexagonal"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>                 <span class="at">seed =</span> <span class="dv">5</span>) <span class="co"># Number of iterations for the grid calculation</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="fu">assign_polygons</span>(<span class="st">"input data"</span>, data_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="future-developments">Future developments</h3>
+<div>
+<ol type="1">
+<li class="fragment">For step 1 - Refining the input data</li>
+</ol>
+</div>
+<div>
+<ul>
+<li class="fragment">Instead of using <code>cartogram</code> package, writing a new function to <u>distort or refine</u> the input data (i.e.&nbsp;a better data pre-processing).</li>
+</ul>
+</div>
+<div>
+<ol start="2" type="1">
+<li class="fragment">For step 2 - Constructing a hexagonal grid (according users customize the number)</li>
+</ol>
+</div>
+<div>
+<ul>
+<li class="fragment">Improve the “Approximation” for the number of hexagons, calculating the wanted number of hexagon exactly.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<ol start="3" type="1">
+<li>For step 3 - Assigning the statistical information to geographic regions</li>
+</ol>
+<div>
+<ul>
+<li class="fragment">Searching for an alternative algorithm which is more effective and efficient if possible such as the “<a href="https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab">Genetic-algorithm</a>” and “<a href="http://luca-scr.github.io/GA/index.html">GA</a>” R package.</li>
+<li class="fragment">Or, improving the “Hungarian Algorithm” to enhance allocation accuracy and process.</li>
+<li class="fragment">Most likely, the assignment of hexagons will be measured by some sorts of <u><strong>distance matrix</strong></u> to find the “best” allocation.
+<ul>
+<li class="fragment">(Yet, this may result in a “<em>NP hard problem</em>” for optimization).</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="discussion">Discussion</h3>
+<p><strong>Welcome to share your thoughts or suggestions!</strong></p>
 </section>
 <section id="reference" class="slide level2">
 <h2>Reference</h2>
