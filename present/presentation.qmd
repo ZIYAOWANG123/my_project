@@ -7,29 +7,73 @@ editor: visual
 
 ## Introduction
 
-The purpose of "Hexmap" package is to
+![](images/paste-43C26528.png){fig-align="center" width="100%"}
+
+The purpose of `Hexmap` package is to automate the conversion of geo-spatial polygons into hexagonal grids. This conversion allows users to better visualize statistical values associated with each geo-spatial region. ([Github](https://github.com/numbats/hexmap))
+
+::: incremental
+-   Sample data - 2022 Australian Election Data from [AEC](https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm).
+:::
+
+------------------------------------------------------------------------
 
 ### Motivation
 
-Map illustration takes a vital role in exploratory data analysis as it not only provides the statistical information visualization but also adding the geographical information to allow insightful analysis based on a specific region or area. While map is delivering geographical and statistical information to help users for a better understanding of the data and facts, it sometimes can convey misleading information or conclusion. \[Example image: AEC example for electoral\].
+::: incremental
+-   Map illustration takes a vital role in exploratory data analysis (EDA)
 
-Therefore, Hexmap is here to resolve this issue by reshaping the geographical area into multiple hexagons and allocating the statistics properly thus to conclude reasonable and proper inference. \[ABC news screenshots\] \[Image: show Emi's gif\]
+-   **However**, it sometimes can convey ***misleading information or conclusion***.
+:::
 
-###  \*Background Research \[This part may not be necessary - timing issue\]
+------------------------------------------------------------------------
 
-#### Academic reviews
+::: incremental
+-   From the example, who is winning the election? LNP looks dominating?
+-   In fact, ALP is the winning party in this election.
+:::
 
-Malaysia one - summary
+![2022 AU Election](images/paste-EB66B39E.png){fig-align="center" width="437"}
 
-Stephanie & Di's - summary - similarities + differences
+------------------------------------------------------------------------
 
-#### Relevant news releases
+-   Now, let's change a way to view the election result.
 
-386 - US election map
+    ::: incremental
+    -   It represents the statistical values (i.e. the winning party) better.
+    :::
 
-UK election map
+![2022 AU Election - Hexgrid](images/paste-4FF0870F.png){fig-align="center" width="315"}
 
-tilegram - using python or Json
+------------------------------------------------------------------------
+
+::: incremental
+-   `Hexmap` is here to resolve this issue by reshaping the geographical area into multiple hexagons and allocating the statistics properly thus to conclude reasonable and proper inference.
+-   Example from [ABC](https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016) News release:
+:::
+
+![1st - Spread hex_grid onto regions](images/mot_2.png){fig-align="center" width="328"}
+
+------------------------------------------------------------------------
+
+![2nd - Group statistical values by states](images/mot_3.png){fig-align="center" width="320"}
+
+![](images/mot_4.png){fig-align="center" width="333"}
+
+------------------------------------------------------------------------
+
+The final Hexmap by overlaying the statistical information and combing each state together.
+
+::: incremental
+-   **Notes**: although the illustration shows a separation of each state, yet in `Hexmap` they are [*connected geographic regions*]{.underline}.
+:::
+
+![](images/paste-592B5C3C.png){fig-align="center" width="382"}
+
+------------------------------------------------------------------------
+
+Another animation example by [Emi Tanaka](https://github.com/emitanaka).
+
+![](images/auselection-2022.gif){fig-align="center" width="391"}
 
 ## Hexmap Tour
 
@@ -37,29 +81,104 @@ tilegram - using python or Json
 
 -   Note the package is still under development \[**On progress\]**
 
-Step 1 - Refining the input data
+::: incremental
+1.  Step 1 - Refining the input data
+:::
 
-Using the "Cartogram" package function to distort the original data according to a specific variable set by users (For example, in AEC example, using the number of electoral - equal weight for each one). Optimal: Applying a hierarchical structure, that is using one group variable like states then calculate to the number of electoral in each states to capture the "weight" for each state then do the distortion of the map to ensure the next step result in a faster and less complicated computation.
+::: incremental
+-   Using the `Cartogram` package function to distort the original data according to a specific variable set by users. (For example, in AEC example, using the number of electoral - equal weight for each one).
 
-Step 2 - Calculating the proper number of hexagons for each region
+-   To improve the accuracy and computation efficiency for later calculation.
+:::
 
-Taking the output from 1st step, input it into the function ("map_grid") to obtain the proper number of hexagons for the entire geographic region (or suitable for the sample data). \[Explanation of the function with image and math illustrations\].
+------------------------------------------------------------------------
 
-Step 3 - Allocating / assigning of the statistical information onto the hexagons accurately
+-   **Example code & result illustration**
 
-Assigning the statistical information (set by the users, such as winning party for each electoral) using an algorithm (currently testing "Hungarian Algorithm") to ensure the allocation correctly.
+    ```{r eval=FALSE, echo=TRUE}
+    cartogram::cartogram_cont(au, "weight", itermax = 20, prepare = "adjust")
+    ```
 
-\[Explanation of the "Hungarian Algorithm" with its distance matrix illustration\]
+![](images/paste-FFA7FEBC.png){fig-align="center" width="587"}
 
-#### Examples illustrates using the Hexmap functions
+------------------------------------------------------------------------
+
+2.  Step 2 - Calculating the proper number of hexagons for each region
+
+::: incremental
+-   Using function (`map_tile`) to obtain the proper number of hexagons for the entire geographic region.
+:::
+
+------------------------------------------------------------------------
+
+-   Math prove process \[[**Help Page**](https://numbats.github.io/hexmap/articles/calculate-grid.html)\]
+
+```{r}
+hex_grid <- function(object, n_tiles = 100) {
+  # Get map data
+  map_width <- diff(unname(st_bbox(object))[c(1,3)])
+  map_height <- diff(unname(st_bbox(object))[c(2,4)])
+  map_area <- st_area(st_as_sfc(st_bbox(object)))
+  map_ratio <- map_width / map_height
+
+  # Compute ratio of land to map
+  land_area <- sum(st_area(object))
+  land_ratio <- as.numeric(land_area / map_area)
+
+  # Number of hexagons to tile map such that ~n_tiles hexagons overlap land
+  map_hex <- n_tiles / land_ratio
+
+  # Size of hexagons
+  hex_height <- map_height / sqrt(map_hex/map_ratio)
+  hex_width <- hex_height / (1.5/sqrt(3))
+
+  # Create grid
+  hex_grid <- st_make_grid(object, cellsize = hex_width, square = FALSE)
+  hex_grid <- st_sf(hex_grid, hex_id = seq_along(hex_grid))
+
+  # Choose most overlapping n_tiles hexagons for map tiling
+  hex_best <- st_intersection(hex_grid, object) %>%
+    dplyr::group_by(!!sym("hex_id")) %>%
+    dplyr::summarise(area = sum(st_area(hex_grid))) %>%
+    dplyr::top_n(n_tiles, wt = !!sym("area")) %>%
+    dplyr::pull(!!sym("hex_id"))
+
+  # Return the best hexagons
+  sf::st_geometry(hex_grid)[hex_grid$hex_id %in% hex_best]
+}
+```
+
+------------------------------------------------------------------------
+
+3.  Step 3 - Allocating / assigning the statistical information onto hexagons accurately
+
+::: incremental
+-   Assigning the statistical information (set by the users, such as winning party for each electoral) using an algorithm (currently testing "Hungarian Algorithm").
+:::
+
+------------------------------------------------------------------------
+
+-   Explanation of the `Hungarian Algorithm`
+
+-   Distance matrix illustration
+
+------------------------------------------------------------------------
+
+#### Examples illustrates using the `Hexmap` functions
 
 Step 1 - Cartogram distortion
 
-Step 2- Map_grid - calculate the number of hexagons
+------------------------------------------------------------------------
 
-Step 3 - Different distance matrix on "Hungarian Algorithm"
+Step 2- `map_tile` - calculate the number of hexagons
 
-#### Future development
+------------------------------------------------------------------------
+
+Step 3 - Different distance matrix on `Hungarian Algorithm`
+
+------------------------------------------------------------------------
+
+#### Discussion & Future developments
 
 -   For step 1 - Instead of using "Cartogram" package, writing a new function to distort or refine the input data that can result in a more efficient calculation of the number of hexagons. (That is better pre-processing on the data for later steps.)
 
@@ -67,10 +186,4 @@ Step 3 - Different distance matrix on "Hungarian Algorithm"
 
 -   For step 3 - Searching for a better algorithm if possible or the "Hungarian Algorithm" is not effective enough in allocating the statistical information correctly. Most likely, the assignment of hexagons with the statistical information will be measured by some sorts of distance matrix to find the "best" result (yet may not be optimal as pursuing optimization may trigger "NP hard problem")
 
-#### 
-
 ## Reference
-
-```{r}
-1 + 1
-```

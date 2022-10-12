@@ -11,11 +11,53 @@ editor: visual
 
 ## Background:
 
+#### Academic reviews
+
+Malaysia one - summary
+
+Stephanie & Di's - summary - similarities + differences
+
+#### Relevant news releases
+
+386 - US election map
+
+UK election map
+
+tilegram - using python or Json
+
 ## Motivation:
+
+Map illustration takes a vital role in exploratory data analysis (EDA). as it not only provides the statistical information visualization but also adding the geographical information to allow insightful analysis based on a specific region or area. While map is delivering geographical and statistical information to help users for a better understanding of the data and facts, it sometimes can convey misleading information or conclusion.
+
+Therefore, Hexmap is here to resolve this issue by reshaping the geographical area into multiple hexagons and allocating the statistics properly thus to conclude reasonable and proper inference.
 
 ## Objectives & Significance:
 
 ## Methodology:
+
+### Hexmap Tour
+
+#### General workflow
+
+-   Note the package is still under development \[**On progress\]**
+
+Step 1 - Refining the input data
+
+Using the "Cartogram" package function to distort the original data according to a specific variable set by users (For example, in AEC example, using the number of electoral - equal weight for each one). Optimal: Applying a hierarchical structure, that is using one group variable like states then calculate to the number of electoral in each states to capture the "weight" for each state then do the distortion of the map to ensure the next step result in a faster and less complicated computation.
+
+------------------------------------------------------------------------
+
+Step 2 - Calculating the proper number of hexagons for each region
+
+Taking the output from 1st step, input it into the function ("map_grid") to obtain the proper number of hexagons for the entire geographic region (or suitable for the sample data). \[Explanation of the function with image and math illustrations\].
+
+------------------------------------------------------------------------
+
+Step 3 - Allocating / assigning of the statistical information onto the hexagons accurately
+
+Assigning the statistical information (set by the users, such as winning party for each electoral) using an algorithm (currently testing "Hungarian Algorithm") to ensure the allocation correctly.
+
+\[Explanation of the "Hungarian Algorithm" with its distance matrix illustration\]
 
 ### Data:
 
@@ -24,20 +66,3 @@ editor: visual
 ### Discussion:
 
 ## Conclusion:
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
