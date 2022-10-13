@@ -1,34 +1,47 @@
 ---
-title: "Presentation - Hexmap Research project"
+title: "A new way of viewing maps - Hexmap"
 author: "Ziyao(Billy) Wang"
-format: revealjs
+date: "`r Sys.Date()`"
+format: 
+  revealjs:
+    logo: images/monash-logo.png
+    slide-number: true
+    multiplex: true
+    show-slide-number: all
+    width: 1280
+    height: 720
+    controls: true
+    css: assets/custom.css
+    transition: convex
+execute:
+  echo: true
+  eval: false
+title-slide-attributes: 
+  data-background-image: images/bg-pic.gif
+  data-background-opacity: "0.6"
 editor: visual
 ---
 
-```{r echo=FALSE}
-knitr::opts_chunk$set(eval = FALSE, echo = TRUE, warning = FALSE)
-```
-
-## Introduction
+## Introduction {background-image="images/bg.jpg" background-opacity="0.5"}
 
 ![](images/auselection-2022.gif){fig-align="center" width="434" height="402"}
 
 -   Code for installing the package.
 
 ```{r installation}
-install.packages("remotes") # or
+install.packages("remotes")
 remotes::install_github("numbats/hexmap")
 ```
 
 ------------------------------------------------------------------------
 
--   Purpose of [`Hexmap`](https://github.com/numbats/hexmap) package:
+## Purpose of [`Hexmap`](https://github.com/numbats/hexmap) package: {background-image="images/bg.jpg" background-opacity="0.5"}
 
-    ::: incremental
-    -   To automate the conversion of **spatial polygons into hexagonal grids**.
+::: incremental
+-   To automate the conversion of **spatial polygons into hexagonal grids**.
 
-    -   This conversion allows users to better [visualize statistical values associated with each geographic region]{.underline}.
-    :::
+-   This conversion allows users to better [visualize statistical values associated with each geographic region]{.underline}.
+:::
 
 ::: incremental
 -   Sample data - 2022 Australian Election Data from [AEC](https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm).
@@ -36,22 +49,20 @@ remotes::install_github("numbats/hexmap")
 
 ------------------------------------------------------------------------
 
-### Motivation
+## Motivation {.smaller .scrollable background-image="images/bg.jpg" background-opacity="0.5"}
 
 ::: incremental
 -   Map illustration takes a vital role in exploratory data analysis (EDA).
 
 -   **However**, it sometimes can convey ***misleading information or conclusion***.
-:::
 
-------------------------------------------------------------------------
+-   **Example**
 
-**Example**
-
-::: incremental
--   Who is winning the election?
--   LNP looks dominating? It must be the winner, right?
--   In fact, **ALP** was the winner in this (2022) election.
+    ::: incremental
+    -   Who is winning the election?
+    -   LNP looks dominating? It must be the winner, right?
+    -   In fact, **ALP** was the winner in this (2022) election.
+    :::
 :::
 
 ![2022 AU Election Data](images/paste-EB66B39E.png){fig-align="center" width="437"}
@@ -71,17 +82,21 @@ remotes::install_github("numbats/hexmap")
 
 `Hexmap` is here to resolve this issue:
 
+::: incremental
 -   By reshaping the geographical area into multiple hexagons and allocating the statistics properly.
 
 -   Example from [ABC](https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016) News release:
+:::
 
-![1st - Spread hex_grid onto regions](images/mot_2.png){fig-align="center" width="328"}
+::: columns
+::: {.column width="50%"}
+![1st - Spread hex_grid onto regions](images/mot_2.png){alt="1st - Spread hex_grid onto regions" fig-align="center" width="328"}
+:::
 
-------------------------------------------------------------------------
-
-![2nd - Group statistical values by states](images/mot_3.png){fig-align="center" width="306" height="310"}
-
-![Example of information in state level](images/mot_4.png){fig-align="center" width="347" height="248"}
+::: {.column width="50%"}
+![2nd - Group statistical values by states](images/mot_3.png){alt="2nd - Group statistical values by states" fig-align="center" width="306" height="310"}
+:::
+:::
 
 ------------------------------------------------------------------------
 
@@ -89,8 +104,16 @@ The final Hexmap by overlaying the statistical information and combing each stat
 
 ::: incremental
 -   **Notes**: although the illustration shows a separation of each state, yet in `Hexmap` they are [*connected geographic regions*]{.underline}.
+:::
 
-    ![](images/paste-592B5C3C.png){fig-align="center" width="382"}
+::: columns
+::: {.column width="50%"}
+![Example of information in state level](images/mot_4.png){alt="Example of information in state level" fig-align="center" width="347" height="248"}
+:::
+
+::: {.column width="50%"}
+![Final Result](images/paste-592B5C3C.png){fig-align="center" width="382"}
+:::
 :::
 
 ------------------------------------------------------------------------
@@ -107,11 +130,15 @@ Another example in `Hexmap` by [**Emi Tanaka**](https://github.com/emitanaka).
 
 [Credit](https://tenor.com/view/dino-wonder-think-hmm-gif-16104056)
 
-## Hexmap Tour
+## Hexmap Tour {background-image="images/bg.jpg" background-opacity="0.5"}
 
 ### General workflow
 
 -   Note the package is [still under development]{.underline} \[**On progress\]**
+
+![](images/workflow.png){fig-align="center"}
+
+------------------------------------------------------------------------
 
 #### Step 1 - Refining the input data
 
@@ -231,10 +258,10 @@ assign_polygons("input data", data_grid)
 
 ------------------------------------------------------------------------
 
-### Future developments
+## Future developments {.smaller .scrollable background-image="images/bg.jpg" background-opacity="0.5"}
 
 ::: incremental
-1.  For step 1 - Refining the input data
+For step 1 - Refining the input data
 :::
 
 ::: incremental
@@ -242,16 +269,14 @@ assign_polygons("input data", data_grid)
 :::
 
 ::: incremental
-2.  For step 2 - Constructing a hexagonal grid (according users customize the number)
+For step 2 - Constructing a hexagonal grid (according users customize the number)
 :::
 
 ::: incremental
 -   Improve the "Approximation" for the number of hexagons, calculating the wanted number of hexagon exactly.
 :::
 
-------------------------------------------------------------------------
-
-3.  For step 3 - Assigning the statistical information to geographic regions
+For step 3 - Assigning the statistical information to geographic regions
 
 ::: incremental
 -   Searching for an alternative algorithm which is more effective and efficient if possible such as the "[Genetic-algorithm](https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab)" and "[GA](http://luca-scr.github.io/GA/index.html)" R package.
@@ -262,8 +287,13 @@ assign_polygons("input data", data_grid)
 
 ------------------------------------------------------------------------
 
-### Discussion
+## Discussion {background-image="images/bg.jpg" background-opacity="0.5"}
 
 **Welcome to share your thoughts or suggestions!**
 
-## Reference
+![](images/qa.gif){fig-align="center"}
+
+## Reference {.smaller .scrollable background-image="images/bg.jpg" background-opacity="0.5"}
+
+-   The slides are made using [Quarto](https://quarto.org/) with [Emi Tanaka's](https://github.com/emitanaka/talks) CSS design.
+-   
