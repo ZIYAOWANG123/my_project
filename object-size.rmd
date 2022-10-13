@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+author: "ZIYAO WANG (Billy)"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(sf)
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE
+library(hexmap)
+library(ozmaps)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+sf1 <- abs_ced %>% 
+  st_simplify(dTolerance = 3000)
+  
+ms1 <- abs_ced %>%
+  sfheaders::sf_remove_holes() %>%
+  rmapshaper::ms_simplify(keep = 0.0001, keep_shapes = TRUE)
+```
+
+```{r}
+data.frame(
+  Object = c("Original Data", "st_simplify", "ms_simplify"),
+  Size = c(object.size(abs_ced), object.size(sf1), object.size(ms1)),
+  Unit = rep("bytes")
+) %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center",
+                            font_size = 20)
+  
+
+```
+
