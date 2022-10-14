@@ -513,7 +513,7 @@
 </div></li>
 <li><p>Functions from <a href="https://github.com/sjewo/cartogram"><code>Cartogram</code></a> to distort the original data according to a specific variable set by users.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(au,</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"inputdata"</span>,</span>
 <span id="cb4-2"><a href="#cb4-2"></a>                          <span class="at">weight =</span> <span class="st">"weight"</span>,</span>
 <span id="cb4-3"><a href="#cb4-3"></a>                          <span class="at">itermax =</span> <span class="dv">20</span>,</span>
 <span id="cb4-4"><a href="#cb4-4"></a>                          <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span>
@@ -557,34 +557,40 @@
 <img data-src="images/paste-FFA7FEBC.png" width="587" class="r-stretch quarto-figure-center"></section>
 <section id="step-2---determine-the-number-of-hexagons" class="slide level2 smaller scrollable">
 <h2>Step 2 - Determine the number of hexagons</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Purpose&amp;Procedure</a></li><li><a href="#tabset-1-2">Example Illustration</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li><p><strong>Knowing</strong>:</p>
-<ol type="1">
-<li><p>Number of hexagons for the entire map (both land and others)</p></li>
-<li><p>Number of hexagons for the land area</p></li>
-<li><p>Take the intersection, to obtain the number of hexagons needed for statistical values</p></li>
-</ol></li>
-</ul>
+<h3 id="knowing"><strong>Knowing</strong>:</h3>
+<pre><code>1.  Number of hexagons for the entire map (both land and others)
+
+2.  Number of hexagons for the land area
+
+3.  Take the intersection, to obtain the number of hexagons needed for statistical values</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-9FC7ACA1.png"></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
+<div>
 <ul>
-<li>Total number of hexagons for the entire map depends on: <strong><code>Hexagon width</code></strong></li>
-</ul>
+<li class="fragment"><p>Total number of hexagons for the entire map depends on: <strong><code>Hexagon width</code></strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-7757D6A1.png"></p>
 </figure>
+</div></li>
+</ul>
 </div>
 </div>
 </div>
+</div>
+<div id="tabset-1-2">
+<h3 id="observe-cell-size-i.e.-width">Observe <strong>“cell size” (i.e.&nbsp;<u>width</u></strong>)</h3>
 <ul>
-<li><p>Example Illustration (<u><strong>“cell size” = width</strong></u>)</p></li>
 <li><p><strong>Notes</strong>: The number of hexagons in <u><strong>odd and even</strong></u> rows are different.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -594,19 +600,25 @@
 </div>
 </div></li>
 </ul>
+</div>
+</div>
+</div>
 </section>
 <section id="to-find-a-proper-width-for-a-hexagon" class="slide level2 smaller scrollable">
 <h2>To find a proper width for a hexagon</h2>
-<ul>
-<li>Known parameters:</li>
-</ul>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Known Parameters</a></li><li><a href="#tabset-2-2">Unknown Parameters</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-1EB42C99.png"></p>
 </figure>
 </div>
+</div>
+<div id="tabset-2-2">
 <ul>
-<li><p><strong>Unknown: the <u>width</u> of a hexagon</strong></p></li>
+<li><p><strong>The <u>width</u> and number of hexagons</strong></p></li>
 <li><p>A possible solution (example in <u><strong>an unit square hexagon</strong></u>):</p></li>
 </ul>
 <div class="columns">
@@ -620,13 +632,15 @@
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
+<div>
 <ul>
-<li><strong><code>n_t</code></strong> = total number of hexagons; <strong><code>n_land</code></strong> = desired number of hexagons</li>
-</ul>
+<li class="fragment"><p><strong><code>n_t</code></strong> = total number of hexagons; <strong><code>n_land</code></strong> = desired number of hexagons</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-180AF7C6.png" width="402"></p>
 </figure>
+</div></li>
+</ul>
 </div>
 </div>
 </div>
@@ -636,9 +650,12 @@
 <li class="fragment">Function (<a href="https://github.com/numbats/hexmap/blob/master/R/map-tile.R"><code>map_tile</code></a>) applies <u><em>an approximation</em></u> to obtain the <u><strong>wanted</strong></u> number of hexagons. (Credit to <a href="https://github.com/mitchelloharawild"><strong>Mitchell O’Hara-Wild</strong></a><strong>)</strong></li>
 </ul>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="step-3---allocating-statistical-information-onto-hexagons" class="slide level2 smaller">
-<h2>Step 3 - Allocating statistical information onto hexagons</h2>
+<section id="step-3---allocating-statistical-information-on-hexagons" class="slide level2 smaller scrollable">
+<h2>Step 3 - Allocating statistical information on hexagons</h2>
 <div>
 <ul>
 <li class="fragment">Assigning the statistical information (can be set by the users), using an algorithm.</li>
@@ -652,24 +669,23 @@
 </section>
 <section class="slide level2">
 
-<ul>
-<li>Distance matrix illustration</li>
-</ul>
+<h3 id="distance-matrix-illustration">Distance matrix illustration</h3>
 <p>asdfasdf</p>
 </section>
 <section class="slide level2">
 
+<h3 id="example">Example</h3>
 <ul>
-<li>Examples illustrates using <code>calculate_grid &amp; assign_polygons</code> functions from <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></li>
+<li>Using <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a> functions</li>
 </ul>
 
 <img data-src="images/paste-91C64537.png" width="524" class="r-stretch quarto-figure-center"><div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>data_grid <span class="ot">&lt;-</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">calculate_grid</span>(<span class="at">shape =</span> <span class="st">"input data"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3"></a>                 <span class="at">grid_type =</span> <span class="st">"hexagonal"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>                 <span class="at">seed =</span> <span class="dv">5</span>) <span class="co"># Number of iterations for the grid calculation</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">assign_polygons</span>(<span class="st">"input data"</span>, data_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_grid <span class="ot">&lt;-</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">calculate_grid</span>(<span class="at">shape =</span> <span class="st">"input data"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                 <span class="at">grid_type =</span> <span class="st">"hexagonal"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                 <span class="at">seed =</span> <span class="dv">5</span>) <span class="co"># Number of iterations for the grid calculation</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">assign_polygons</span>(<span class="st">"input data"</span>, data_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="future-developments" class="slide level2 smaller scrollable">
@@ -679,11 +695,11 @@
 </div>
 <div>
 <ul>
-<li class="fragment">Instead of using <code>cartogram</code> package, writing a new function to <u>distort or refine</u> the input data (i.e.&nbsp;a better data pre-processing).</li>
+<li class="fragment">New functions to <u>distort or refine</u> the input data (i.e.&nbsp;a better data pre-processing).</li>
 </ul>
 </div>
 <div>
-<p>For step 2 - Constructing a hexagonal grid (according users customize the number)</p>
+<p>For step 2 - Constructing a hexagonal grid (provided with wannted number of hexagons)</p>
 </div>
 <div>
 <ul>
@@ -693,8 +709,8 @@
 <p>For step 3 - Assigning the statistical information to geographic regions</p>
 <div>
 <ul>
-<li class="fragment">Searching for an alternative algorithm which is more effective and efficient if possible such as the “<a href="https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab">Genetic-algorithm</a>” and “<a href="http://luca-scr.github.io/GA/index.html">GA</a>” R package.</li>
-<li class="fragment">Or, improving the “Hungarian Algorithm” to enhance allocation accuracy and process.</li>
+<li class="fragment">Improving the “Hungarian Algorithm” to enhance allocation accuracy and process. [<strong>Currently testing</strong>]</li>
+<li class="fragment">Or, testing alternative algorithms which may be more effective and efficient such as the “<a href="https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab">Genetic-algorithm</a>” or published R packages like “<a href="http://luca-scr.github.io/GA/index.html">GA</a>” .</li>
 <li class="fragment">Most likely, the assignment of hexagons will be measured by some sorts of <u><strong>distance matrix</strong></u> to find the “best” allocation.
 <ul>
 <li class="fragment">(Yet, this may result in a “<em>NP hard problem</em>” for optimization).</li>

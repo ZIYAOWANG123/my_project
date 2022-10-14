@@ -145,7 +145,7 @@ remotes::install_github("numbats/hexmap")
     3.  Functions from [`Cartogram`](https://github.com/sjewo/cartogram) to distort the original data according to a specific variable set by users.
 
         ```{r}
-        cartogram::cartogram_cont(au,
+        cartogram::cartogram_cont("inputdata",
                                   weight = "weight",
                                   itermax = 20,
                                   prepare = "adjust")
@@ -188,9 +188,12 @@ object.size(ms1)
 
 ## Step 2 - Determine the number of hexagons {.smaller .scrollable}
 
+::: panel-tabset
+## Purpose&Procedure
+
 ::: columns
 ::: {.column width="50%"}
--   **Knowing**:
+### **Knowing**:
 
     1.  Number of hexagons for the entire map (both land and others)
 
@@ -202,13 +205,17 @@ object.size(ms1)
 :::
 
 ::: {.column width="50%"}
+::: incremental
 -   Total number of hexagons for the entire map depends on: **`Hexagon width`**
 
-![](images/paste-7757D6A1.png){fig-align="center"}
+    ![](images/paste-7757D6A1.png){fig-align="center"}
+:::
 :::
 :::
 
--   Example Illustration ([**"cell size" = width**]{.underline})
+## Example Illustration
+
+### Observe **"cell size" (i.e. [width]{.underline}**)
 
 -   **Notes**: The number of hexagons in [**odd and even**]{.underline} rows are different.
 
@@ -221,16 +228,20 @@ object.size(ms1)
     ![](images/paste-BFF8301B.png)
     :::
     :::
+:::
 
 ------------------------------------------------------------------------
 
 ## To find a proper width for a hexagon {.smaller .scrollable}
 
--   Known parameters:
+::: panel-tabset
+## Known Parameters
 
 ![](images/paste-1EB42C99.png){fig-align="center"}
 
--   **Unknown: the [width]{.underline} of a hexagon**
+## Unknown Parameters
+
+-   **The [width]{.underline} and number of hexagons**
 
 -   A possible solution (example in [**an unit square hexagon**]{.underline}):
 
@@ -242,9 +253,11 @@ object.size(ms1)
 :::
 
 ::: {.column width="50%"}
+::: incremental
 -   **`n_t`** = total number of hexagons; **`n_land`** = desired number of hexagons
 
-![](images/paste-180AF7C6.png){fig-align="center" width="402"}
+    ![](images/paste-180AF7C6.png){fig-align="center" width="402"}
+:::
 :::
 :::
 
@@ -252,14 +265,15 @@ object.size(ms1)
 -   Detail explanation \[[**Help Page**](https://numbats.github.io/hexmap/articles/calculate-grid.html)\]
 -   Function ([`map_tile`](https://github.com/numbats/hexmap/blob/master/R/map-tile.R)) applies [*an approximation*]{.underline} to obtain the [**wanted**]{.underline} number of hexagons. (Credit to [**Mitchell O'Hara-Wild**](https://github.com/mitchelloharawild)**)**
 :::
+:::
 
 ------------------------------------------------------------------------
 
-## Step 3 - Allocating statistical information onto hexagons {.smaller}
+## Step 3 - Allocating statistical information on hexagons {.smaller .scrollable}
 
 ::: incremental
 -   Assigning the statistical information (can be set by the users), using an algorithm.
--   Example
+-   Current Stage - [AEC](https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm) data
     -   statistical information: winning party for each electoral;
 
     -   Algorithm: "[Hungarian Algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm)" from [`geogrid`](https://github.com/jbaileyh/geogrid)
@@ -267,13 +281,15 @@ object.size(ms1)
 
 ------------------------------------------------------------------------
 
--   Distance matrix illustration
+### Distance matrix illustration
 
 asdfasdf
 
 ------------------------------------------------------------------------
 
--   Examples illustrates using `calculate_grid & assign_polygons` functions from [`geogrid`](https://github.com/jbaileyh/geogrid)
+### Example
+
+-   Using [`geogrid`](https://github.com/jbaileyh/geogrid) functions
 
 ![](images/paste-91C64537.png){fig-align="center" width="524"}
 
@@ -295,11 +311,11 @@ For step 1 - Refining the input data
 :::
 
 ::: incremental
--   Instead of using `cartogram` package, writing a new function to [distort or refine]{.underline} the input data (i.e. a better data pre-processing).
+-   New functions to [distort or refine]{.underline} the input data (i.e. a better data pre-processing).
 :::
 
 ::: incremental
-For step 2 - Constructing a hexagonal grid (according users customize the number)
+For step 2 - Constructing a hexagonal grid (provided with wanted number of hexagons)
 :::
 
 ::: incremental
@@ -309,8 +325,8 @@ For step 2 - Constructing a hexagonal grid (according users customize the number
 For step 3 - Assigning the statistical information to geographic regions
 
 ::: incremental
--   Searching for an alternative algorithm which is more effective and efficient if possible such as the "[Genetic-algorithm](https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab)" and "[GA](http://luca-scr.github.io/GA/index.html)" R package.
--   Or, improving the "Hungarian Algorithm" to enhance allocation accuracy and process.
+-   Improving the "Hungarian Algorithm" to enhance allocation accuracy and process. \[[**Currently testing**]{.underline}\]
+-   Or, testing alternative algorithms which may be more effective and efficient such as the "[Genetic-algorithm](https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab)" or published R packages like "[GA](http://luca-scr.github.io/GA/index.html)" .
 -   Most likely, the assignment of hexagons will be measured by some sorts of [**distance matrix**]{.underline} to find the "best" allocation.
     -   (Yet, this may result in a "*NP hard problem*" for optimization).
 :::
