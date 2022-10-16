@@ -30,7 +30,9 @@ g <- ggplot(longmap) +
                     limits = c("ALP", "LNP", "GRN", "Other")) +
   transition_states(type)
 
+g+transition_states(type)
+class(g)
 #g
 
-gganimate::anim_save(filename = "present/ozhexmap.gif", g,
+gganimate::anim_save(filename = "present/images/ozhexmap.gif", g,
                      height = 600, width = 800)

@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Ziyao(Billy) Wang">
-  <meta name="dcterms.date" content="2022-10-14">
-  <title>A new way of viewing maps - Hexmap</title>
+  <meta name="dcterms.date" content="2022-10-16">
+  <title>A new way of viewing maps - hexmap</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -385,72 +385,33 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="images/bg-pic.gif" data-background-opacity="0.6" class="center">
-  <h1 class="title">A new way of viewing maps - Hexmap</h1>
+  <h1 class="title">A new way of viewing maps - hexmap</h1>
   <p class="author">Ziyao(Billy) Wang</p>
-  <p class="date">2022-10-14</p>
+  <p class="date">2022-10-16</p>
 </section>
 
-<section id="introduction" class="slide level2 smaller">
-<h2>Introduction</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/auselection-2022.gif" width="422" height="407"></p>
-</figure>
-</div>
-<ul>
-<li>Code for installing the package.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"numbats/hexmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="purpose-of-hexmap-package" class="slide level2">
-<h2>Purpose of <a href="https://github.com/numbats/hexmap"><code>Hexmap</code></a> package:</h2>
-<div>
-<ul>
-<li class="fragment"><p>To automate the conversion of <strong>spatial polygons into hexagonal grids</strong>.</p></li>
-<li class="fragment"><p>This conversion allows users to better <u>visualize statistical values associated with each geographic region</u>.</p></li>
-</ul>
-</div>
-<div>
-<ul>
-<li class="fragment">Sample data - 2022 Australian Election Data from <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a>.</li>
-</ul>
-</div>
-</section>
 <section id="motivation" class="slide level2 smaller scrollable">
 <h2>Motivation</h2>
 <div>
 <ul>
 <li class="fragment"><p>Map sometimes can convey <strong><em>misleading information or conclusion</em></strong>.</p></li>
-<li class="fragment"><p><strong>Example</strong></p>
-<div>
-<ul>
-<li class="fragment">Who is winning the election?</li>
-</ul>
-</div></li>
-</ul>
-</div>
-
-<img data-src="images/paste-EB66B39E.png" alt="2022 AU Election Data" width="437" class="r-stretch quarto-figure-center"><p class="caption">2022 AU Election Data</p></section>
-<section id="an-alternative-way." class="slide level2 smaller">
-<h2>An alternative way.</h2>
-<div>
-<ul>
-<li class="fragment">Red - <strong>ALP</strong>; Blue - <strong>LNP</strong></li>
-</ul>
-<div>
+<li class="fragment"><p><strong>Example</strong></p></li>
+<li class="fragment"><p><a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">2022 AU Election Data</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/paste-592B5C3C.png" alt="2022 AU Election - Hexgrid" width="382"></p>
-<p></p><figcaption>2022 AU Election - Hexgrid</figcaption><p></p>
+<p><img data-src="images/choropleth.png" alt="2022 AU Election Data" width="437"></p>
 </figure>
+</div></li>
+<li class="fragment"><p>Who is winning the election?</p></li>
+</ul>
 </div>
-</div>
+</section>
+<section id="an-alternative-way." class="slide level2 smaller scrollable">
+<h2>An alternative way.</h2>
+
+<img data-src="images/hexmap.png" class="r-stretch quarto-figure-center"><div>
 <ul>
-<li class="fragment"><p>Yet, this is <u><strong>manually made</strong></u>.</p></li>
-<li class="fragment"><p><strong>Notes</strong>: although the illustration shows a separation of each state, yet they are <u><em>connected geographically</em></u>.</p></li>
+<li class="fragment">Yet, this is <u><strong>manually made</strong></u>.</li>
 </ul>
 </div>
 </section>
@@ -473,102 +434,114 @@
 </div>
 </div>
 </section>
+<section id="purpose-of-hexmap-package" class="slide level2">
+<h2>Purpose of <a href="https://github.com/numbats/hexmap">hexmap</a> package:</h2>
+<div>
+<ul>
+<li class="fragment"><p>To automate the conversion of <strong>spatial polygons into hexagonal grids</strong>.</p></li>
+<li class="fragment"><p>This conversion allows users to better <u>visualize statistical values associated with each geographic region</u>.</p></li>
+</ul>
+</div>
+<div>
+<ul>
+<li class="fragment">Sample data - 2022 Australian Election Data from <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a>.</li>
+</ul>
+</div>
+</section>
 <section class="slide level2">
 
-<h3 id="how-does-this-hexmap-work"><strong>How does this <code>Hexmap</code> work?</strong></h3>
-
-<img data-src="images/dino-wonder.gif" width="272" class="r-stretch quarto-figure-center"><p><a href="https://tenor.com/view/dino-wonder-think-hmm-gif-16104056">Credit</a></p>
+<h3 id="how-does-this-hexmap-work"><strong>How does this <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> work?</strong></h3>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/dino-wonder.gif" width="358"></p>
+</figure>
+</div>
+</div>
+<p><a href="https://tenor.com/view/dino-wonder-think-hmm-gif-16104056">Credit</a></p>
 </section>
 <section id="hexmap-tour" class="slide level2 smaller">
-<h2>Hexmap Tour</h2>
+<h2><a href="https://github.com/numbats/hexmap">hexmap</a> Tour</h2>
 <h3 id="general-workflow">General workflow</h3>
 <ul>
 <li>Note the package is <u>still under development</u> [<strong>On progress]</strong></li>
 </ul>
 
 <img data-src="images/workflow.png" class="r-stretch quarto-figure-center"></section>
-<section id="step-1---refining-the-input-data" class="slide level2 smaller scrollable">
-<h2>Step 1 - Refining the input data</h2>
+<section id="step-1---refine-the-input-data" class="slide level2 smaller scrollable">
+<h2>Step 1 - Refine the input data</h2>
 <ol type="1">
 <li><p>Input Data Type - A <a href="https://r-spatial.github.io/sf/index.html">Simple Features</a> (sf) object</p></li>
 <li><p>Reasons for refinement:</p>
 <p>This will <strong>speeds up</strong> the computation of later processes.</p>
 <p>It can <u><strong>reduce the input data size</strong></u> significantly.</p></li>
-<li><p>Ways to refine:</p>
-<ol type="1">
-<li><p>Using <code>st_simplify()</code> from <a href="https://github.com/r-spatial/sf"><code>sf</code></a></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>inputdata <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">3000</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># dTolerance = a numeric tolerance parameter to smooth the edge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>Functions from <a href="https://github.com/dcooley/sfheaders"><code>sfheaders</code></a> and <a href="https://github.com/ateucher/rmapshaper"><code>rmapshaper</code></a></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>inputdata <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="co"># To remove holes from polygons and multipolygons.</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="do">## In case, there are some great lakes / not land areas.</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  sfheaders<span class="sc">::</span><span class="fu">sf_remove_holes</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> <span class="fl">0.0001</span>, <span class="at">keep_shapes =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a>  <span class="co"># keep: Proportion of points to retain;</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="co"># keep_shapes: Prevent small polygon features from disappearing at high simplification</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>Functions from <a href="https://github.com/sjewo/cartogram"><code>Cartogram</code></a> to distort the original data according to a specific variable set by users.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"inputdata"</span>,</span>
-<span id="cb4-2"><a href="#cb4-2"></a>                          <span class="at">weight =</span> <span class="st">"weight"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3"></a>                          <span class="at">itermax =</span> <span class="dv">20</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>                          <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># weight: weighting variable in data</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># itermax: Number of iterations for distortion</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># prepare: Methods to help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-</ol></li>
 </ol>
-</section>
-<section class="slide level2">
-
 <ul>
-<li>Example data size reduction- Sample data <code>abs_ced</code> from <a href="https://github.com/mdsumner/ozmaps"><code>ozmaps</code></a></li>
+<li>Ways to refine:</li>
 </ul>
-
-<img data-src="images/paste-0FE0B280.png" class="r-stretch quarto-figure-center"><div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(hexmap)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">library</span>(ozmaps)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a>sf1 <span class="ot">&lt;-</span> abs_ced <span class="sc">%&gt;%</span> </span>
-<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">3000</span>)</span>
-<span id="cb5-8"><a href="#cb5-8"></a>  </span>
-<span id="cb5-9"><a href="#cb5-9"></a>ms1 <span class="ot">&lt;-</span> abs_ced <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a>  sfheaders<span class="sc">::</span><span class="fu">sf_remove_holes</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> <span class="fl">0.0001</span>, <span class="at">keep_shapes =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-12"><a href="#cb5-12"></a></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="fu">object.size</span>(abs_ced)</span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="fu">object.size</span>(sf1)</span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="fu">object.size</span>(ms1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Using <code>st_simplify()</code> from <a href="https://github.com/r-spatial/sf"><code>sf</code></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># allow for simplifying regions based on a distance argument, </span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="do">## but large distances can completely remove polygons.</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>inputdata <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">3000</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="do">## dTolerance = a numeric tolerance parameter to smooth the edge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Functions from <a href="https://github.com/dcooley/sfheaders"><code>sfheaders</code></a> and <a href="https://github.com/ateucher/rmapshaper"><code>rmapshaper</code></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>inputdata <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a> <span class="co"># simplifying regions to a proportion of their original vertices</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  sfheaders<span class="sc">::</span><span class="fu">sf_remove_holes</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="co"># To remove holes from polygons and multipolygons.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a> <span class="do">## In case, there are some great lakes / not land areas.</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> <span class="fl">0.0001</span>, <span class="at">keep_shapes =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a> <span class="co"># keep: Proportion of points to retain;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a> <span class="co"># keep_shapes: Prevent small polygon features </span></span>
+<span id="cb2-9"><a href="#cb2-9"></a> <span class="do">## from disappearing at high simplification</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div>
+<ul>
+<li class="fragment"><p>Example data size reduction- Sample data <code>abs_ced</code> from <a href="https://github.com/mdsumner/ozmaps"><code>ozmaps</code></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paste-0FE0B280.png"></p>
+</figure>
+</div></li>
+<li class="fragment"><p>Functions from <a href="https://github.com/sjewo/cartogram"><code>cartogram</code></a> to distort the original data according to a specific variable set by users.</p>
+<ul>
+<li class="fragment"><p>See example illustration on <strong>Appendix</strong> (“cartogram distortion”)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>    cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"inputdata"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2"></a>      <span class="at">weight =</span> <span class="st">"weight"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>      <span class="at">itermax =</span> <span class="dv">20</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>      <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co"># weight: weighting variable in data</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="co"># itermax: Number of iterations for distortion</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co"># prepare: Methods to help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul></li>
+</ul>
 </div>
 </section>
-<section class="slide level2">
-
-<ul>
-<li>Distortion example (by <code>cartogram</code>)</li>
-</ul>
-
-<img data-src="images/paste-FFA7FEBC.png" width="587" class="r-stretch quarto-figure-center"></section>
 <section id="step-2---determine-the-number-of-hexagons" class="slide level2 smaller scrollable">
 <h2>Step 2 - Determine the number of hexagons</h2>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Purpose&amp;Procedure</a></li><li><a href="#tabset-1-2">Example Illustration</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
+<p>See additional explanations on <strong>Appendix</strong> (“Step 2 workflow cont.”)</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h3 id="knowing"><strong>Knowing</strong>:</h3>
-<pre><code>1.  Number of hexagons for the entire map (both land and others)
-
-2.  Number of hexagons for the land area
-
-3.  Take the intersection, to obtain the number of hexagons needed for statistical values</code></pre>
+<ol type="1">
+<li><p>Number of hexagons for the entire map (both land and others)</p></li>
+<li><p>Number of hexagons for the land area</p></li>
+<li><p>Take the intersection, to obtain the number of hexagons needed for statistical values</p></li>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-9FC7ACA1.png"></p>
@@ -604,8 +577,231 @@
 </div>
 </div>
 </section>
-<section id="to-find-a-proper-width-for-a-hexagon" class="slide level2 smaller scrollable">
-<h2>To find a proper width for a hexagon</h2>
+<section id="hex_grid-function-to-calculate-desired-number-of-hexagons" class="slide level2 smaller scrollable">
+<h2><a href="https://github.com/numbats/hexmap/blob/master/R/map-tile.R"><code>hex_grid</code></a> function to calculate desired number of hexagons</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>hexmap<span class="sc">::</span><span class="fu">hex_grid</span>(object, <span class="at">n_tiles =</span> <span class="dv">100</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># object: input data (i.e. sf object)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># n_tiles: wanted number of hexagons</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>normal choropleth</strong></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/step2-choro.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>distorted cartogram</strong></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/step2-distort.png"></p>
+</figure>
+</div>
+</div>
+</div>
+<div>
+<ul>
+<li class="fragment">See reproducible codes for above examples in <strong>Appendix (</strong>”Step 2 example-code”)</li>
+</ul>
+</div>
+</section>
+<section id="step-3---allocate-statistical-values-on-hexagons" class="slide level2 smaller scrollable">
+<h2>Step 3 - Allocate statistical values on hexagons</h2>
+<div>
+<ul>
+<li class="fragment"><p>Assigning the statistical information (can be set by the users), using an algorithm.</p></li>
+<li class="fragment"><p>Sample - <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a> data</p>
+<ul>
+<li class="fragment"><p>statistical information: (151) electoral;</p></li>
+<li class="fragment"><p>Algorithm: “<a href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Hungarian Algorithm</a>” from <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></p></li>
+<li class="fragment"><p>See application example of <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a> functions on <strong>Appendix</strong> (“geogrid functions: …”)</p></li>
+</ul></li>
+<li class="fragment"><p><img data-src="images/step3-workflow.png" alt="Workflow"></p></li>
+</ul>
+</div>
+</section>
+<section id="tile_allocate-function-to-allocate-statistical-information-on-hexagons" class="slide level2 smaller scrollable">
+<h2><a href="https://github.com/numbats/hexmap/blob/master/R/map-allocate.R"><code>tile_allocate</code></a> function to allocate statistical information on hexagons</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>hexmap<span class="sc">::</span><span class="fu">tile_allocate</span>(object, tile)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># object: input data (i.e. sf object)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># tile: output from `hex_grid` function (i.e. a sfc object)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div>
+<ul>
+<li class="fragment"><p>Allocation of statistical values on a <strong>normal choropleth</strong></p>
+<p><img data-src="images/step3-choro.png" width="567" height="362"></p></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div>
+<ul>
+<li class="fragment"><p>Allocation of statistical values on a <strong>distorted cartogram</strong></p>
+<p><img data-src="images/step3-distort.png"></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<ul>
+<li class="fragment">See reproducible codes on <strong>Appendix</strong> (“Step 3 example codes”)
+<ul>
+<li class="fragment">Plus, some tests on using mixture of grids.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="future-improvements" class="slide level2 smaller scrollable">
+<h2>Future improvements</h2>
+<div>
+<p>For step 1 - Refining the input data</p>
+</div>
+<div>
+<ul>
+<li class="fragment">New functions to <u>distort or refine</u> the input data (i.e.&nbsp;a better data pre-processing).</li>
+</ul>
+</div>
+<div>
+<p>For step 2 - Constructing a hexagonal grid (provided with wanted number of hexagons)</p>
+</div>
+<div>
+<ul>
+<li class="fragment">Improve the “Approximation” for the number of hexagons, calculating the wanted number of hexagon exactly.</li>
+</ul>
+</div>
+<p>For step 3 - Assigning the statistical information to geographic regions</p>
+<div>
+<ul>
+<li class="fragment">Try different distance (methods) to produce a better distance matrix [<u><strong>Currently testing</strong></u>]</li>
+<li class="fragment">Or, testing alternative algorithms such as the “<a href="https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab">Genetic-algorithm</a>”, R packages like “<a href="http://luca-scr.github.io/GA/index.html">GA</a>” .</li>
+</ul>
+</div>
+</section>
+<section id="discussion" class="slide level2">
+<h2>Discussion</h2>
+<p><strong>Welcome to share your thoughts!</strong></p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/qa.gif"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="package-installation" class="slide level2 smaller scrollable">
+<h2>Package Installation</h2>
+<div>
+<ul>
+<li class="fragment"><p>View on <a href="https://github.com/numbats/hexmap">Github</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"numbats/hexmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</div>
+<div>
+<p><strong>Acknowledgement</strong></p>
+<ul>
+<li class="fragment"><p>The slides are made using <a href="https://quarto.org/">Quarto</a> with <a href="https://github.com/emitanaka/talks">Emi Tanaka’s</a> CSS design.</p></li>
+<li class="fragment"><p>Great thanks to <a href="https://github.com/mitchelloharawild"><strong>Mitchell O’Hara-Wild</strong></a> &amp; <a href="https://github.com/emitanaka"><strong>Emi Tanaka</strong></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/applause.gif"></p>
+</figure>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="appendix" class="slide level2 smaller scrollable">
+<h2>Appendix</h2>
+<h3 id="cartogram-distortion">cartogram distortion</h3>
+<ul>
+<li>Distortion example (by <code>cartogram</code>)</li>
+</ul>
+
+<img data-src="images/paste-FFA7FEBC.png" width="587" class="r-stretch quarto-figure-center"><div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"input data"</span>, <span class="at">weight =</span> <span class="st">"weight variable"</span>, <span class="at">itermax =</span> <span class="dv">15</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># weight: Name of the weighting variable in x </span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># itermax: Maximum iterations for the cartogram transformation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="geogrid-functions-allocation-of-statistic-values-on-hexagons" class="slide level2 smaller scrollable">
+<h2><a href="https://github.com/jbaileyh/geogrid">geogrid</a> functions: allocation of statistic values on hexagons</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Using a normal choropleth</p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/choropleth-geogrid.png" width="524"></p>
+</figure>
+</div>
+</div></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">library</span>(geogrid)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">library</span>(cartogram)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">library</span>(maptools)</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>data_grid <span class="ot">&lt;-</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">calculate_grid</span>(<span class="at">shape =</span> <span class="st">"input data"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8"></a>                 <span class="at">grid_type =</span> <span class="st">"hexagonal"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9"></a>                 <span class="at">seed =</span> <span class="dv">5</span>) </span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co"># seed: Number of iterations for the grid calculation</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12"></a>result_hex <span class="ot">&lt;-</span> <span class="fu">assign_polygons</span>(<span class="st">"input data"</span>, data_grid)</span>
+<span id="cb8-13"><a href="#cb8-13"></a></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co"># plot the hexmap</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="fu">tm_shape</span>(result_hex) <span class="sc">+</span> </span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">tm_polygons</span>(<span class="st">"group variable"</span>, <span class="at">palette =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>  <span class="fu">tm_text</span>(<span class="st">"group variable"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Using a distorted cartogram</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/distorted-geogrid.png" width="529"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">library</span>(geogrid)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">library</span>(cartogram)</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">library</span>(maptools)</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"input data"</span>, <span class="st">"weighting variable"</span>, <span class="dv">15</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a>data_grid <span class="ot">&lt;-</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">calculate_grid</span>(<span class="at">shape =</span> <span class="st">"input data"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10"></a>                 <span class="at">grid_type =</span> <span class="st">"hexagonal"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11"></a>                 <span class="at">seed =</span> <span class="dv">5</span>) </span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co"># seed: Number of iterations for the grid calculation</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a>result_hex <span class="ot">&lt;-</span> <span class="fu">assign_polygons</span>(<span class="st">"input data"</span>, data_grid)</span>
+<span id="cb9-15"><a href="#cb9-15"></a></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co"># plot the hexmap</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="fu">tm_shape</span>(result_hex) <span class="sc">+</span> </span>
+<span id="cb9-18"><a href="#cb9-18"></a>  <span class="fu">tm_polygons</span>(<span class="st">"weighting variable"</span>, <span class="at">palette =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>  <span class="fu">tm_text</span>(<span class="st">"weighting variable"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="step-2-workflow-cont." class="slide level2 smaller scrollable">
+<h2>Step 2 workflow cont.</h2>
+<p>To find a proper width for a hexagon</p>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Known Parameters</a></li><li><a href="#tabset-2-2">Unknown Parameters</a></li></ul>
 <div class="tab-content">
@@ -654,83 +850,142 @@
 </div>
 </div>
 </section>
-<section id="step-3---allocating-statistical-information-on-hexagons" class="slide level2 smaller scrollable">
-<h2>Step 3 - Allocating statistical information on hexagons</h2>
-<div>
+<section id="step-2-example-code" class="slide level2 smaller scrollable">
+<h2>Step 2 example-code</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Assigning the statistical information (can be set by the users), using an algorithm.</li>
-<li class="fragment">Example
-<ul>
-<li class="fragment"><p>statistical information: winning party for each electoral;</p></li>
-<li class="fragment"><p>Algorithm: “<a href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Hungarian Algorithm</a>” from <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></p></li>
-</ul></li>
+<li><p>Normal Choropleth</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(hexmap)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">library</span>(sf)</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Using a normal choropleth</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>grid1 <span class="ot">&lt;-</span>  hexmap<span class="sc">::</span><span class="fu">hex_grid</span>(<span class="at">object =</span> <span class="st">"input data"</span>, </span>
+<span id="cb10-6"><a href="#cb10-6"></a>                           <span class="at">n_tiles =</span> <span class="dv">151</span>) <span class="co"># n: number of wanted hexagons</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co"># Plot the geographic map with overlaying hexagons</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"input data"</span>) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid1, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
 </ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>cartogram distorted</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(hexmap)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">library</span>(sf)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="st">`</span><span class="at">distorted input data</span><span class="st">`</span> <span class="ot">&lt;-</span> cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"input data"</span>, </span>
+<span id="cb11-5"><a href="#cb11-5"></a>                                                  <span class="at">weight =</span> <span class="st">"variable"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6"></a>                                                  <span class="at">itermax =</span> <span class="dv">15</span>)</span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># With cartogram distortion</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>grid2 <span class="ot">&lt;-</span> hexmap<span class="sc">::</span><span class="fu">hex_grid</span>(<span class="at">object =</span> <span class="st">"distorted input data"</span>, </span>
+<span id="cb11-9"><a href="#cb11-9"></a>                          <span class="at">n_tiles =</span> <span class="dv">151</span>) <span class="co"># n: number of wanted hexagons</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co"># Plot the geographic map with overlaying hexagons</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">`</span><span class="at">distorted input data</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid2, <span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</div>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="distance-matrix-illustration">Distance matrix illustration</h3>
-<p>asdfasdf</p>
-</section>
-<section class="slide level2">
-
-<h3 id="example">Example</h3>
+<section id="step-3-example-codes" class="slide level2 smaller scrollable">
+<h2>Step 3 example codes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(hexmap)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">library</span>(sf)</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co"># Using a normal choropleth</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>grid1 <span class="ot">&lt;-</span>  hexmap<span class="sc">::</span><span class="fu">hex_grid</span>(<span class="at">object =</span> <span class="st">"input data"</span>, </span>
+<span id="cb12-8"><a href="#cb12-8"></a>                               <span class="at">n_tiles =</span> <span class="dv">151</span>) <span class="co"># n: number of wanted hexagons</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co"># With cartogram distortion</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>grid2 <span class="ot">&lt;-</span> hexmap<span class="sc">::</span><span class="fu">hex_grid</span>(<span class="at">object =</span> <span class="st">"distorted input data"</span>, </span>
+<span id="cb12-12"><a href="#cb12-12"></a>                              <span class="at">n_tiles =</span> <span class="dv">151</span>) <span class="co"># n: number of wanted hexagons</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co"># For a normal choropleth</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>grid3 <span class="ot">&lt;-</span> hexmap<span class="sc">::</span><span class="fu">tile_allocate</span>(<span class="at">object =</span> <span class="st">"input data"</span>, <span class="at">tile =</span> grid1)</span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co"># For a cartogram distortion</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>grid4 <span class="ot">&lt;-</span> hexmap<span class="sc">::</span><span class="fu">tile_allocate</span>(<span class="at">object =</span> <span class="st">"distorted input data"</span>, <span class="at">tile =</span> grid2)</span>
+<span id="cb12-18"><a href="#cb12-18"></a></span>
+<span id="cb12-19"><a href="#cb12-19"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"input data"</span>)<span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid3, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
+<span id="cb12-24"><a href="#cb12-24"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb12-25"><a href="#cb12-25"></a></span>
+<span id="cb12-26"><a href="#cb12-26"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb12-27"><a href="#cb12-27"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"distorted input data"</span>)<span class="sc">+</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid4, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb12-30"><a href="#cb12-30"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
+<span id="cb12-31"><a href="#cb12-31"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Mixture one</a></li><li><a href="#tabset-3-2">Mixture two</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<p><img data-src="images/step3-mix1.png"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(hexmap)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">library</span>(sf)</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co"># mixing the choropleth with distorted grid for allocation</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>grid_mix1 <span class="ot">&lt;-</span> hexmap<span class="sc">::</span><span class="fu">tile_allocate</span>(<span class="at">object =</span> <span class="st">"input data"</span>, <span class="at">tile =</span> grid2)</span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co"># plot 1st mixture ("grid_mix1")</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"distorted input data"</span>)<span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid_mix1, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2">
+<p><img data-src="images/step3-mix2.png"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(hexmap)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(sf)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co"># mixing the distorted cartogram with the normal choropleth grid for allocation</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>grid_mix2 <span class="ot">&lt;-</span> hexmap<span class="sc">::</span><span class="fu">tile_allocate</span>(<span class="at">object =</span> <span class="st">"distorted input data"</span>, <span class="at">tile =</span> grid1)</span>
+<span id="cb14-8"><a href="#cb14-8"></a></span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="co"># plot 2nd mixture ("grid_mix2")</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"input data"</span>)<span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid_mix2, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div>
 <ul>
-<li>Using <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a> functions</li>
-</ul>
-
-<img data-src="images/paste-91C64537.png" width="524" class="r-stretch quarto-figure-center"><div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_grid <span class="ot">&lt;-</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">calculate_grid</span>(<span class="at">shape =</span> <span class="st">"input data"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3"></a>                 <span class="at">grid_type =</span> <span class="st">"hexagonal"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>                 <span class="at">seed =</span> <span class="dv">5</span>) <span class="co"># Number of iterations for the grid calculation</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">assign_polygons</span>(<span class="st">"input data"</span>, data_grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="future-developments" class="slide level2 smaller scrollable">
-<h2>Future developments</h2>
-<div>
-<p>For step 1 - Refining the input data</p>
-</div>
-<div>
-<ul>
-<li class="fragment">New functions to <u>distort or refine</u> the input data (i.e.&nbsp;a better data pre-processing).</li>
-</ul>
-</div>
-<div>
-<p>For step 2 - Constructing a hexagonal grid (provided with wannted number of hexagons)</p>
-</div>
-<div>
-<ul>
-<li class="fragment">Improve the “Approximation” for the number of hexagons, calculating the wanted number of hexagon exactly.</li>
-</ul>
-</div>
-<p>For step 3 - Assigning the statistical information to geographic regions</p>
-<div>
-<ul>
-<li class="fragment">Improving the “Hungarian Algorithm” to enhance allocation accuracy and process. [<strong>Currently testing</strong>]</li>
-<li class="fragment">Or, testing alternative algorithms which may be more effective and efficient such as the “<a href="https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab">Genetic-algorithm</a>” or published R packages like “<a href="http://luca-scr.github.io/GA/index.html">GA</a>” .</li>
 <li class="fragment">Most likely, the assignment of hexagons will be measured by some sorts of <u><strong>distance matrix</strong></u> to find the “best” allocation.
 <ul>
 <li class="fragment">(Yet, this may result in a “<em>NP hard problem</em>” for optimization).</li>
 </ul></li>
 </ul>
 </div>
-</section>
-<section id="discussion" class="slide level2">
-<h2>Discussion</h2>
-<p><strong>Welcome to share your thoughts or suggestions!</strong></p>
-
-<img data-src="images/qa.gif" class="r-stretch quarto-figure-center"></section>
-<section id="reference" class="slide level2 smaller scrollable">
-<h2>Reference</h2>
-<ul>
-<li>The slides are made using <a href="https://quarto.org/">Quarto</a> with <a href="https://github.com/emitanaka/talks">Emi Tanaka’s</a> CSS design.</li>
-<li></li>
-</ul>
-
-<img src="images/monash-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p><img src="images/monash-logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
 
 </div>
 </section>

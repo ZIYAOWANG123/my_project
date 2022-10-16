@@ -207,7 +207,7 @@ new_cart_hex1 <- calculate_grid(shape = au_sf_new, grid_type = "hexagonal", seed
 result_cart_hex1 <- assign_polygons(au_sf_new, new_cart_hex1)
 
 tm_shape(result_cart_hex1) + 
-  tm_polygons("StateAb", palette = "Dark2") +
+  tm_polygons("StateAb", palette = "viridis") +
   tm_text("StateAb")+
   tm_layout(legend.outside= T)
 ```

@@ -1,0 +1,117 @@
+---
+title: "present-code"
+author: "ZIYAO WANG (Billy)"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+Sys.setlocale("LC_ALL","English")
+```
+
+```{r hexmap gif}
+# code and data from https://github.com/emitanaka/ozhexmap
+
+library(sf)
+library(tidyverse)
+library(gganimate)
+ozmap <- readRDS("present/ozced.rds") %>% 
+  as_tibble() %>% 
+  left_join(hexmap::aec2022, by = c("name" = "division"))
+  
+
+# note: pivot_longer has error: 
+# ! Can't combine `hex` <sfc_GEOMETRY> and `geometry` <sfc_GEOMETRY>.
+# so use approach below
+hexmap <- ozmap %>% 
+  select(-geometry.x, -geometry.y) %>% 
+  rename(geometry = hex) %>% 
+  mutate(type = "hex")
+
+longmap <- ozmap %>% 
+  select(-hex, -geometry.x, geometry = geometry.y) %>% 
+  mutate(type = "choropleth",
+         geometry = st_geometry(geometry)) %>% 
+  bind_rows(hexmap)
+
+g <- ggplot(longmap) + 
+ geom_sf(aes(geometry = geometry, fill = winner),
+          color = "black") + 
+  # facet_wrap(~type)  +
+  theme_void() +
+  labs(fill = "Winner") +
+  scale_fill_manual(values = c("#e11f30", "#0952bf", "green4", "black"),
+                    limits = c("ALP", "LNP", "GRN", "Other")) +
+  guides(fill = guide_legend(override.aes = list(size = 20)))+
+  transition_states(states = type)
+#g
+
+
+gganimate::anim_save(filename = "present/images/ozhexmap.gif", g,
+                     height = 600, width = 800)
+```
+
+
+```{r example-step2}
+library(hexmap)
+library(sf)
+library(ggplot2)
+
+# Using normal choropleth
+grid1 <-  hexmap::hex_grid(object = au, n_tiles = 151)
+# With cartogram distortion
+grid2 <- hexmap::hex_grid(object = au_sf, n_tiles = 151)
+
+ggplot() +
+  geom_sf(data = au) +
+  geom_sf(data = grid1, fill = "steelblue", alpha = 0.2)+
+  theme_void()
+
+ggplot() +
+  geom_sf(data = au_sf) +
+  geom_sf(data = grid2, fill = "pink", alpha = 0.2)+
+  theme_void()
+
+```
+
+```{r example-step3}
+# For a normal choropleth
+grid3 <- hexmap::tile_allocate(object = au, tile = grid1)
+# For a cartogram distortion
+grid4 <- hexmap::tile_allocate(object = au_sf, tile = grid2)
+
+grid_mix1 <- hexmap::tile_allocate(object = au, tile = grid2)
+grid_mix2 <- hexmap::tile_allocate(object = au_sf, tile = grid1)
+
+ggplot2::ggplot()+
+  geom_sf(data = au)+
+  geom_sf(data = grid3, aes(fill = StateAb, alpha = 0.2))+
+  theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
+  theme_void()
+
+ggplot2::ggplot()+
+  geom_sf(data = au_sf)+
+  geom_sf(data = grid4, aes(fill = StateAb, alpha = 0.2))+
+  theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
+  theme_void()
+
+# plot mix ones
+ggplot2::ggplot()+
+  geom_sf(data = au_sf)+
+  geom_sf(data = grid_mix1, aes(fill = StateAb, alpha = 0.2))+
+  theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
+  theme_void()
+
+ggplot2::ggplot()+
+  geom_sf(data = au)+
+  geom_sf(data = grid_mix2, aes(fill = StateAb, alpha = 0.2))+
+  theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
+  theme_void()
+```
+
+
