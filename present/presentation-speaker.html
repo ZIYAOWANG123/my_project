@@ -654,7 +654,8 @@
 <ul>
 <li class="fragment">See reproducible codes on <strong>Appendix</strong> (“Step 3 example codes”)
 <ul>
-<li class="fragment">Plus, some tests on using mixture of grids.</li>
+<li class="fragment">Some tests on using mixture of grids.</li>
+<li class="fragment">Test on state-level plotting.</li>
 </ul></li>
 </ul>
 </div>
@@ -897,6 +898,9 @@
 </section>
 <section id="step-3-example-codes" class="slide level2 smaller scrollable">
 <h2>Step 3 example codes</h2>
+<ul>
+<li>Codes for reproducing example plots in previous section “Step 3”</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(hexmap)</span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">library</span>(sf)</span>
@@ -930,11 +934,18 @@
 <span id="cb12-30"><a href="#cb12-30"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
 <span id="cb12-31"><a href="#cb12-31"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="test-for-mixture-of-hex-grid" class="slide level2 smaller scrollable">
+<h2>Test for mixture of hex-grid</h2>
 <div class="panel-tabset">
 <ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Mixture one</a></li><li><a href="#tabset-3-2">Mixture two</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="images/step3-mix1.png"></p>
+</figure>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(hexmap)</span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="fu">library</span>(sf)</span>
@@ -954,7 +965,11 @@
 </div>
 </div>
 <div id="tabset-3-2">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="images/step3-mix2.png"></p>
+</figure>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(hexmap)</span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(sf)</span>
@@ -983,6 +998,29 @@
 <li class="fragment">(Yet, this may result in a “<em>NP hard problem</em>” for optimization).</li>
 </ul></li>
 </ul>
+</div>
+</section>
+<section id="test-on-state-level" class="slide level2 smaller scrollable">
+<h2>Test on state-level</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/example3-au.png"></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(hexmap)</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>australia <span class="ot">&lt;-</span> ozmaps<span class="sc">::</span>abs_ste <span class="sc">%&gt;%</span> <span class="fu">filter</span>(NAME <span class="sc">!=</span> <span class="st">"Other Territories"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a>grid_au <span class="ot">&lt;-</span> <span class="fu">hex_grid</span>(australia, <span class="at">n_tiles =</span> <span class="dv">8</span>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>grid_au <span class="ot">&lt;-</span> <span class="fu">tile_allocate</span>(australia, grid_au)</span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> australia) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid_au, <span class="fu">aes</span>(<span class="at">fill =</span> NAME), <span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/monash-logo.png" class="slide-logo"></p>
 <div class="footer footer-default">

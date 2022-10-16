@@ -114,4 +114,19 @@ ggplot2::ggplot()+
   theme_void()
 ```
 
+```{r example-step3-onlystates}
+library(ggplot2)
+library(hexmap)
+library(dplyr)
+australia <- ozmaps::abs_ste %>% filter(NAME != "Other Territories")
+
+grid_au <- hex_grid(australia, n_tiles = 8)
+
+grid_au <- tile_allocate(australia, grid_au)
+
+ggplot() +
+  geom_sf(data = australia) +
+  geom_sf(data = grid_au, aes(fill = NAME), alpha = 0.2)+
+  theme_bw()
+```
 

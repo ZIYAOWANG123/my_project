@@ -275,7 +275,8 @@ hexmap::tile_allocate(object, tile)
 
 ::: incremental
 -   See reproducible codes on **Appendix** ("Step 3 example codes")
-    -   Plus, some tests on using mixture of grids.
+    -   Some tests on using mixture of grids.
+    -   Test on state-level plotting.
 :::
 
 ------------------------------------------------------------------------
@@ -500,6 +501,8 @@ To find a proper width for a hexagon
 
 ## Step 3 example codes {.smaller .scrollable}
 
+-   Codes for reproducing example plots in previous section "Step 3"
+
 ```{r}
 library(hexmap)
 library(sf)
@@ -534,10 +537,15 @@ ggplot2::ggplot()+
   theme_void()
 ```
 
+
+-------
+
+## Test for mixture of hex-grid {.smaller .scrollable}
+
 ::: panel-tabset
 ## Mixture one
 
-![](images/step3-mix1.png)
+![](images/step3-mix1.png){fig-align="center"}
 
 ```{r}
 library(hexmap)
@@ -559,7 +567,7 @@ ggplot2::ggplot()+
 
 ## Mixture two
 
-![](images/step3-mix2.png)
+![](images/step3-mix2.png){fig-align="center"}
 
 ```{r}
 library(hexmap)
@@ -585,3 +593,23 @@ ggplot2::ggplot()+
 -   Most likely, the assignment of hexagons will be measured by some sorts of [**distance matrix**]{.underline} to find the "best" allocation.
     -   (Yet, this may result in a "*NP hard problem*" for optimization).
 :::
+
+## Test on state-level {.smaller .scrollable}
+
+![](images/example3-au.png){fig-align="center"}
+```{r}
+library(ggplot2)
+library(hexmap)
+library(dplyr)
+australia <- ozmaps::abs_ste %>% filter(NAME != "Other Territories")
+
+grid_au <- hex_grid(australia, n_tiles = 8)
+
+grid_au <- tile_allocate(australia, grid_au)
+
+ggplot() +
+  geom_sf(data = australia) +
+  geom_sf(data = grid_au, aes(fill = NAME), alpha = 0.2)+
+  theme_bw()
+```
+
