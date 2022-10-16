@@ -24,15 +24,14 @@ g <- ggplot(longmap) +
   geom_sf(aes(geometry = geometry, fill = winner),
           color = "black") + 
   #facet_wrap(~type) +
-  theme_void() + 
+  theme_void(base_size = 30) + 
   labs(fill = "Winner") +
   scale_fill_manual(values = c("#e11f30", "#0952bf", "green4", "black"),
                     limits = c("ALP", "LNP", "GRN", "Other")) +
   transition_states(type)
 
-g+transition_states(type)
-class(g)
+
 #g
 
-gganimate::anim_save(filename = "present/images/ozhexmap.gif", g,
+gganimate::anim_save(filename = "present/images/ozhexmap-fix.gif", g,
                      height = 600, width = 800)
