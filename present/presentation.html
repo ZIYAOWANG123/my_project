@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Ziyao(Billy) Wang">
-  <meta name="dcterms.date" content="2022-10-16">
+  <meta name="dcterms.date" content="2022-10-17">
   <title>A new way of viewing maps - hexmap</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -387,7 +387,7 @@
 <section id="title-slide" data-background-image="images/bg-pic.gif" data-background-opacity="0.6" class="center">
   <h1 class="title">A new way of viewing maps - hexmap</h1>
   <p class="author">Ziyao(Billy) Wang</p>
-  <p class="date">2022-10-16</p>
+  <p class="date">2022-10-17</p>
 </section>
 
 <section id="motivation" class="slide level2 smaller scrollable">
@@ -408,8 +408,18 @@
 </section>
 <section id="an-alternative-way." class="slide level2 smaller scrollable">
 <h2>An alternative way.</h2>
-
-<img data-src="images/hexmap.png" class="r-stretch quarto-figure-center"><div>
+<div>
+<ul>
+<li class="fragment"><div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/ozhexmap-fix.gif"></p>
+</figure>
+</div>
+</div></li>
+</ul>
+</div>
+<div>
 <ul>
 <li class="fragment">Yet, this is <u><strong>manually made</strong></u>.</li>
 </ul>
@@ -476,9 +486,9 @@
 <p>This will <strong>speeds up</strong> the computation of later processes.</p>
 <p>It can <u><strong>reduce the input data size</strong></u> significantly.</p></li>
 </ol>
-<ul>
-<li>Ways to refine:</li>
-</ul>
+</section>
+<section id="ways-to-refine" class="slide level2 smaller scrollable">
+<h2>Ways to refine</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Using <code>st_simplify()</code> from <a href="https://github.com/r-spatial/sf"><code>sf</code></a></p>
@@ -675,7 +685,7 @@
 </div>
 <div>
 <ul>
-<li class="fragment">Improve the “Approximation” for the number of hexagons, calculating the wanted number of hexagon exactly.</li>
+<li class="fragment">Improve the calculation accuracy on the width of a hexagon [Currently an “<strong>Approximation</strong>”].</li>
 </ul>
 </div>
 <p>For step 3 - Assigning the statistical information to geographic regions</p>
@@ -684,17 +694,6 @@
 <li class="fragment">Try different distance (methods) to produce a better distance matrix [<u><strong>Currently testing</strong></u>]</li>
 <li class="fragment">Or, testing alternative algorithms such as the “<a href="https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab">Genetic-algorithm</a>”, R packages like “<a href="http://luca-scr.github.io/GA/index.html">GA</a>” .</li>
 </ul>
-</div>
-</section>
-<section id="discussion" class="slide level2">
-<h2>Discussion</h2>
-<p><strong>Welcome to share your thoughts!</strong></p>
-<div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/qa.gif"></p>
-</figure>
-</div>
 </div>
 </section>
 <section id="package-installation" class="slide level2 smaller scrollable">
@@ -719,6 +718,17 @@
 </figure>
 </div></li>
 </ul>
+</div>
+</section>
+<section id="discussion" class="slide level2">
+<h2>Discussion</h2>
+<p><strong>Welcome to share your thoughts!</strong></p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/qa.gif"></p>
+</figure>
+</div>
 </div>
 </section>
 <section id="appendix" class="slide level2 smaller scrollable">
@@ -924,15 +934,13 @@
 <span id="cb12-20"><a href="#cb12-20"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"input data"</span>)<span class="sc">+</span></span>
 <span id="cb12-21"><a href="#cb12-21"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid3, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
 <span id="cb12-22"><a href="#cb12-22"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
-<span id="cb12-23"><a href="#cb12-23"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
-<span id="cb12-24"><a href="#cb12-24"></a>  <span class="fu">theme_void</span>()</span>
-<span id="cb12-25"><a href="#cb12-25"></a></span>
-<span id="cb12-26"><a href="#cb12-26"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb12-27"><a href="#cb12-27"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"distorted input data"</span>)<span class="sc">+</span></span>
-<span id="cb12-28"><a href="#cb12-28"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid4, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
-<span id="cb12-29"><a href="#cb12-29"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
-<span id="cb12-30"><a href="#cb12-30"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
-<span id="cb12-31"><a href="#cb12-31"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-23"><a href="#cb12-23"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb12-24"><a href="#cb12-24"></a></span>
+<span id="cb12-25"><a href="#cb12-25"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb12-26"><a href="#cb12-26"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"distorted input data"</span>)<span class="sc">+</span></span>
+<span id="cb12-27"><a href="#cb12-27"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid4, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
+<span id="cb12-28"><a href="#cb12-28"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="test-for-mixture-of-hex-grid" class="slide level2 smaller scrollable">
@@ -960,8 +968,7 @@
 <span id="cb13-11"><a href="#cb13-11"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"distorted input data"</span>)<span class="sc">+</span></span>
 <span id="cb13-12"><a href="#cb13-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid_mix1, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
 <span id="cb13-13"><a href="#cb13-13"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-14"><a href="#cb13-14"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-2">
@@ -985,8 +992,7 @@
 <span id="cb14-12"><a href="#cb14-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="st">"input data"</span>)<span class="sc">+</span></span>
 <span id="cb14-13"><a href="#cb14-13"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid_mix2, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"group variable"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>))<span class="sc">+</span></span>
 <span id="cb14-14"><a href="#cb14-14"></a>  <span class="fu">theme</span>(<span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">30</span>))<span class="sc">+</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">28</span>)))<span class="sc">+</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-15"><a href="#cb14-15"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

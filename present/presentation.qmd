@@ -40,7 +40,13 @@ editor: visual
 
 ## An alternative way. {.smaller .scrollable}
 
-![](images/hexmap.png){fig-align="center"}
+::: incremental
+-   <div>
+
+    ![](images/ozhexmap-fix.gif){fig-align="center"}
+
+    </div>
+:::
 
 ::: incremental
 -   Yet, this is [**manually made**]{.underline}.
@@ -94,15 +100,19 @@ editor: visual
 
 ## Step 1 - Refine the input data {.smaller .scrollable}
 
-1.  Input Data Type - A [Simple Features](https://r-spatial.github.io/sf/index.html) (sf) object
+1. Input Data Type - A [Simple Features](https://r-spatial.github.io/sf/index.html) (sf) object
 
-2.  Reasons for refinement:
+2. Reasons for refinement:
 
     This will **speeds up** the computation of later processes.
 
     It can [**reduce the input data size**]{.underline} significantly.
 
--   Ways to refine:
+
+--------------------------------
+
+## Ways to refine {.smaller .scrollable}
+
 
 ::: columns
 ::: {.column width="50%"}
@@ -296,7 +306,7 @@ For step 2 - Constructing a hexagonal grid (provided with wanted number of hexag
 :::
 
 ::: incremental
--   Improve the "Approximation" for the number of hexagons, calculating the wanted number of hexagon exactly.
+-   Improve the calculation accuracy on the width of a hexagon \[Currently an "**Approximation**"\].
 :::
 
 For step 3 - Assigning the statistical information to geographic regions
@@ -304,16 +314,6 @@ For step 3 - Assigning the statistical information to geographic regions
 ::: incremental
 -   Try different distance (methods) to produce a better distance matrix \[[**Currently testing**]{.underline}\]
 -   Or, testing alternative algorithms such as the "[Genetic-algorithm](https://medium.com/sandstreamdev/the-genetic-algorithm-in-solving-the-quadratic-assignment-problem-9bde6ead47ab)", R packages like "[GA](http://luca-scr.github.io/GA/index.html)" .
-:::
-
-------------------------------------------------------------------------
-
-## Discussion
-
-**Welcome to share your thoughts!**
-
-::: incremental
-![](images/qa.gif){fig-align="center"}
 :::
 
 ------------------------------------------------------------------------
@@ -337,6 +337,16 @@ For step 3 - Assigning the statistical information to geographic regions
 -   Great thanks to [**Mitchell O'Hara-Wild**](https://github.com/mitchelloharawild) & [**Emi Tanaka**](https://github.com/emitanaka)
 
     ![](images/applause.gif){fig-align="\"center"}
+:::
+
+------------------------------------------------------------------------
+
+## Discussion
+
+**Welcome to share your thoughts!**
+
+::: incremental
+![](images/qa.gif){fig-align="center"}
 :::
 
 ## Appendix {.smaller .scrollable}
@@ -526,19 +536,16 @@ ggplot2::ggplot()+
   geom_sf(data = "input data")+
   geom_sf(data = grid3, aes(fill = "group variable", alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 
 ggplot2::ggplot()+
   geom_sf(data = "distorted input data")+
   geom_sf(data = grid4, aes(fill = "group variable", alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 ```
 
-
--------
+------------------------------------------------------------------------
 
 ## Test for mixture of hex-grid {.smaller .scrollable}
 
@@ -561,7 +568,6 @@ ggplot2::ggplot()+
   geom_sf(data = "distorted input data")+
   geom_sf(data = grid_mix1, aes(fill = "group variable", alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 ```
 
@@ -584,7 +590,6 @@ ggplot2::ggplot()+
   geom_sf(data = "input data")+
   geom_sf(data = grid_mix2, aes(fill = "group variable", alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 ```
 :::
@@ -597,6 +602,7 @@ ggplot2::ggplot()+
 ## Test on state-level {.smaller .scrollable}
 
 ![](images/example3-au.png){fig-align="center"}
+
 ```{r}
 library(ggplot2)
 library(hexmap)
@@ -612,4 +618,3 @@ ggplot() +
   geom_sf(data = grid_au, aes(fill = NAME), alpha = 0.2)+
   theme_bw()
 ```
-

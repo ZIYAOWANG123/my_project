@@ -88,14 +88,13 @@ ggplot2::ggplot()+
   geom_sf(data = au)+
   geom_sf(data = grid3, aes(fill = StateAb, alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 
 ggplot2::ggplot()+
   geom_sf(data = au_sf)+
   geom_sf(data = grid4, aes(fill = StateAb, alpha = 0.2))+
-  theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
+  theme(legend.text=element_text(size=30),
+        legend.title = element_text(size=26))+
   theme_void()
 
 # plot mix ones
@@ -103,14 +102,12 @@ ggplot2::ggplot()+
   geom_sf(data = au_sf)+
   geom_sf(data = grid_mix1, aes(fill = StateAb, alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 
 ggplot2::ggplot()+
   geom_sf(data = au)+
   geom_sf(data = grid_mix2, aes(fill = StateAb, alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
-  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 ```
 
