@@ -1,6 +1,6 @@
 # `My project` repository metadata
 
-## ETC5543 Creativity Project - `hexmap`
+## ETC5543 Creativity Project - [`hexmap`](https://github.com/numbats/hexmap)
 
 BY **ZIYAO WANG (Billy)**
 
