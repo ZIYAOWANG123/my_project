@@ -1,33 +1,42 @@
-# ETC5543 Creativity Project - "hexmap"
+# `My project` repository metadata
+
+## ETC5543 Creativity Project - `hexmap`
 
 BY **ZIYAO WANG (Billy)**
 
-Week 1 (7/11-15) - Summarizing relevant research articles or information.
+## Folders:
 
-Week 2 (7/18-22) - Wide range of research on relevant information and literature reviews.
+- `data` folder: contains the sample data for all the analysis and testing.        
+  - Mainly 2021 Australian Census data and 2022 Australian Election data.
 
-Week 3 (7/25-29) - Attempts to map both Australia Census (2021) and Election data (2022) with `sf` R package.
+- `image` folder: contains the images for testing illustrations and "brown-bag" section pretension purpose.
 
-Data Sources:  
-  
-  * Census data (2021)
-  
-    [Data Packages](https://www.abs.gov.au/census/find-census-data/datapacks?release=2021&product=GCP&geography=SA1&header=S)            
-    [Geo Packages](https://www.abs.gov.au/census/find-census-data/geopackages)
+- `present` folder: contains all the material for ETC5543 project presentation.      
+  - `present_code.Rmd`: contains codes for presentation preparation and visualization.     
+  - `report.qmd`: the formal project report.
 
-  * Election Data [2022](https://www.aec.gov.au/Electorates/gis/gis_datadownload.htm)
+- `reference` folder: contains the relevant journal articles for this project.
 
-Week 4 (8/1-5) - Producing geographic maps for both Census & Election data sets (separately).
+## Rmd files:
 
-Week 5 (8/8-12) - Present the project progress & produce the hex maps for 2022 Australia Election data.
+- `hex_elect.rmd`: testing codes for initial implementation of relevant functions.
 
-Week 6 (8/15-19) - Research a way to expand the original geographic map to multiple hex tiles for each region/area.    
+- `map.rmd`: initial mapping on the sample data as a starter.
 
-Week 7 (8/22-26) - Read and understand the relevant documents of "Hungarian algorithm" in `geogrid` [package](https://github.com/jbaileyh/geogrid), then try to adjust the **cost** function while assigning hex-tile in the algorithm (i.e. considering squared distance instead of the absolute value, and aim for multiple iteration for better solution instead of the optimal/best one).
+- `map_tile_math.rmd`: contains the brief mathematics (Latex form) for [`hexmap::map_tile.R`](https://github.com/numbats/hexmap/blob/master/R/map-tile.R).
 
-Week 8 (8/29-9/2) - Learn the Rcpp and the relevant packages in R to understand the "Hungarian algorithm". Meanwhile, researching in general for suitable algorithms in solving quadratic problems such as "Genetic Algorithms".   
+- `present-brownbag.rmd`: contains all materials for "brown-bag" section presentation (with images in "image" folder). 
 
-Week 9 (9/5-9) - Adjusting the parameters in the distortion of the geographical map function to obtain better input map data. Following with the use of the `calculate_grid` function in `geogrid` to examine and identify the quality of distortions.      
+- `project-schedule.rmd`: the schedule list for the project process.
+
+- `ref_map.rmd`: testing codes for existed lecture (ETC5512) or package codes on the sample data.
+
+- `ref_sum_1.rmd`: first part of the literature review summary.    
+  - Mainly on `sugerbag` package and its article.
+
+- `ref_sum_2.rmd`: second part of the literature review summary.    
+  - Other relevant sources of information plus additional relevant packages.
 
 
+### If there is any issue regarding to this repo, please inform [here](https://github.com/ZIYAOWANG123/my_project/issues). 
 

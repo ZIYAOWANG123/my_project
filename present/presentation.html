@@ -11,7 +11,7 @@
 
   <meta name="author" content="Ziyao(Billy) Wang">
   <meta name="dcterms.date" content="2022-10-17">
-  <title>A new way of viewing maps - hexmap</title>
+  <title>ETC5543 - A new way of viewing maps - hexmap</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -384,8 +384,8 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="images/bg-pic.gif" data-background-opacity="0.6" class="center">
-  <h1 class="title">A new way of viewing maps - hexmap</h1>
+<section id="title-slide" data-background-image="images/bg-pic.gif" data-background-opacity="0.5" class="center">
+  <h1 class="title">ETC5543 - A new way of viewing maps - hexmap</h1>
   <p class="author">Ziyao(Billy) Wang</p>
   <p class="date">2022-10-17</p>
 </section>
@@ -406,8 +406,8 @@
 </ul>
 </div>
 </section>
-<section id="an-alternative-way." class="slide level2 smaller scrollable">
-<h2>An alternative way.</h2>
+<section id="an-alternative-way" class="slide level2 smaller scrollable">
+<h2>An alternative way</h2>
 <div>
 <ul>
 <li class="fragment"><div>
@@ -425,22 +425,27 @@
 </ul>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="other-examples">Other Examples</h3>
+<section id="other-examples" class="slide level2 smaller scrollable">
+<h2>Other Examples</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
+<ul>
+<li><p><a href="https://projects.fivethirtyeight.com/2016-election-forecast/">538-2016 US Election Post</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-C0FB8E3F.png"></p>
 </figure>
-</div>
+</div></li>
+</ul>
 </div><div class="column" style="width:50%;">
+<ul>
+<li><p><a href="https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017">The Guardian - UK 2017 general election</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/paste-8924B4DD.png"></p>
 </figure>
-</div>
+</div></li>
+</ul>
 </div>
 </div>
 </section>
@@ -493,23 +498,19 @@
 <div class="column" style="width:50%;">
 <p>Using <code>st_simplify()</code> from <a href="https://github.com/r-spatial/sf"><code>sf</code></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># allow for simplifying regions based on a distance argument, </span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># simplifying regions based on a distance argument, </span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="do">## but large distances can completely remove polygons.</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>inputdata <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">3000</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="do">## dTolerance = a numeric tolerance parameter to smooth the edge</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a>inputdata <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p>Functions from <a href="https://github.com/dcooley/sfheaders"><code>sfheaders</code></a> and <a href="https://github.com/ateucher/rmapshaper"><code>rmapshaper</code></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>inputdata <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a> <span class="co"># simplifying regions to a proportion of their original vertices</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># simplifying regions to a proportion of their original vertices</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>inputdata <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>  sfheaders<span class="sc">::</span><span class="fu">sf_remove_holes</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="co"># To remove holes from polygons and multipolygons.</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a> <span class="do">## In case, there are some great lakes / not land areas.</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> <span class="fl">0.0001</span>, <span class="at">keep_shapes =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a> <span class="co"># keep: Proportion of points to retain;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a> <span class="co"># keep_shapes: Prevent small polygon features </span></span>
-<span id="cb2-9"><a href="#cb2-9"></a> <span class="do">## from disappearing at high simplification</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> <span class="fl">0.0001</span>, <span class="at">keep_shapes =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a> <span class="co"># keep_shapes: Prevent small polygon features </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a> <span class="do">## from disappearing at high simplification</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -525,13 +526,12 @@
 <ul>
 <li class="fragment"><p>See example illustration on <strong>Appendix</strong> (“cartogram distortion”)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>    cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"inputdata"</span>,</span>
-<span id="cb3-2"><a href="#cb3-2"></a>      <span class="at">weight =</span> <span class="st">"weight"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3"></a>      <span class="at">itermax =</span> <span class="dv">20</span>,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>      <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co"># weight: weighting variable in data</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>    <span class="co"># itermax: Number of iterations for distortion</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co"># prepare: Methods to help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>    <span class="co"># Distorting regions based on a weight variable via </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="do">## multiple times of iterations for convergence</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"inputdata"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>      <span class="at">weight =</span> <span class="st">"weight"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>      <span class="at">itermax =</span> <span class="dv">20</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>      <span class="at">prepare =</span> <span class="st">"adjust"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul></li>
 </ul>
@@ -566,6 +566,7 @@
 <p><img data-src="images/paste-7757D6A1.png"></p>
 </figure>
 </div></li>
+<li class="fragment"><p>Notes: A reverse computation process is applied here.</p></li>
 </ul>
 </div>
 </div>
@@ -626,7 +627,7 @@
 <div>
 <ul>
 <li class="fragment"><p>Assigning the statistical information (can be set by the users), using an algorithm.</p></li>
-<li class="fragment"><p>Sample - <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a> data</p>
+<li class="fragment"><p>Sample - <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">2022 AU Election Data</a> data</p>
 <ul>
 <li class="fragment"><p>statistical information: (151) electoral;</p></li>
 <li class="fragment"><p>Algorithm: “<a href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Hungarian Algorithm</a>” from <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></p></li>
@@ -677,7 +678,7 @@
 </div>
 <div>
 <ul>
-<li class="fragment">New functions to <u>distort or refine</u> the input data (i.e.&nbsp;a better data pre-processing).</li>
+<li class="fragment">New functions to <u>distort or refine</u> the input data (i.e.&nbsp;a <strong>better data pre-processing</strong>).</li>
 </ul>
 </div>
 <div>
@@ -685,7 +686,7 @@
 </div>
 <div>
 <ul>
-<li class="fragment">Improve the calculation accuracy on the width of a hexagon [Currently an “<strong>Approximation</strong>”].</li>
+<li class="fragment">Improve the calculation accuracy on the width of a hexagon [Currently is an “<strong>Approximation</strong>”].</li>
 </ul>
 </div>
 <p>For step 3 - Assigning the statistical information to geographic regions</p>

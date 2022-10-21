@@ -1,5 +1,5 @@
 ---
-title: "A new way of viewing maps - hexmap"
+title: "ETC5543 - A new way of viewing maps - hexmap"
 author: "Ziyao(Billy) Wang"
 date: "`r Sys.Date()`"
 format: 
@@ -18,7 +18,7 @@ execute:
   eval: false
 title-slide-attributes: 
   data-background-image: images/bg-pic.gif
-  data-background-opacity: "0.6"
+  data-background-opacity: "0.5"
 editor: visual
 ---
 
@@ -38,7 +38,7 @@ editor: visual
 
 ------------------------------------------------------------------------
 
-## An alternative way. {.smaller .scrollable}
+## An alternative way {.smaller .scrollable}
 
 ::: incremental
 -   <div>
@@ -54,15 +54,19 @@ editor: visual
 
 ------------------------------------------------------------------------
 
-### Other Examples
+## Other Examples {.smaller .scrollable}
 
 ::: columns
 ::: {.column width="50%"}
-![](images/paste-C0FB8E3F.png){fig-align="center"}
+-   [538-2016 US Election Post](https://projects.fivethirtyeight.com/2016-election-forecast/)
+
+    ![](images/paste-C0FB8E3F.png){fig-align="center"}
 :::
 
 ::: {.column width="50%"}
-![](images/paste-8924B4DD.png){fig-align="center"}
+-   [The Guardian - UK 2017 general election](https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017)
+
+    ![](images/paste-8924B4DD.png){fig-align="center"}
 :::
 :::
 
@@ -100,29 +104,26 @@ editor: visual
 
 ## Step 1 - Refine the input data {.smaller .scrollable}
 
-1. Input Data Type - A [Simple Features](https://r-spatial.github.io/sf/index.html) (sf) object
+1.  Input Data Type - A [Simple Features](https://r-spatial.github.io/sf/index.html) (sf) object
 
-2. Reasons for refinement:
+2.  Reasons for refinement:
 
     This will **speeds up** the computation of later processes.
 
     It can [**reduce the input data size**]{.underline} significantly.
 
-
---------------------------------
+------------------------------------------------------------------------
 
 ## Ways to refine {.smaller .scrollable}
-
 
 ::: columns
 ::: {.column width="50%"}
 Using `st_simplify()` from [`sf`](https://github.com/r-spatial/sf)
 
 ```{r}
-# allow for simplifying regions based on a distance argument, 
+# simplifying regions based on a distance argument, 
 ## but large distances can completely remove polygons.
 inputdata %>% sf::st_simplify(dTolerance = 3000)
-## dTolerance = a numeric tolerance parameter to smooth the edge
 ```
 :::
 
@@ -130,13 +131,10 @@ inputdata %>% sf::st_simplify(dTolerance = 3000)
 Functions from [`sfheaders`](https://github.com/dcooley/sfheaders) and [`rmapshaper`](https://github.com/ateucher/rmapshaper)
 
 ```{r}
+# simplifying regions to a proportion of their original vertices
 inputdata %>%
- # simplifying regions to a proportion of their original vertices
   sfheaders::sf_remove_holes() %>%
-  # To remove holes from polygons and multipolygons.
- ## In case, there are some great lakes / not land areas.
   rmapshaper::ms_simplify(keep = 0.0001, keep_shapes = TRUE)
- # keep: Proportion of points to retain;
  # keep_shapes: Prevent small polygon features 
  ## from disappearing at high simplification
 ```
@@ -153,13 +151,12 @@ inputdata %>%
     -   See example illustration on **Appendix** ("cartogram distortion")
 
         ```{r}
+            # Distorting regions based on a weight variable via 
+            ## multiple times of iterations for convergence
             cartogram::cartogram_cont("inputdata",
               weight = "weight",
               itermax = 20,
               prepare = "adjust")
-            # weight: weighting variable in data
-            # itermax: Number of iterations for distortion
-            # prepare: Methods to help
         ```
 :::
 
@@ -190,6 +187,8 @@ See additional explanations on **Appendix** ("Step 2 workflow cont.")
 -   Total number of hexagons for the entire map depends on: **`Hexagon width`**
 
     ![](images/paste-7757D6A1.png){fig-align="center"}
+
+- Notes: A reverse computation process is applied here.
 :::
 :::
 :::
@@ -244,7 +243,7 @@ hexmap::hex_grid(object, n_tiles = 100)
 ::: incremental
 -   Assigning the statistical information (can be set by the users), using an algorithm.
 
--   Sample - [AEC](https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm) data
+-   Sample - [2022 AU Election Data](https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm) data
 
     -   statistical information: (151) electoral;
 
@@ -298,7 +297,7 @@ For step 1 - Refining the input data
 :::
 
 ::: incremental
--   New functions to [distort or refine]{.underline} the input data (i.e. a better data pre-processing).
+-   New functions to [distort or refine]{.underline} the input data (i.e. a **better data pre-processing**).
 :::
 
 ::: incremental
@@ -306,7 +305,7 @@ For step 2 - Constructing a hexagonal grid (provided with wanted number of hexag
 :::
 
 ::: incremental
--   Improve the calculation accuracy on the width of a hexagon \[Currently an "**Approximation**"\].
+-   Improve the calculation accuracy on the width of a hexagon \[Currently is an "**Approximation**"\].
 :::
 
 For step 3 - Assigning the statistical information to geographic regions

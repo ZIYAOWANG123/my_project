@@ -10,6 +10,34 @@ knitr::opts_chunk$set(echo = TRUE)
 Sys.setlocale("LC_ALL","English")
 ```
 
+
+```{r}
+library(sf)
+library(hexmap)
+library(ozmaps)
+library(dplyr)
+
+sf1 <- abs_ced %>% 
+  st_simplify(dTolerance = 3000)
+  
+ms1 <- abs_ced %>%
+  sfheaders::sf_remove_holes() %>%
+  rmapshaper::ms_simplify(keep = 0.0001, keep_shapes = TRUE)
+```
+
+```{r}
+data.frame(
+  Object = c("Original Data", "st_simplify", "ms_simplify"),
+  Size = c(object.size(abs_ced), object.size(sf1), object.size(ms1)),
+  Unit = rep("bytes")
+) %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center",
+                            font_size = 20)
+
+```
+
+
 ```{r hexmap gif}
 # code and data from https://github.com/emitanaka/ozhexmap
 
@@ -87,14 +115,15 @@ grid_mix2 <- hexmap::tile_allocate(object = au_sf, tile = grid1)
 ggplot2::ggplot()+
   geom_sf(data = au)+
   geom_sf(data = grid3, aes(fill = StateAb, alpha = 0.2))+
-  theme(legend.text=element_text(size=30))+
+  theme(legend.text = element_text(size = 28), 
+        legend.title = element_text(size = 24))+
   theme_void()
 
 ggplot2::ggplot()+
   geom_sf(data = au_sf)+
   geom_sf(data = grid4, aes(fill = StateAb, alpha = 0.2))+
-  theme(legend.text=element_text(size=30),
-        legend.title = element_text(size=26))+
+  theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 
 # plot mix ones
@@ -102,12 +131,14 @@ ggplot2::ggplot()+
   geom_sf(data = au_sf)+
   geom_sf(data = grid_mix1, aes(fill = StateAb, alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 
 ggplot2::ggplot()+
   geom_sf(data = au)+
   geom_sf(data = grid_mix2, aes(fill = StateAb, alpha = 0.2))+
   theme(legend.text=element_text(size=30))+
+  guides(fill = guide_legend(override.aes = list(size = 28)))+
   theme_void()
 ```
 
