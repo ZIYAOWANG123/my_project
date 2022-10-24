@@ -188,7 +188,7 @@ See additional explanations on **Appendix** ("Step 2 workflow cont.")
 
     ![](images/paste-7757D6A1.png){fig-align="center"}
 
-- Notes: A reverse computation process is applied here.
+-   Notes: A reverse computation process is applied here.
 :::
 :::
 :::

@@ -1,15 +1,19 @@
 ---
-title: "ETC5543-Creative Activity - Hexmap Report"
+title: "ETC5543-Creative Activity - `hexmap` R package development"
 author: "Ziyao(Billy) Wang"
 format: html
 editor: visual
 ---
 
-# Hex-map
+# hex-map
 
-## Abstract:
+## Abstract
 
-## Background:
+The purpose of this research project is to develop a new R package (`hexmap`) that can convert the geospatial polygons (i.e. geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. Through broad academic research, it has explored relevant literature articles, new releases and R packages (such as, `sugerbag`, `geogrid` and `cartogram`). This information helps to build up the fundamental of the package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.
+
+## Background
+
+Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematical process or hint on the development. 
 
 #### Academic reviews
 
@@ -21,19 +25,19 @@ Stephanie & Di's - summary - similarities + differences
 
 386 - US election map
 
-UK election map
+Bloomberg - UK election map
 
 tilegram - using python or Json
 
-## Motivation:
+## Motivation
 
 Map illustration takes a vital role in exploratory data analysis (EDA). as it not only provides the statistical information visualization but also adding the geographical information to allow insightful analysis based on a specific region or area. While map is delivering geographical and statistical information to help users for a better understanding of the data and facts, it sometimes can convey misleading information or conclusion.
 
 Therefore, Hexmap is here to resolve this issue by reshaping the geographical area into multiple hexagons and allocating the statistics properly thus to conclude reasonable and proper inference.
 
-## Objectives & Significance:
+## Objectives & Significance
 
-## Methodology:
+## Methodology
 
 ### Hexmap Tour
 
@@ -59,11 +63,11 @@ Assigning the statistical information (set by the users, such as winning party f
 
 \[Explanation of the "Hungarian Algorithm" with its distance matrix illustration\]
 
-### Data:
+### Data
 
-### Result:
+### Result
 
-### Discussion:
+### Discussion
 
 Future developments
 
@@ -73,4 +77,4 @@ Future developments
 
 \- For step 3 - Searching for a better algorithm if possible or the "Hungarian Algorithm" is not effective enough in allocating the statistical information correctly. Most likely, the assignment of hexagons with the statistical information will be measured by some sorts of distance matrix to find the "best" result (yet may not be optimal as pursuing optimization may trigger "NP hard problem")
 
-## Conclusion:
+## Conclusion
