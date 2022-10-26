@@ -18,13 +18,20 @@ knitr::opts_chunk$set(echo = TRUE)
 ![Math](image/math.png)
 
 ```{r eval=FALSE}
+# measures for the map
+## Calculate the width of map
 map_width <- diff(unname(st_bbox(object))[c(1, 3)])
+## Calculate the height of map
 map_height <- diff(unname(st_bbox(object))[c(2, 4)])
+## Calculate the area of map
 map_area <- st_area(st_as_sfc(st_bbox(object)))
+## Calculate the map width and height ratio
 map_ratio <- map_width / map_height
 
-# Compute ratio of land to map
+
+## Total land area
 land_area <- sum(st_area(object))
+## Compute land to map ratio
 land_ratio <- as.numeric(land_area / map_area)
 
 # Number of hexagons to tile map such that ~n_tiles hexagons overlap land

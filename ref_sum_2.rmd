@@ -19,7 +19,7 @@ Sys.setlocale("LC_ALL","English")
 
 # Summary of relevant articles/packages
 
-## 1. [Tilegrams](https://github.com/PitchInteractiveInc/tilegrams) - `22/09/2016`
+## 1. [tilegrams](https://github.com/PitchInteractiveInc/tilegrams) - `22/09/2016`
 
   * [Blog](http://pitchinteractive.com/latest/tilegrams-more-human-maps/)      
   * [Package Manual](https://github.com/PitchInteractiveInc/tilegrams/blob/master/MANUAL.md)       

@@ -21,7 +21,7 @@ by _Stephanie Kobakian, Dianne Cook, and Earl Duncan_
 
 # Focus   
 
-An R package ("sugarbag") applies the hexagon to preserve the spatial information of the geographic units to pinpoint the interests. It highlights the spatial distribution detail of those overlooked geographical regions with proper amplification on the geographic maps. 
+An R package ([`sugarbag`](https://github.com/srkobakian/sugarbag)) applies the hexagon to preserve the spatial information of the geographic units to pinpoint the interests. It highlights the spatial distribution detail of those overlooked geographical regions with proper amplification on the geographic maps. 
 
 
 # Introduction
