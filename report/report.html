@@ -139,9 +139,12 @@ div.csl-indent {
   <li><a href="#package-installation" id="toc-package-installation" class="nav-link" data-scroll-target="#package-installation">Package Installation</a></li>
   <li><a href="#briefing-for-hexmap" id="toc-briefing-for-hexmap" class="nav-link" data-scroll-target="#briefing-for-hexmap">Briefing for <code>hexmap</code></a></li>
   <li><a href="#general-workflow" id="toc-general-workflow" class="nav-link" data-scroll-target="#general-workflow">General workflow</a></li>
-  <li><a href="#discussion-future-directions" id="toc-discussion-future-directions" class="nav-link" data-scroll-target="#discussion-future-directions">Discussion &amp; future directions</a></li>
+  <li><a href="#future-directions" id="toc-future-directions" class="nav-link" data-scroll-target="#future-directions">Future directions</a></li>
   </ul></li>
-  <li><a href="#conclusion-learning-outcome" id="toc-conclusion-learning-outcome" class="nav-link" data-scroll-target="#conclusion-learning-outcome">Conclusion &amp; Learning outcome</a></li>
+  <li><a href="#conclusion-learning-outcome" id="toc-conclusion-learning-outcome" class="nav-link" data-scroll-target="#conclusion-learning-outcome">Conclusion &amp; Learning outcome</a>
+  <ul class="collapse">
+  <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement"><em>Acknowledgement</em></a></li>
+  </ul></li>
   <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
   <ul class="collapse">
@@ -190,8 +193,12 @@ div.csl-indent {
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematical process or direction on the development (see detail on <code>ref_sum1.rmd</code> and <code>ref_sum_2.rmd</code> <a href="https://github.com/ZIYAOWANG123/my_project">here</a>).</p>
+<p>After the literature review and relevant research, the team constructed a blueprint for this project. We listed out the essential key steps for the package. This included but was not limited to the identification and refinement of input data, computation of a hexagonal grid for the geographic regions and allocation of statistical information on the original geographic location. In each step, we examined the appropriate implementation approach(es) and adjusted the processes according to the output until the desired result. The testing for each step is summarized in <code>ref_map.rmd</code>, <code>hex_elect.rmd</code> and <code>map.rmd</code> under My project repository <a href="https://github.com/ZIYAOWANG123/my_project">here</a>, plus the related discussions on testing issues are posted on <a href="https://github.com/ZIYAOWANG123/my_project/issues">here</a>.</p>
 <section id="academic-reviews" class="level3">
 <h3 class="anchored" data-anchor-id="academic-reviews">Academic reviews</h3>
+<ul>
+<li>[Example - see detail documentation on <code>ref_sum1.rmd</code>]</li>
+</ul>
 <p><a href="https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3">Malaysia Election Data Visualization Using Hexagon Tile Grid Map</a></p>
 <ul>
 <li>This article is not a public resource, yet you can find it under “reference/Malaysia Election Data Visualization Using Hexagon Tile Grid Map” <a href="https://github.com/ZIYAOWANG123/my_project/tree/main/reference">here</a></li>
@@ -201,6 +208,9 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </section>
 <section id="relevant-news-releases" class="level3">
 <h3 class="anchored" data-anchor-id="relevant-news-releases">Relevant news releases</h3>
+<ul>
+<li>[Example - see detail documentation on <code>ref_sum_2.rmd</code>]</li>
+</ul>
 <p><a href="https://projects.fivethirtyeight.com/2016-election-forecast/">538-2016 US Election Post</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -226,7 +236,7 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 <section id="motivation" class="level2">
 <h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
 <p>Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information.</p>
-<p>With an example illustration on <a href="https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016">ABC News release</a> on the 2022 Australian election result, it inspires an R package development on automate the conversion of conventional map visualization to a hexagonal for an accurate and insightful statistical inference. Therefore, <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> is here to reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference.</p>
+<p>With an example illustration on <a href="https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016">ABC News release</a> on the 2022 Australian election result, it inspires an R package development to automate the conversion of conventional map visualization to a hexagonal grid for an accurate and insightful statistical inference. Therefore, <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> will reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference with an automatic process.</p>
 </section>
 <section id="package-development---hexmap-tour" class="level2">
 <h2 class="anchored" data-anchor-id="package-development---hexmap-tour">Package development - <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> Tour</h2>
@@ -254,7 +264,7 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </div>
 <section id="step-1---refining-the-input-data" class="level4">
 <h4 class="anchored" data-anchor-id="step-1---refining-the-input-data">Step 1 - Refining the input data</h4>
-<p>There are multiple reasons for implementing a refinement on input data. Firstly, this will <strong>speed up</strong> the computation of later processes (i.e.&nbsp;<strong>steps 2 &amp; 3</strong>). Secondly, refined data is expected to perform a better assignment of statistics on the hexagonal grid.</p>
+<p>There are multiple reasons for implementing a refinement on input data. Firstly, this will <strong>speed up</strong> the computation of later processes (i.e.&nbsp;<strong>steps 2 &amp; 3</strong>). Secondly, refined data is expected to perform a better assignment of statistics on the hexagonal grid. More importantly, the current development feedback suggests this initial data pre-processing has a significant effect on allocating statistical information onto the geographic map correctly. Thus, the refinement of input data is vital for desirable output.</p>
 <ul>
 <li>Example ways of simplifying input data size:</li>
 </ul>
@@ -358,8 +368,8 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </div>
 </section>
 </section>
-<section id="discussion-future-directions" class="level3">
-<h3 class="anchored" data-anchor-id="discussion-future-directions">Discussion &amp; future directions</h3>
+<section id="future-directions" class="level3">
+<h3 class="anchored" data-anchor-id="future-directions">Future directions</h3>
 <p>For <strong>step 1</strong>, the refinement of the input data can be modified better to improve the information allocation accuracy in “step 3”. Instead of using functions from the “cartogram” package, writing a new function to distort or refine the input data that can result in a more effective pre-processing of the data for later steps.</p>
 <p>Regarding the construction of the hexagonal grid in <strong>step 2</strong>, the current application (an approximation of computing the number of hexagons for the grid) is reasonable and accurate enough for the current stage of development. The optimal goal will be determining the exact width of individual hexagons when constructing the grid.</p>
 <p>The current allocation of information on hexagonal grid accuracy in <strong>step 3</strong> is not desirable, since there are multiple incorrect assignments for each geographic region. Through reconsidering the function (i.e.&nbsp;<code>map_allocate/tile_allocate</code>) and consultation (to experts), it suggests a better pre-processing of the input data (i.e.&nbsp;“step 1”) will improve the result significantly. Furthermore, searching for alternative algorithms may also provide additional insights into this allocation problem.</p>
@@ -370,8 +380,10 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 <p>This R package development project is still undergoing development and I will continue work with my supervisors on this project for future improvement and modification. Welcome to leave any helpful suggestions or report issues <a href="https://github.com/numbats/hexmap/issues">here</a>. Detail of code testing and report-related material will be on <a href="https://github.com/ZIYAOWANG123/my_project">my_project repository</a> to keep the actual package repository neat for future development.</p>
 <p>This research project experience has provided me not only a chance to apply theoretical knowledge into practice but also introduce the world of package development to me. Through a vast amount of code testing and method trials, they have offered the opportunity to explore various aspects of the R community and not limit me to purely coding but other research skills.</p>
 <p>During the project development time, supervisors illustrated a clear academic research outline to assist me in identifying the relevant information efficiently. After the literature review, the discussion on practical coding pinpointed the key difficulties and tasks, hence I could understand the directions and process of the future development process. Moreover, learning how to use GitHub <strong>“issue”</strong> offered an efficient platform for communication and debugging any issues during the development such as sharing my testing results with supervisors and modifying for improvement or adjustment under their instructions. Therefore, this experience not only enhances my R coding and debugging skills but also introduces a systematic way of researching and R package development.</p>
-<p><strong>Acknowledgement</strong></p>
+<section id="acknowledgement" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgement"><em>Acknowledgement</em></h3>
 <p>Great thanks for the guidance and supervising of <a href="https://github.com/mitchelloharawild"><strong>Mitchell O’Hara-Wild</strong></a> and <a href="https://github.com/emitanaka"><strong>Emi Tanaka</strong></a>.</p>
+</section>
 </section>
 <section id="reference" class="level2">
 <h2 class="anchored" data-anchor-id="reference">Reference</h2>
