@@ -3,45 +3,52 @@ title: "ETC5543-Creative Activity - `hexmap` R package development"
 author: "Ziyao(Billy) Wang"
 date: "`r Sys.Date()`"
 format: 
-  html:
-    toc: true
-    theme: cosmo
   pdf: 
     cite-method: biblatex
     toc: true
+  html:
+    toc: true
+    theme: cosmo
 execute:
   echo: true
   eval: false
-editor: visual
 bibliography: references.bib
+nocite: | 
+ @hexmap, @sf, @quarto, @geogrid, @cartogram, @dplyr
 ---
 
-# hex-map
 
 ## Abstract
 
-The purpose of this research project is to develop a new R package ([`hexmap`](https://github.com/numbats/hexmap)) that can convert the geospatial polygons (i.e. geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. Through broad academic research, it has explored relevant literature articles, new releases and R packages (such as [`sugerbag`](https://github.com/srkobakian/sugarbag), [`geogrid`](https://github.com/jbaileyh/geogrid) and [`cartogram`](https://github.com/sjewo/cartogram)). This information helps to build up the fundamental of the package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.
+[FILL: Write a sentence or two about map visualisation.]
+The purpose of this research project is to develop a new R package ([`hexmap`](https://github.com/numbats/hexmap)) that can convert the geospatial polygons (i.e. geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. In this report, I summarise relevant literature articles, software and R packages to help inform the construction of the `hexmap` package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.
 
 ## Background
 
-Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematical process or direction on the development (see detail on `ref_sum1.rmd` and `ref_sum_2.rmd` [here](https://github.com/ZIYAOWANG123/my_project)). 
+Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematic process or direction on the development (see detail on `ref_sum1.rmd` and `ref_sum_2.rmd` [here](https://github.com/ZIYAOWANG123/my_project)).
 
-After the literature review and relevant research, the team constructed a blueprint for this project. We listed out the essential key steps for the package. This included but was not limited to the identification and refinement of input data, computation of a hexagonal grid for the geographic regions and allocation of statistical information on the original geographic location. In each step, we examined the appropriate implementation approach(es) and adjusted the processes according to the output until the desired result. The testing for each step is summarized in `ref_map.rmd`, `hex_elect.rmd` and `map.rmd` under My project repository [here](https://github.com/ZIYAOWANG123/my_project), plus the related discussions on testing issues are posted on [here](https://github.com/ZIYAOWANG123/my_project/issues). 
+[ET: Dont' refer to an external file; include it in your report. No need to for the first sentence.]
 
-### Academic reviews 
+After the literature review and relevant research, we constructed a blueprint for this project. We listed out the essential key steps for the package. This included but was not limited to the identification and refinement of the input data, computation of a hexagonal grid for the geographic regions and one-to-one mapping of statistical information from the original geographic location to a hexagonal region. In each step, we examined potential approaches and adjusted the processes according to the output until the desired result. The testing for each step is summarized in `ref_map.rmd`, `hex_elect.rmd` and `map.rmd` under My project repository [here](https://github.com/ZIYAOWANG123/my_project), plus the related discussions on testing issues are posted on [here](https://github.com/ZIYAOWANG123/my_project/issues).
 
-- [Example - see detail documentation on `ref_sum1.rmd`]
+[don't refer to external documents -- just put it under appropriate documents]
+
+### Academic reviews
+
+-   \[Example - see detail documentation on `ref_sum1.rmd`\]
 
 [Malaysia Election Data Visualization Using Hexagon Tile Grid Map](https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3)
 
-- This article is not a public resource, yet you can find it under "reference/Malaysia Election Data Visualization Using Hexagon Tile Grid Map" [here](https://github.com/ZIYAOWANG123/my_project/tree/main/reference)
+-   This article is not a public resource, yet you can find it under "reference/Malaysia Election Data Visualization Using Hexagon Tile Grid Map" [here](https://github.com/ZIYAOWANG123/my_project/tree/main/reference)
 
-[A Hexagon Tile Map Algorithm for Displaying Spatial Data](https://github.com/srkobakian/sugarbag)     
-By **_Stephanie Kobakian, Dianne Cook, and Earl Duncan_**
+[A Hexagon Tile Map Algorithm for Displaying Spatial Data](https://github.com/srkobakian/sugarbag)\
+By ***Stephanie Kobakian, Dianne Cook, and Earl Duncan***
 
-### Relevant news releases 
+### Relevant news releases
 
-- [Example - see detail documentation on `ref_sum_2.rmd`]
+[ET: don't just list, write what it is and don't make your readers do too much extra work to check other documents]
+
+-   \[Example - see detail documentation on `ref_sum_2.rmd`\]
 
 [538-2016 US Election Post](https://projects.fivethirtyeight.com/2016-election-forecast/)
 
@@ -65,12 +72,11 @@ By **_Stephanie Kobakian, Dianne Cook, and Earl Duncan_**
 
 ## Motivation
 
-Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information. 
+Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information.
 
 With an example illustration on [ABC News release](https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016) on the 2022 Australian election result, it inspires an R package development to automate the conversion of conventional map visualization to a hexagonal grid for an accurate and insightful statistical inference. Therefore, [`hexmap`](https://github.com/numbats/hexmap) will reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference with an automatic process.
 
-
-## Package development - [`hexmap`](https://github.com/numbats/hexmap) Tour 
+## Package development - [`hexmap`](https://github.com/numbats/hexmap) Tour
 
 ### Package Installation
 
@@ -79,15 +85,15 @@ install.packages("remotes")
 remotes::install_github("numbats/hexmap")
 ```
 
-
 ### Briefing for `hexmap`
 
-The package will automate the conversion of **spatial polygons into hexagonal grids**, and allow users to better [visualize statistical values associated with each geographic region]{.underline}.
+The package will automate the conversion of **spatial polygons into hexagonal grids**, and allow users to better visualize statistical values associated with each geographic region.
+
+[ET: again a list -- write words. It's not a list but report.]
 
 -   Sample data - 2022 Australian Election Data from [AEC](https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm).
 
-- Input Data Type should be a [Simple Features](https://r-spatial.github.io/sf/index.html) (sf) object
-
+-   Input Data Type should be a [Simple Features](https://r-spatial.github.io/sf/index.html) (sf) object
 
 ### General workflow
 
@@ -97,17 +103,18 @@ The package will automate the conversion of **spatial polygons into hexagonal gr
 
 There are multiple reasons for implementing a refinement on input data. Firstly, this will **speed up** the computation of later processes (i.e. **steps 2 & 3**). Secondly, refined data is expected to perform a better assignment of statistics on the hexagonal grid. More importantly, the current development feedback suggests this initial data pre-processing has a significant effect on allocating statistical information onto the geographic map correctly. Thus, the refinement of input data is vital for desirable output.
 
+-   Example ways of simplifying input data size:
 
-- Example ways of simplifying input data size:
- 
-1. Using `st_simplify()` from [`sf`](https://github.com/r-spatial/sf)
+1.  Using `st_simplify()` from [`sf`](https://github.com/r-spatial/sf)
+
 ```{r}
 # simplifying regions based on a distance argument, 
 ## but large distances can completely remove polygons.
 inputdata %>% sf::st_simplify(dTolerance = 3000)
 ```
-2. Functions from [`sfheaders`](https://github.com/dcooley/sfheaders) and [`rmapshaper`](https://github.com/ateucher/rmapshaper)
-   
+
+2.  Functions from [`sfheaders`](https://github.com/dcooley/sfheaders) and [`rmapshaper`](https://github.com/ateucher/rmapshaper)
+
 ```{r}
 # simplifying regions to a proportion of their original vertices
 inputdata %>%
@@ -116,10 +123,10 @@ inputdata %>%
  # keep_shapes: Prevent small polygon features 
  ## from disappearing at high simplification
 ```
-  
- - Refinement method on distorting map (functions from [`cartogram`](https://github.com/sjewo/cartogram))
 
-Functions from the package (i.e. "cartogram") can distort the original data according to a specific variable set by users. 
+-   Refinement method on distorting map (functions from [`cartogram`](https://github.com/sjewo/cartogram))
+
+Functions from the package (i.e. "cartogram") can distort the original data according to a specific variable set by users.
 
 ![](images/paste-FFA7FEBC.png){fig-align="center" width="587"}
 
@@ -129,13 +136,11 @@ cartogram::cartogram_cont("input data", weight = "weight variable", itermax = 15
 # itermax: Maximum iterations for the cartogram transformation
 ```
 
-
-_**Optimal solution**_: Applying a hierarchical structure, that is using one group variable like "states" and then calculating the number of electoral in each state to capture the "weight" for each state followed with a proper distortion to ensure the next step (i.e. "step 2") results in a faster and less complicated computation.
-
+***Optimal solution***: Applying a hierarchical structure, that is using one group variable like "states" and then calculating the number of electoral in each state to capture the "weight" for each state followed with a proper distortion to ensure the next step (i.e. "step 2") results in a faster and less complicated computation.
 
 #### Step 2 - Determining the number of hexagons
 
-Function `hex_grid` (from [`map_grid`](https://github.com/numbats/hexmap/blob/master/R/map-tile.R)) will compute the proper number of hexagons for the geographic region. (See detailed derivation of this function in Appendix "hexagon size".) 
+Function `hex_grid` (from [`map_grid`](https://github.com/numbats/hexmap/blob/master/R/map-tile.R)) will compute the proper number of hexagons for the geographic region. (See detailed derivation of this function in Appendix "hexagon size".)
 
 ```{r}
 # The input data for this function can be any forms of `sf` objects. 
@@ -149,27 +154,24 @@ hexmap::hex_grid(object, n_tiles = 100)
 -   **normal choropleth**
 
 ![](images/step2-choro.png){fig-align="center"}
-
 :::
 
 ::: {.column width="50%"}
 -   **distorted cartogram**
 
 ![](images/step2-distort.png){fig-align="center"}
-
 :::
 :::
 
 #### Step 3 - Allocating statistical values on hexagons
 
-In this step, it starts the assignment of the statistical information (from original input data) onto the hexagonal grid (produced by "step 2") using an algorithm (currently the "[Hungarian Algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm)"). 
+In this step, it starts the assignment of the statistical information (from original input data) onto the hexagonal grid (produced by "step 2") using an algorithm (currently the "[Hungarian Algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm)").
 
 ![](images/step3-workflow.png){alt="Workflow"}
 
-Here, the [`tile_allocate`](https://github.com/numbats/hexmap/blob/master/R/map-allocate.R) function from `hexmap` will allocate the statistical information on the hexagon grid. 
+Here, the [`tile_allocate`](https://github.com/numbats/hexmap/blob/master/R/map-allocate.R) function from `hexmap` will allocate the statistical information on the hexagon grid.
 
-Most likely, the assignment of hexagons will be measured by some sort of [**distance matrix**]{.underline} to find the "best" allocation.
-    -   (Yet, an actual optimal allocation may lead to a "*NP-hard problem*" for optimization).
+Most likely, the assignment of hexagons will be measured by some sort of [**distance matrix**]{.underline} to find the "best" allocation. - (Yet, an actual optimal allocation may lead to a "*NP-hard problem*" for optimization).
 
 ```{r}
 # object: input data (i.e. sf object)
@@ -179,21 +181,17 @@ hexmap::tile_allocate(object, tile)
 
 ::: columns
 ::: {.column width="50%"}
-
 -   Allocation of statistical values on a **normal choropleth**
 
-  ![](images/step3-choro.png){width="570" height="360" fig-align="center"}
-
+![](images/step3-choro.png){width="570" height="360" fig-align="center"}
 :::
 
 ::: {.column width="50%"}
-
 -   Allocation of statistical values on a **distorted cartogram**
 
-  ![](images/step3-distort.png){width="570" height="360" fig-align="center"}
+![](images/step3-distort.png){width="570" height="360" fig-align="center"}
 :::
 :::
-
 
 ### Future directions
 
@@ -207,27 +205,13 @@ The current allocation of information on hexagonal grid accuracy in **step 3** i
 
 This R package development project is still undergoing development and I will continue work with my supervisors on this project for future improvement and modification. Welcome to leave any helpful suggestions or report issues [here](https://github.com/numbats/hexmap/issues). Detail of code testing and report-related material will be on [my_project repository](https://github.com/ZIYAOWANG123/my_project) to keep the actual package repository neat for future development.
 
-This research project experience has provided me not only a chance to apply theoretical knowledge into practice but also introduce the world of package development to me. Through a vast amount of code testing and method trials, they have offered the opportunity to explore various aspects of the R community and not limit me to purely coding but other research skills. 
+This research project experience has provided me not only a chance to apply theoretical knowledge into practice but also introduce the world of package development to me. Through a vast amount of code testing and method trials, they have offered the opportunity to explore various aspects of the R community and not limit me to purely coding but other research skills.
 
 During the project development time, supervisors illustrated a clear academic research outline to assist me in identifying the relevant information efficiently. After the literature review, the discussion on practical coding pinpointed the key difficulties and tasks, hence I could understand the directions and process of the future development process. Moreover, learning how to use GitHub **"issue"** offered an efficient platform for communication and debugging any issues during the development such as sharing my testing results with supervisors and modifying for improvement or adjustment under their instructions. Therefore, this experience not only enhances my R coding and debugging skills but also introduces a systematic way of researching and R package development.
-
 
 ### *Acknowledgement*
 
 Great thanks for the guidance and supervising of [**Mitchell O'Hara-Wild**](https://github.com/mitchelloharawild) and [**Emi Tanaka**](https://github.com/emitanaka).
-
-
-## Reference
-
-::: {#refs}
-[@hexmap]
-[@sf]
-[@quarto]
-[@geogrid]
-[@cartogram]
-[@dplyr]
-:::
-
 
 
 ## Appendix
@@ -236,25 +220,25 @@ Great thanks for the guidance and supervising of [**Mitchell O'Hara-Wild**](http
 
 This function (`map_tile/hex_grid`) is a process of reverse computation based on the source code of `st_make_grid` function from [`sf`](https://github.com/r-spatial/sf) package. It applies a mathematics approximation to the size of the individual hexagon.
 
- - The size of each hexagon is controlled by the "width" (assuming for regular hexagons).
+-   The size of each hexagon is controlled by the "width" (assuming for regular hexagons).
 
 ![](images/paste-7757D6A1.png){fig-align="center"}
 
- - Observe **"cell size" (i.e. [width]{.underline}**)
+-   Observe **"cell size" (i.e. [width]{.underline}**)
 
-  - **Notes**: The number of hexagons in [**odd and even**]{.underline} rows are different.
+-   **Notes**: The number of hexagons in [**odd and even**]{.underline} rows are different.
 
 ::: columns
 ::: {.column width="50%"}
-  ![](images/paste-0793C53E.png)
+![](images/paste-0793C53E.png)
 :::
 
 ::: {.column width="50%"}
-  ![](images/paste-BFF8301B.png)
+![](images/paste-BFF8301B.png)
 :::
 :::
 
- - Brief explanation on the "approximation" mathematics
+-   Brief explanation on the "approximation" mathematics
 
 ![](images/math.png)
 
@@ -282,6 +266,3 @@ map_hex <- n_tiles / land_ratio
 hex_height <- map_height / sqrt(map_hex / map_ratio)
 hex_width <- hex_height / (1.5 / sqrt(3))
 ```
-
-
-
