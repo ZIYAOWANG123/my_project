@@ -98,7 +98,7 @@ Sys.setlocale("LC_ALL","English")
     1. Setting up the settings for the SVG elements, hexagon radius, tooltip functionality and colors used.       
     2. Using the `parliament.json` file to set up each hexagon to represent each parliament by states (it has unique information such parliament code and coordinate of the hexagon).        
     3. The unique key (i.e. "parliament code") will find the election data related to the parliament in `election.json` (it contains the actual election data for each parliament, such as voting and party information), then populate the hexagons for each particular parliament area.         
-    4. `demographic.json` will have both state and the corrsponding parliaments demographic information, which will be incorporated with these three files (using `d3.json()` function).     
+    4. `demographic.json` will have both state and the corresponding parliaments demographic information, which will be incorporated with these three files (using `d3.json()` function).     
 
 
 # R package 

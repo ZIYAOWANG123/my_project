@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.132">
+<meta name="generator" content="quarto-1.0.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,15 +13,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -60,7 +55,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
+code span.bu { } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -73,7 +68,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -125,21 +120,19 @@ div.csl-indent {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#hex-map" id="toc-hex-map" class="nav-link active" data-scroll-target="#hex-map">hex-map</a>
-  <ul class="collapse">
-  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a>
   <ul class="collapse">
   <li><a href="#academic-reviews" id="toc-academic-reviews" class="nav-link" data-scroll-target="#academic-reviews">Academic reviews</a></li>
   <li><a href="#relevant-news-releases" id="toc-relevant-news-releases" class="nav-link" data-scroll-target="#relevant-news-releases">Relevant news releases</a></li>
-  <li><a href="#relevant-github-reporsitories-including-r-pacakges" id="toc-relevant-github-reporsitories-including-r-pacakges" class="nav-link" data-scroll-target="#relevant-github-reporsitories-including-r-pacakges">Relevant Github reporsitories (including R pacakges)</a></li>
+  <li><a href="#relevant-github-repositories-including-r-packages" id="toc-relevant-github-repositories-including-r-packages" class="nav-link" data-scroll-target="#relevant-github-repositories-including-r-packages">Relevant Github repositories (including R packages)</a></li>
   </ul></li>
   <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
-  <li><a href="#package-development---hexmap-tour" id="toc-package-development---hexmap-tour" class="nav-link" data-scroll-target="#package-development---hexmap-tour">Package development - <code>hexmap</code> Tour</a>
+  <li><a href="#package-development---hexmap-tour" id="toc-package-development---hexmap-tour" class="nav-link" data-scroll-target="#package-development---hexmap-tour">Package development - <span><code>hexmap</code></span> Tour</a>
   <ul class="collapse">
   <li><a href="#package-installation" id="toc-package-installation" class="nav-link" data-scroll-target="#package-installation">Package Installation</a></li>
   <li><a href="#briefing-for-hexmap" id="toc-briefing-for-hexmap" class="nav-link" data-scroll-target="#briefing-for-hexmap">Briefing for <code>hexmap</code></a></li>
@@ -153,7 +146,6 @@ div.csl-indent {
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
   <ul class="collapse">
   <li><a href="#hexagon-size" id="toc-hexagon-size" class="nav-link" data-scroll-target="#hexagon-size">hexagon size</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -188,53 +180,68 @@ div.csl-indent {
 
 </header>
 
-<section id="hex-map" class="level1">
-<h1>hex-map</h1>
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>The purpose of this research project is to develop a new R package (<a href="https://github.com/numbats/hexmap"><code>hexmap</code></a>) that can convert the geospatial polygons (i.e.&nbsp;geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. Through broad academic research, it has explored relevant literature articles, new releases and R packages (such as <a href="https://github.com/srkobakian/sugarbag"><code>sugerbag</code></a>, <a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a> and <a href="https://github.com/sjewo/cartogram"><code>cartogram</code></a>). This information helps to build up the fundamental of the package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.</p>
+<p>Conventional map visualization can provide an overview on the geographic information such as country, states, counties, etc. Moreover, it is a tool for exploratory data analysis as the map illustration allows geographic information to interact with statistical values like population or income level.</p>
+<p>The purpose of this research project is to develop a new R package (<a href="https://github.com/numbats/hexmap"><code>hexmap</code></a>) that can convert the geospatial polygons (i.e.&nbsp;geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. In this report, I summarise relevant literature articles, software and R packages to help inform the construction of the <code>hexmap</code> package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.</p>
 </section>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematical process or direction on the development (see detail on <code>ref_sum1.rmd</code> and <code>ref_sum_2.rmd</code> <a href="https://github.com/ZIYAOWANG123/my_project">here</a>).</p>
-<p>After the literature review and relevant research, the team constructed a blueprint for this project. We listed out the essential key steps for the package. This included but was not limited to the identification and refinement of input data, computation of a hexagonal grid for the geographic regions and allocation of statistical information on the original geographic location. In each step, we examined the appropriate implementation approach(es) and adjusted the processes according to the output until the desired result. The testing for each step is summarized in <code>ref_map.rmd</code>, <code>hex_elect.rmd</code> and <code>map.rmd</code> under My project repository <a href="https://github.com/ZIYAOWANG123/my_project">here</a>, plus the related discussions on testing issues are posted on <a href="https://github.com/ZIYAOWANG123/my_project/issues">here</a>.</p>
+<p>Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematic process or direction on the development.</p>
+<p>After the literature review and relevant research, we constructed a blueprint for this project. We listed out the essential key steps for the package. This included but was not limited to the identification and refinement of the input data, computation of a hexagonal grid for the geographic regions and one-to-one mapping of statistical information from the original geographic location to a hexagonal region. In each step, we examined potential approaches and adjusted the processes according to the output until the desired result. Those experimental testing for each step will be demonstrated along with the package (workflow) introduction.</p>
 <section id="academic-reviews" class="level3">
 <h3 class="anchored" data-anchor-id="academic-reviews">Academic reviews</h3>
-<ul>
-<li>[Example - see detail documentation on <code>ref_sum1.rmd</code>]</li>
-</ul>
-<p><a href="https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3">Malaysia Election Data Visualization Using Hexagon Tile Grid Map</a></p>
-<ul>
-<li>This article is not a public resource, yet you can find it under “reference/Malaysia Election Data Visualization Using Hexagon Tile Grid Map” <a href="https://github.com/ZIYAOWANG123/my_project/tree/main/reference">here</a></li>
-</ul>
-<p><a href="https://github.com/srkobakian/sugarbag">A Hexagon Tile Map Algorithm for Displaying Spatial Data</a><br>
-By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p>
+<p><a href="https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3"><em>Malaysia Election Data Visualization Using Hexagon Tile Grid Map</em></a></p>
+<p>This article illustrates a way of using a hexagonal grid to present the Malaysia election result. It mainly uses <code>JavaScript</code> as the tool and constructs multiple files to output the final visualization. These four files represent four stages of processing.</p>
+<p>The first <code>setting,json</code> file will set up the settings for the SVG elements, including hexagon radius, tooltip functionality and colours palette used. After setup, the <code>parliament.json</code> file will prepare each hexagon to represent each parliament by state (which has unique information such as parliament code and coordination of the hexagon). With the unique key (i.e.&nbsp;“parliament code”), it will find the election data related to the parliament in <code>election.json</code> (it contains the actual election data for each parliament, such as voting and party information), then populate the hexagons for each particular parliament area. Lastly, the <code>demographic.json</code> file will have both state and the corresponding parliament’s demographic information, which will be incorporated with the previous three files (using <code>d3.json()</code> function).</p>
+<p>The whole procedure provides a helpful idea of how to construct our package yet since this project is based on R, the actual function and coding scheme will be different.</p>
+<p>Notes, this article is not a public resource, yet you can find it under “reference/Malaysia Election Data Visualization Using Hexagon Tile Grid Map” <a href="https://github.com/ZIYAOWANG123/my_project/tree/main/reference">here</a>.</p>
+<p><a href="https://github.com/srkobakian/sugarbag"><em>A Hexagon Tile Map Algorithm for Displaying Spatial Data</em></a></p>
+<p>By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p>
+<p>This journal article demonstrates another way of using the combination of a hexagonal grid and map for geographic information visualization. In this paper, authors applied a non-contiguous hexagonal grid with multiple comparisons to other existing approaches, including the <code>contiguous cartogram</code>, <code>non-contiguous cartogram</code> and the <code>Dorling cartogram</code>. The result suggests building a separate algorithm in order to obtain the desired output.</p>
+<p>This article provides a reference of a clear structure of the R package algorithm on a similar issue (using a hexagonal grid to visualize the map information) to our project (i.e.&nbsp;<code>hexmap</code>). But, the output result is different as our goal is to produce a contiguous hexagonal grid that may be followed with a hierarchical grouping process to summarise statistical values if needed.</p>
+<p>There is a comprehensive user guide to instruct users in the <a href="https://github.com/srkobakian/sugarbag"><code>sugerbag</code></a> application, and the algorithm flowchart has been shown below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/sugerbag.png" class="img-fluid figure-img" width="650"></p>
+<p></p><figcaption class="figure-caption">Algorithm flowchart - <code>sugerbag</code></figcaption><p></p>
+</figure>
+</div>
 </section>
 <section id="relevant-news-releases" class="level3">
 <h3 class="anchored" data-anchor-id="relevant-news-releases">Relevant news releases</h3>
-<ul>
-<li>[Example - see detail documentation on <code>ref_sum_2.rmd</code>]</li>
-</ul>
-<p><a href="https://projects.fivethirtyeight.com/2016-election-forecast/">538-2016 US Election Post</a></p>
+<p><a href="https://projects.fivethirtyeight.com/2016-election-forecast/"><em>538-2016 US Election Post</em></a></p>
+<p>Here is an example from the <code>Fivethirtyeight</code> News release on the 2016 US election result, which uses an <a href="https://en.wikipedia.org/wiki/Albers_projection">Albers equal-area conic projection</a> for visualization. The hexagonal grid map is using a pixel calculation process, the original geographic information has been processed as number of pixels then computing the actual pixels display based on the population of that region.</p>
+<p>Although this visualization is done in <code>Python</code> which is different to R programming, it still provides some useful information on how to measure our desirable final output. The GitHub for this post can be found <a href="https://github.com/JoshData/why-use-cartograms">here</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/paste-C0FB8E3F.png" class="img-fluid figure-img"></p>
+<p><img src="images/paste-C0FB8E3F.png" class="img-fluid figure-img" width="450"></p>
+<p></p><figcaption class="figure-caption">2016 US election - <code>Fivethirtyeight</code></figcaption><p></p>
 </figure>
 </div>
-<p><a href="https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017">The Guardian - UK 2017 general election</a></p>
+<p><a href="https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017"><em>The Guardian - UK 2017 general election</em></a></p>
+<p>This news post shows another way of presenting the hexagonal map as it allows users to alter the location of each hexagon tile, yet this functionality may create mistake adjustments on the geographical information. Unfortunately, the post author hadn’t disclosed information or source code of this visualization.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/paste-8924B4DD.png" class="img-fluid figure-img"></p>
+<p><img src="images/paste-8924B4DD.png" class="img-fluid figure-img" width="270"></p>
+<p></p><figcaption class="figure-caption">2017 UK general election - <code>The Guardian</code></figcaption><p></p>
 </figure>
 </div>
 </section>
-<section id="relevant-github-reporsitories-including-r-pacakges" class="level3">
-<h3 class="anchored" data-anchor-id="relevant-github-reporsitories-including-r-pacakges">Relevant Github reporsitories (including R pacakges)</h3>
+<section id="relevant-github-repositories-including-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="relevant-github-repositories-including-r-packages">Relevant Github repositories (including R packages)</h3>
 <p><a href="https://github.com/PitchInteractiveInc/tilegrams">tilegram</a></p>
-<p><a href="https://github.com/Flow-Based-Cartograms/go_cart">go_cart</a></p>
+<p>The author uses the US data to demonstrate the application of the functions in the package (a <code>JavaScript</code> one). At the start, it provides some existing tile-grams for user exploration (US map). Users can export the SVG files and the <a href="https://github.com/topojson/topojson-specification/blob/master/README.md">TopoJSON</a> into a web application for customized display. Users can generate new tilegrams (customized ones) by selecting from a few prepared data sets or inputting their CSV (in a specified format using US FIPS codes). It will start from a conventional geographic map and then resize the regions to the selected data. Meanwhile, users can adjust the number of values for each tile manually or using the <code>Resolution</code> slider. (Need to alter the <code>delta</code> to <code>0</code> to make reasonable tilegrams for inferring.)</p>
+<p>After the input of data and initial adjustment, users can move in a single, range or a specific region with a highlight of each region on the sidebar area, or remove or add a tile on the map. As for the statistical accuracy of the display, it is summarized an indicator <strong>“delta”</strong>. If it is positive, it represents the region that has too many tiles than it should have and vice versa. <strong>Delta</strong> is the difference between the calculated proposed number of tiles of each region based on the population (<code>500,000 per tile</code>) and the number of tiles in each region’s population from the data set.</p>
+<p>This package illustrates another way of constructing a hexagonal map with a range of user customization functionalists, which is illuminating yet may not be suitable as this is not the main goal of our project.</p>
 <p><a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></p>
+<p>This <code>R</code> package turns geospatial polygons like states, counties or local authorities into regular or hexagonal grids automatically. It uses the <a href="https://en.wikipedia.org/wiki/Hungarian_algorithm"><code>Hungarian algorithm</code></a> as the core algorithm in determining the allocation of statistical values on the hexagonal grid. This aims to minimize the total distance between the centroid of every original geography and its new centroid on the grid.</p>
+<p>This algorithm has also been used in our package functions (<a href="https://github.com/numbats/hexmap/blob/master/R/map-allocate.R"><code>tile_allocate</code></a>) when assigning statistical values on the hexagonal map correctly.</p>
 <p><a href="https://github.com/kaerosen/tilemaps"><code>tilemaps</code></a></p>
+<p>This tilemaps <code>R</code> package implements an algorithm for generating hexagonal or square maps, in which each region is represented by a single tile of the same shape and size. The algorithm implemented in this package was proposed by Graham McNeill and Scott Hale in the paper <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13200#:~:text=To%20generate%20multiple%20tile%20maps,well%20as%20their%20boundary%20roughness.">“Generating Tile Maps” (2017)</a>.</p>
+<p>It shows a reasonable output that we expected in our project, yet there are several limitations in this package. Firstly, the algorithm can only produce a single tile (either hexagonal or square) for each area, and the allocation of tiles to the geographical locations may not be accurate if there are multiple sub-areas for that particular region such as suburbs in each city or state. Secondly, this package can only output a contiguous cartogram and have to manually allocate the separate geographical locations alongside the main map. Thus, it is a useful reference yet not directly related to our project as we wish to visualize the statistical values on a sub-level like electoral in each state.</p>
 <p><a href="https://github.com/sjewo/cartogram"><code>cartogram</code></a></p>
+<p>This <code>R</code> package can construct a continuous area cartogram, non-contiguous area cartogram, and non-overlapping circles cartogram. The main inspiration is the improvement of input data quality for statistical values allocation by distortion on the original map according to a weighting variable. This enlightens us to impose a data pre-processing on input data before implementing computation for the next step. Thus, we designed the input data refinement as the initial step to not only improve the computation efficiency but also enhance the allocation accuracy for statistical values.</p>
 </section>
 </section>
 <section id="motivation" class="level2">
@@ -253,36 +260,26 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </section>
 <section id="briefing-for-hexmap" class="level3">
 <h3 class="anchored" data-anchor-id="briefing-for-hexmap">Briefing for <code>hexmap</code></h3>
-<p>The package will automate the conversion of <strong>spatial polygons into hexagonal grids</strong>, and allow users to better <u>visualize statistical values associated with each geographic region</u>.</p>
-<ul>
-<li><p>Sample data - 2022 Australian Election Data from <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a>.</p></li>
-<li><p>Input Data Type should be a <a href="https://r-spatial.github.io/sf/index.html">Simple Features</a> (sf) object</p></li>
-</ul>
+<p>The package will automate the conversion of <strong>spatial polygons into hexagonal grids</strong>, and allow users to better visualize statistical values associated with each geographic region. The sample data here is the 2022 Australian Election Data from <a href="https://results.aec.gov.au/27966/Website/HouseDownloadsMenu-27966-Csv.htm">AEC</a>. As for input data type, it should be a <a href="https://r-spatial.github.io/sf/index.html">Simple Features</a> (sf) object.</p>
 </section>
 <section id="general-workflow" class="level3">
 <h3 class="anchored" data-anchor-id="general-workflow">General workflow</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/workflow.png" class="img-fluid figure-img"></p>
+<p><img src="images/workflow.png" class="img-fluid figure-img" width="660"></p>
+<p></p><figcaption class="figure-caption">Flowchart - <code>hexmap</code></figcaption><p></p>
 </figure>
 </div>
 <section id="step-1---refining-the-input-data" class="level4">
 <h4 class="anchored" data-anchor-id="step-1---refining-the-input-data">Step 1 - Refining the input data</h4>
 <p>There are multiple reasons for implementing a refinement on input data. Firstly, this will <strong>speed up</strong> the computation of later processes (i.e.&nbsp;<strong>steps 2 &amp; 3</strong>). Secondly, refined data is expected to perform a better assignment of statistics on the hexagonal grid. More importantly, the current development feedback suggests this initial data pre-processing has a significant effect on allocating statistical information onto the geographic map correctly. Thus, the refinement of input data is vital for desirable output.</p>
-<ul>
-<li>Example ways of simplifying input data size:</li>
-</ul>
-<ol type="1">
-<li>Using <code>st_simplify()</code> from <a href="https://github.com/r-spatial/sf"><code>sf</code></a></li>
-</ol>
+<p>There are multiple ways of simplifying input data size by using different methods.</p>
+<p>Here is the example result on data downsizing by using both <code>st_simplify()</code> from <a href="https://github.com/r-spatial/sf"><code>sf</code></a> and functions from <a href="https://github.com/dcooley/sfheaders"><code>sfheaders</code></a> and <a href="https://github.com/ateucher/rmapshaper"><code>rmapshaper</code></a>, using sample data <code>abs_ced</code> from <a href="https://github.com/mdsumner/ozmaps"><code>ozmaps</code></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simplifying regions based on a distance argument, </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## but large distances can completely remove polygons.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>inputdata <span class="sc">%&gt;%</span> sf<span class="sc">::</span><span class="fu">st_simplify</span>(<span class="at">dTolerance =</span> <span class="dv">3000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ol start="2" type="1">
-<li>Functions from <a href="https://github.com/dcooley/sfheaders"><code>sfheaders</code></a> and <a href="https://github.com/ateucher/rmapshaper"><code>rmapshaper</code></a></li>
-</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simplifying regions to a proportion of their original vertices</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>inputdata <span class="sc">%&gt;%</span></span>
@@ -291,25 +288,31 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> <span class="co"># keep_shapes: Prevent small polygon features </span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="do">## from disappearing at high simplification</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>Refinement method on distorting map (functions from <a href="https://github.com/sjewo/cartogram"><code>cartogram</code></a>)</li>
-</ul>
-<p>Functions from the package (i.e.&nbsp;“cartogram”) can distort the original data according to a specific variable set by users.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/paste-FFA7FEBC.png" class="img-fluid figure-img" width="587"></p>
+<p><img src="images/paste-0FE0B280.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Input data size reduction</figcaption><p></p>
 </figure>
 </div>
+<p>For the input data refinement, we are currently testing functions from <a href="https://github.com/sjewo/cartogram"><code>cartogram</code></a> to distort original geographic map by a weighting variable. Here, we only use the contiguous cartogram function <code>cartogram_cont</code>, as our desired output should be a contiguous hexagonal map.</p>
+<p><strong>Optimal result</strong>: Applying a hierarchical structure, that is using one group variable like “states” and then calculating the number of electoral in each state to capture the “weight” for each state followed with a proper distortion to ensure the next step (i.e.&nbsp;“step 2”) results in a faster and less complicated computation.</p>
+<p>Through multiple ways of testing, the result from this function is not optimal or desirable, hence we need to develop further based on the current result in future (detail discussion on “Future directions” section).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cartogram<span class="sc">::</span><span class="fu">cartogram_cont</span>(<span class="st">"input data"</span>, <span class="at">weight =</span> <span class="st">"weight variable"</span>, <span class="at">itermax =</span> <span class="dv">15</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># weight: Name of the weighting variable in x </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># itermax: Maximum iterations for the cartogram transformation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong><em>Optimal solution</em></strong>: Applying a hierarchical structure, that is using one group variable like “states” and then calculating the number of electoral in each state to capture the “weight” for each state followed with a proper distortion to ensure the next step (i.e.&nbsp;“step 2”) results in a faster and less complicated computation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/paste-FFA7FEBC.png" class="img-fluid figure-img" width="550"></p>
+<p></p><figcaption class="figure-caption">Distortion by <code>cartogram</code></figcaption><p></p>
+</figure>
+</div>
 </section>
 <section id="step-2---determining-the-number-of-hexagons" class="level4">
 <h4 class="anchored" data-anchor-id="step-2---determining-the-number-of-hexagons">Step 2 - Determining the number of hexagons</h4>
-<p>Function <code>hex_grid</code> (from <a href="https://github.com/numbats/hexmap/blob/master/R/map-tile.R"><code>map_grid</code></a>) will compute the proper number of hexagons for the geographic region. (See detailed derivation of this function in Appendix “hexagon size”.)</p>
+<p>Function <code>hex_grid</code> (from <a href="https://github.com/numbats/hexmap/blob/master/R/map-tile.R"><code>map_grid</code></a>) will compute the proper number of hexagons for the geographic region. This function applies a reverse computation procedure (based on <code>st_make_grid</code> function from <a href="https://github.com/r-spatial/sf"><code>sf</code></a>). The key value to determine the number of hexagons for the map is the <strong>width</strong> of each hexagon as we use a regular (unified size) hexagon. (See detailed derivation of this function in Appendix “hexagon size”.)</p>
+<p>To show the effect of distortion from “step 1”, the example uses two different input data (but the same original <code>sf</code> object). There is an obvious difference in the layout of these hexagonal grids, and the distorted one shows a more reasonable hexagon grids location than the normal one’s.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The input data for this function can be any forms of `sf` objects. </span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>hexmap<span class="sc">::</span><span class="fu">hex_grid</span>(object, <span class="at">n_tiles =</span> <span class="dv">100</span>)</span>
@@ -318,21 +321,17 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li><strong>normal choropleth</strong></li>
-</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/step2-choro.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">normal choropleth</figcaption><p></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
-<ul>
-<li><strong>distorted cartogram</strong></li>
-</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/step2-distort.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">distorted cartogram</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -341,9 +340,15 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 <section id="step-3---allocating-statistical-values-on-hexagons" class="level4">
 <h4 class="anchored" data-anchor-id="step-3---allocating-statistical-values-on-hexagons">Step 3 - Allocating statistical values on hexagons</h4>
 <p>In this step, it starts the assignment of the statistical information (from original input data) onto the hexagonal grid (produced by “step 2”) using an algorithm (currently the “<a href="https://en.wikipedia.org/wiki/Hungarian_algorithm">Hungarian Algorithm</a>”).</p>
-<p><img src="images/step3-workflow.png" class="img-fluid" alt="Workflow"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/step3-workflow.png" class="img-fluid figure-img" alt="Workflow" width="530"></p>
+<p></p><figcaption class="figure-caption">Flowchart - Allocating statistical values on hexagonal map</figcaption><p></p>
+</figure>
+</div>
 <p>Here, the <a href="https://github.com/numbats/hexmap/blob/master/R/map-allocate.R"><code>tile_allocate</code></a> function from <code>hexmap</code> will allocate the statistical information on the hexagon grid.</p>
-<p>Most likely, the assignment of hexagons will be measured by some sort of <u><strong>distance matrix</strong></u> to find the “best” allocation. - (Yet, an actual optimal allocation may lead to a “<em>NP-hard problem</em>” for optimization).</p>
+<p>Most likely, the assignment of hexagons will be measured by some sort of <u><strong>distance matrix</strong></u> to find the “optimal” allocation. (Yet, an actual optimal allocation may lead to a “<em>NP-hard problem</em>” for optimization). Therefore, we choose to pick the best result from a proper algorithm instead of pursuing an optimization on minimizing the distance between the centroids (of the hexagonal grid and the original map).</p>
+<p>To emphasize the importance of data refinement can impact on the allocation result (i.e.&nbsp;assignment accuracy), here illustrates an example of using two different input data sets. The result indicates the statistical value allocation accuracy for a distorted cartogram is better than the normal map one.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># object: input data (i.e. sf object)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tile: output from `hex_grid` function (i.e. a sfc object)c</span></span>
@@ -356,7 +361,7 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/step3-choro.png" width="570" height="360" class="figure-img"></p>
+<p><img src="images/step3-choro.png" class="img-fluid figure-img" width="545"></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
@@ -365,7 +370,7 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/step3-distort.png" width="570" height="360" class="figure-img"></p>
+<p><img src="images/step3-distort.png" width="530" height="331" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -374,9 +379,9 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </section>
 <section id="future-directions" class="level3">
 <h3 class="anchored" data-anchor-id="future-directions">Future directions</h3>
-<p>For <strong>step 1</strong>, the refinement of the input data can be modified better to improve the information allocation accuracy in “step 3”. Instead of using functions from the “cartogram” package, writing a new function to distort or refine the input data that can result in a more effective pre-processing of the data for later steps.</p>
+<p>For <strong>step 1</strong>, the refinement of the input data can be modified better to improve the information allocation accuracy in <strong>step 3</strong>. Instead of using functions from the <code>cartogram</code> package, writing a new function to distort or refine the input data that can result in a more effective pre-processing of the data for later steps.</p>
 <p>Regarding the construction of the hexagonal grid in <strong>step 2</strong>, the current application (an approximation of computing the number of hexagons for the grid) is reasonable and accurate enough for the current stage of development. The optimal goal will be determining the exact width of individual hexagons when constructing the grid.</p>
-<p>The current allocation of information on hexagonal grid accuracy in <strong>step 3</strong> is not desirable, since there are multiple incorrect assignments for each geographic region. Through reconsidering the function (i.e.&nbsp;<code>map_allocate/tile_allocate</code>) and consultation (to experts), it suggests a better pre-processing of the input data (i.e.&nbsp;“step 1”) will improve the result significantly. Furthermore, searching for alternative algorithms may also provide additional insights into this allocation problem.</p>
+<p>The current allocation of information on hexagonal grid accuracy in <strong>step 3</strong> is not desirable, since there are multiple incorrect assignments for each geographic region. Through reconsidering the function (i.e.&nbsp;<code>map_allocate/tile_allocate</code>) and consultation (to experts), it suggests a better pre-processing of the input data (i.e.&nbsp;<strong>step 1</strong>) will improve the result significantly. Furthermore, searching for alternative algorithms may also provide additional insights into this allocation problem.</p>
 </section>
 </section>
 <section id="conclusion-learning-outcome" class="level2">
@@ -408,15 +413,27 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img src="images/paste-0793C53E.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/paste-0793C53E.png" class="img-fluid figure-img" width="470"></p>
+</figure>
+</div>
 </div><div class="column" style="width:50%;">
-<p><img src="images/paste-BFF8301B.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/paste-BFF8301B.png" class="img-fluid figure-img" width="470"></p>
+</figure>
+</div>
 </div>
 </div>
 <ul>
 <li>Brief explanation on the “approximation” mathematics</li>
 </ul>
-<p><img src="images/math.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/math.png" class="img-fluid figure-img" width="310"></p>
+</figure>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># measures for the map</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the width of map</span></span>
@@ -442,7 +459,6 @@ By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>hex_width <span class="ot">&lt;-</span> hex_height <span class="sc">/</span> (<span class="fl">1.5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-</section>
 </section>
 </section>
 
@@ -536,8 +552,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
