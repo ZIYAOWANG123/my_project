@@ -202,13 +202,13 @@ hexmap::tile_allocate(object, tile)
 ::: {.column width="50%"}
 -   Allocation of statistical values on a **normal choropleth**
 
-![](images/step3-choro.png){fig-align="center" width="545"}
+![](images/step3-choro.png){fig-align="center"}
 :::
 
 ::: {.column width="50%"}
 -   Allocation of statistical values on a **distorted cartogram**
 
-![](images/step3-distort.png){fig-align="center" width="530" height="331"}
+![](images/step3-distort.png){fig-align="center"}
 :::
 :::
 
@@ -230,7 +230,7 @@ During the project development time, supervisors illustrated a clear academic re
 
 ### *Acknowledgement*
 
-Great thanks for the guidance and supervising of [**Mitchell O'Hara-Wild**](https://github.com/mitchelloharawild) and [**Emi Tanaka**](https://github.com/emitanaka).
+Great thanks for the guidance and supervision of [**Mitchell O'Hara-Wild**](https://github.com/mitchelloharawild) and [**Emi Tanaka**](https://github.com/emitanaka).
 
 ## Appendix
 
@@ -248,11 +248,11 @@ This function (`map_tile/hex_grid`) is a process of reverse computation based on
 
 ::: columns
 ::: {.column width="50%"}
-![](images/paste-0793C53E.png){fig-align="center" width="470"}
+![](images/paste-0793C53E.png){fig-align="center"}
 :::
 
 ::: {.column width="50%"}
-![](images/paste-BFF8301B.png){fig-align="center" width="470"}
+![](images/paste-BFF8301B.png){fig-align="center"}
 :::
 :::
 
