@@ -125,13 +125,13 @@ div.csl-indent {
    
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a>
   <ul class="collapse">
   <li><a href="#academic-reviews" id="toc-academic-reviews" class="nav-link" data-scroll-target="#academic-reviews">Academic reviews</a></li>
   <li><a href="#relevant-news-releases" id="toc-relevant-news-releases" class="nav-link" data-scroll-target="#relevant-news-releases">Relevant news releases</a></li>
   <li><a href="#relevant-github-repositories-including-r-packages" id="toc-relevant-github-repositories-including-r-packages" class="nav-link" data-scroll-target="#relevant-github-repositories-including-r-packages">Relevant Github repositories (including R packages)</a></li>
   </ul></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
   <li><a href="#package-development---hexmap-tour" id="toc-package-development---hexmap-tour" class="nav-link" data-scroll-target="#package-development---hexmap-tour">Package development - <span><code>hexmap</code></span> Tour</a>
   <ul class="collapse">
   <li><a href="#package-installation" id="toc-package-installation" class="nav-link" data-scroll-target="#package-installation">Package Installation</a></li>
@@ -185,6 +185,11 @@ div.csl-indent {
 <p>Conventional map visualization can provide an overview on the geographic information such as country, states, counties, etc. Moreover, it is a tool for exploratory data analysis as the map illustration allows geographic information to interact with statistical values like population or income level.</p>
 <p>The purpose of this research project is to develop a new R package (<a href="https://github.com/numbats/hexmap"><code>hexmap</code></a>) that can convert the geospatial polygons (i.e.&nbsp;geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. In this report, I summarise relevant literature articles, software and R packages to help inform the construction of the <code>hexmap</code> package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.</p>
 </section>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information.</p>
+<p>With an example illustration on <a href="https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016">ABC News release</a> on the 2022 Australian election result, it inspires an R package development to automate the conversion of conventional map visualization to a hexagonal grid for an accurate and insightful statistical inference. Therefore, <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> will reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference with an automatic process.</p>
+</section>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematic process or direction on the development.</p>
@@ -192,12 +197,13 @@ div.csl-indent {
 <section id="academic-reviews" class="level3">
 <h3 class="anchored" data-anchor-id="academic-reviews">Academic reviews</h3>
 <p><a href="https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3"><em>Malaysia Election Data Visualization Using Hexagon Tile Grid Map</em></a></p>
+<p>BY <em>Nur Atiqah Sia Abdullah, Muhammad Nadzmi Mohamed Idzham and Sharifah Aliman, and Zainura Idrus</em></p>
 <p>This article illustrates a way of using a hexagonal grid to present the Malaysia election result. It mainly uses <code>JavaScript</code> as the tool and constructs multiple files to output the final visualization. These four files represent four stages of processing.</p>
 <p>The first <code>setting,json</code> file will set up the settings for the SVG elements, including hexagon radius, tooltip functionality and colours palette used. After setup, the <code>parliament.json</code> file will prepare each hexagon to represent each parliament by state (which has unique information such as parliament code and coordination of the hexagon). With the unique key (i.e.&nbsp;“parliament code”), it will find the election data related to the parliament in <code>election.json</code> (it contains the actual election data for each parliament, such as voting and party information), then populate the hexagons for each particular parliament area. Lastly, the <code>demographic.json</code> file will have both state and the corresponding parliament’s demographic information, which will be incorporated with the previous three files (using <code>d3.json()</code> function).</p>
 <p>The whole procedure provides a helpful idea of how to construct our package yet since this project is based on R, the actual function and coding scheme will be different.</p>
 <p>Notes, this article is not a public resource, yet you can find it under “reference/Malaysia Election Data Visualization Using Hexagon Tile Grid Map” <a href="https://github.com/ZIYAOWANG123/my_project/tree/main/reference">here</a>.</p>
 <p><a href="https://github.com/srkobakian/sugarbag"><em>A Hexagon Tile Map Algorithm for Displaying Spatial Data</em></a></p>
-<p>By <strong><em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></strong></p>
+<p>By <em>Stephanie Kobakian, Dianne Cook, and Earl Duncan</em></p>
 <p>This journal article demonstrates another way of using the combination of a hexagonal grid and map for geographic information visualization. In this paper, authors applied a non-contiguous hexagonal grid with multiple comparisons to other existing approaches, including the <code>contiguous cartogram</code>, <code>non-contiguous cartogram</code> and the <code>Dorling cartogram</code>. The result suggests building a separate algorithm in order to obtain the desired output.</p>
 <p>This article provides a reference of a clear structure of the R package algorithm on a similar issue (using a hexagonal grid to visualize the map information) to our project (i.e.&nbsp;<code>hexmap</code>). But, the output result is different as our goal is to produce a contiguous hexagonal grid that may be followed with a hierarchical grouping process to summarise statistical values if needed.</p>
 <p>There is a comprehensive user guide to instruct users in the <a href="https://github.com/srkobakian/sugarbag"><code>sugerbag</code></a> application, and the algorithm flowchart has been shown below:</p>
@@ -211,6 +217,7 @@ div.csl-indent {
 <section id="relevant-news-releases" class="level3">
 <h3 class="anchored" data-anchor-id="relevant-news-releases">Relevant news releases</h3>
 <p><a href="https://projects.fivethirtyeight.com/2016-election-forecast/"><em>538-2016 US Election Post</em></a></p>
+<p>BY <a href="https://medium.com/civic-tech-thoughts-from-joshdata/how-that-map-you-saw-on-538-under-represents-minorities-by-half-and-other-reasons-to-consider-a-4a98f89cbbb1"><em>Joshua Tauberer</em></a></p>
 <p>Here is an example from the <code>Fivethirtyeight</code> News release on the 2016 US election result, which uses an <a href="https://en.wikipedia.org/wiki/Albers_projection">Albers equal-area conic projection</a> for visualization. The hexagonal grid map is using a pixel calculation process, the original geographic information has been processed as number of pixels then computing the actual pixels display based on the population of that region.</p>
 <p>Although this visualization is done in <code>Python</code> which is different to R programming, it still provides some useful information on how to measure our desirable final output. The GitHub for this post can be found <a href="https://github.com/JoshData/why-use-cartograms">here</a>.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -219,35 +226,35 @@ div.csl-indent {
 <p></p><figcaption class="figure-caption">2016 US election - <code>Fivethirtyeight</code></figcaption><p></p>
 </figure>
 </div>
-<p><a href="https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017"><em>The Guardian - UK 2017 general election</em></a></p>
-<p>This news post shows another way of presenting the hexagonal map as it allows users to alter the location of each hexagon tile, yet this functionality may create mistake adjustments on the geographical information. Unfortunately, the post author hadn’t disclosed information or source code of this visualization.</p>
+<p><a href="https://www.bloomberg.com/graphics/2017-uk-election/"><em>Bloomberg - UK 2017 general election</em></a></p>
+<p>BY <a href="https://twitter.com/aubergene"><em>Julian Burgess</em></a><em>, <a href="https://twitter.com/homiedonttweet">Chris Cannon</a>, Sam Dodge and <a href="https://twitter.com/brittharr">Brittany Harris</a></em></p>
+<p>This news post shows another way of presenting the hexagonal map as it presents the outlook of the interaction effect between statistical values and geographic information. Unfortunately, the post author hadn’t disclosed information or source code of this visualization, thus we don’t know if the whole process of generating this output is automatic or manual.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/paste-8924B4DD.png" class="img-fluid figure-img" width="270"></p>
-<p></p><figcaption class="figure-caption">2017 UK general election - <code>The Guardian</code></figcaption><p></p>
+<p><img src="images/ref2_figure2_uk.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">2017 UK general election - <code>Bloomberg</code></figcaption><p></p>
 </figure>
 </div>
 </section>
 <section id="relevant-github-repositories-including-r-packages" class="level3">
 <h3 class="anchored" data-anchor-id="relevant-github-repositories-including-r-packages">Relevant Github repositories (including R packages)</h3>
 <p><a href="https://github.com/PitchInteractiveInc/tilegrams">tilegram</a></p>
+<p>BY <a href="https://github.com/PitchInteractiveInc"><em>Pitch Interactive Inc</em></a></p>
 <p>The author uses the US data to demonstrate the application of the functions in the package (a <code>JavaScript</code> one). At the start, it provides some existing tile-grams for user exploration (US map). Users can export the SVG files and the <a href="https://github.com/topojson/topojson-specification/blob/master/README.md">TopoJSON</a> into a web application for customized display. Users can generate new tilegrams (customized ones) by selecting from a few prepared data sets or inputting their CSV (in a specified format using US FIPS codes). It will start from a conventional geographic map and then resize the regions to the selected data. Meanwhile, users can adjust the number of values for each tile manually or using the <code>Resolution</code> slider. (Need to alter the <code>delta</code> to <code>0</code> to make reasonable tilegrams for inferring.)</p>
 <p>After the input of data and initial adjustment, users can move in a single, range or a specific region with a highlight of each region on the sidebar area, or remove or add a tile on the map. As for the statistical accuracy of the display, it is summarized an indicator <strong>“delta”</strong>. If it is positive, it represents the region that has too many tiles than it should have and vice versa. <strong>Delta</strong> is the difference between the calculated proposed number of tiles of each region based on the population (<code>500,000 per tile</code>) and the number of tiles in each region’s population from the data set.</p>
-<p>This package illustrates another way of constructing a hexagonal map with a range of user customization functionalists, which is illuminating yet may not be suitable as this is not the main goal of our project.</p>
+<p>This package illustrates another way of constructing a hexagonal map with a range of user customization functionalists, as it allows users to alter the location of each hexagon tile. Yet this functionality may create mistake adjustments on the geographical information. Thus, even though it is illuminating yet may not be suitable for our project.</p>
 <p><a href="https://github.com/jbaileyh/geogrid"><code>geogrid</code></a></p>
+<p>BY <a href="https://github.com/jbaileyh"><em>jbaileyh</em></a></p>
 <p>This <code>R</code> package turns geospatial polygons like states, counties or local authorities into regular or hexagonal grids automatically. It uses the <a href="https://en.wikipedia.org/wiki/Hungarian_algorithm"><code>Hungarian algorithm</code></a> as the core algorithm in determining the allocation of statistical values on the hexagonal grid. This aims to minimize the total distance between the centroid of every original geography and its new centroid on the grid.</p>
 <p>This algorithm has also been used in our package functions (<a href="https://github.com/numbats/hexmap/blob/master/R/map-allocate.R"><code>tile_allocate</code></a>) when assigning statistical values on the hexagonal map correctly.</p>
 <p><a href="https://github.com/kaerosen/tilemaps"><code>tilemaps</code></a></p>
+<p>BY <a href="https://github.com/kaerosen"><em>Kaelyn Rosenberg</em></a></p>
 <p>This tilemaps <code>R</code> package implements an algorithm for generating hexagonal or square maps, in which each region is represented by a single tile of the same shape and size. The algorithm implemented in this package was proposed by Graham McNeill and Scott Hale in the paper <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13200#:~:text=To%20generate%20multiple%20tile%20maps,well%20as%20their%20boundary%20roughness.">“Generating Tile Maps” (2017)</a>.</p>
 <p>It shows a reasonable output that we expected in our project, yet there are several limitations in this package. Firstly, the algorithm can only produce a single tile (either hexagonal or square) for each area, and the allocation of tiles to the geographical locations may not be accurate if there are multiple sub-areas for that particular region such as suburbs in each city or state. Secondly, this package can only output a contiguous cartogram and have to manually allocate the separate geographical locations alongside the main map. Thus, it is a useful reference yet not directly related to our project as we wish to visualize the statistical values on a sub-level like electoral in each state.</p>
 <p><a href="https://github.com/sjewo/cartogram"><code>cartogram</code></a></p>
+<p>BY <a href="https://github.com/sjewo"><em>Sebastian Jeworutzki</em></a></p>
 <p>This <code>R</code> package can construct a continuous area cartogram, non-contiguous area cartogram, and non-overlapping circles cartogram. The main inspiration is the improvement of input data quality for statistical values allocation by distortion on the original map according to a weighting variable. This enlightens us to impose a data pre-processing on input data before implementing computation for the next step. Thus, we designed the input data refinement as the initial step to not only improve the computation efficiency but also enhance the allocation accuracy for statistical values.</p>
 </section>
-</section>
-<section id="motivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information.</p>
-<p>With an example illustration on <a href="https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016">ABC News release</a> on the 2022 Australian election result, it inspires an R package development to automate the conversion of conventional map visualization to a hexagonal grid for an accurate and insightful statistical inference. Therefore, <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> will reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference with an automatic process.</p>
 </section>
 <section id="package-development---hexmap-tour" class="level2">
 <h2 class="anchored" data-anchor-id="package-development---hexmap-tour">Package development - <a href="https://github.com/numbats/hexmap"><code>hexmap</code></a> Tour</h2>
@@ -356,21 +363,17 @@ div.csl-indent {
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li>Allocation of statistical values on a <strong>normal choropleth</strong></li>
-</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/step3-choro.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Allocation of statistical values on a <strong>normal choropleth</strong></figcaption><p></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
-<ul>
-<li>Allocation of statistical values on a <strong>distorted cartogram</strong></li>
-</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/step3-distort.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Allocation of statistical values on a <strong>distorted cartogram</strong></figcaption><p></p>
 </figure>
 </div>
 </div>

@@ -4,7 +4,18 @@
 
 BY **ZIYAO WANG (Billy)**
 
-## Folders:
+## Project Report
+
+### "Report" folder: 
+
+ - `report.qmd`: the formal project report.
+ - `images`: images for report presentation
+ - `report.pdf`: Report PDF version (yet the location figures and tables is not desirable, please view it on "recommended method")
+ - `report.html`: Report Html version.
+ - `report.zip`: contain all the materials for rendering the report.
+- **Recommended method**: open the `report.qmd` file locally, click the "render" button to render a local host html page for viewing. *Or* download the report zip file and render it locally.
+
+## Other folders:
 
 - `data` folder: contains the sample data for all the analysis and testing.        
   - Mainly 2021 Australian Census data and 2022 Australian Election data.
@@ -13,7 +24,6 @@ BY **ZIYAO WANG (Billy)**
 
 - `present` folder: contains all the material for ETC5543 project presentation.      
   - `present_code.Rmd`: contains codes for presentation preparation and visualization.     
-  - `report.qmd`: the formal project report.
 
 - `reference` folder: contains the relevant journal articles for this project.
 

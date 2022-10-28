@@ -3,12 +3,12 @@ title: "ETC5543-Creative Activity - `hexmap` R package development"
 author: "Ziyao(Billy) Wang"
 date: "`r Sys.Date()`"
 format: 
-  pdf: 
-    cite-method: biblatex
-    toc: true
   html:
     toc: true
     theme: cosmo
+  pdf: 
+    cite-method: biblatex
+    toc: true
 execute:
   echo: true
   eval: false
@@ -23,6 +23,12 @@ Conventional map visualization can provide an overview on the geographic informa
 
 The purpose of this research project is to develop a new R package ([`hexmap`](https://github.com/numbats/hexmap)) that can convert the geospatial polygons (i.e. geographical regions) into a hexagon grid automatically. This offers not only a better visualization of the geographical areas but also provides accurate statistical values alongside insightful inference. In this report, I summarise relevant literature articles, software and R packages to help inform the construction of the `hexmap` package structure and workflow. The current development results and the related testing outcome will be discussed, followed by a prospect of future development direction.
 
+## Motivation
+
+Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information.
+
+With an example illustration on [ABC News release](https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016) on the 2022 Australian election result, it inspires an R package development to automate the conversion of conventional map visualization to a hexagonal grid for an accurate and insightful statistical inference. Therefore, [`hexmap`](https://github.com/numbats/hexmap) will reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference with an automatic process.
+
 ## Background
 
 Since this is a new package development, researching for relevant information can not only enhance the understanding of matter but also lighten a systematic process or direction on the development.
@@ -32,6 +38,8 @@ After the literature review and relevant research, we constructed a blueprint fo
 ### Academic reviews
 
 [*Malaysia Election Data Visualization Using Hexagon Tile Grid Map*](https://link.springer.com/chapter/10.1007/978-981-13-3441-2_28#Sec3)
+
+BY *Nur Atiqah Sia Abdullah, Muhammad Nadzmi Mohamed Idzham and Sharifah Aliman, and Zainura Idrus*
 
 This article illustrates a way of using a hexagonal grid to present the Malaysia election result. It mainly uses `JavaScript` as the tool and constructs multiple files to output the final visualization. These four files represent four stages of processing.
 
@@ -43,7 +51,7 @@ Notes, this article is not a public resource, yet you can find it under "referen
 
 [*A Hexagon Tile Map Algorithm for Displaying Spatial Data*](https://github.com/srkobakian/sugarbag)
 
-By ***Stephanie Kobakian, Dianne Cook, and Earl Duncan***
+By *Stephanie Kobakian, Dianne Cook, and Earl Duncan*
 
 This journal article demonstrates another way of using the combination of a hexagonal grid and map for geographic information visualization. In this paper, authors applied a non-contiguous hexagonal grid with multiple comparisons to other existing approaches, including the `contiguous cartogram`, `non-contiguous cartogram` and the `Dorling cartogram`. The result suggests building a separate algorithm in order to obtain the desired output.
 
@@ -57,29 +65,37 @@ There is a comprehensive user guide to instruct users in the [`sugerbag`](https:
 
 [*538-2016 US Election Post*](https://projects.fivethirtyeight.com/2016-election-forecast/)
 
+BY [*Joshua Tauberer*](https://medium.com/civic-tech-thoughts-from-joshdata/how-that-map-you-saw-on-538-under-represents-minorities-by-half-and-other-reasons-to-consider-a-4a98f89cbbb1)
+
 Here is an example from the `Fivethirtyeight` News release on the 2016 US election result, which uses an [Albers equal-area conic projection](https://en.wikipedia.org/wiki/Albers_projection) for visualization. The hexagonal grid map is using a pixel calculation process, the original geographic information has been processed as number of pixels then computing the actual pixels display based on the population of that region.
 
 Although this visualization is done in `Python` which is different to R programming, it still provides some useful information on how to measure our desirable final output. The GitHub for this post can be found [here](https://github.com/JoshData/why-use-cartograms).
 
 ![2016 US election - `Fivethirtyeight`](images/paste-C0FB8E3F.png){fig-align="center" width="450"}
 
-[*The Guardian - UK 2017 general election*](https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017)
+[*Bloomberg - UK 2017 general election*](https://www.bloomberg.com/graphics/2017-uk-election/)
 
-This news post shows another way of presenting the hexagonal map as it allows users to alter the location of each hexagon tile, yet this functionality may create mistake adjustments on the geographical information. Unfortunately, the post author hadn't disclosed information or source code of this visualization.
+BY [*Julian Burgess*](https://twitter.com/aubergene)*, [Chris Cannon](https://twitter.com/homiedonttweet), Sam Dodge and [Brittany Harris](https://twitter.com/brittharr)*
 
-![2017 UK general election - `The Guardian`](images/paste-8924B4DD.png){fig-align="center" width="270"}
+This news post shows another way of presenting the hexagonal map as it presents the outlook of the interaction effect between statistical values and geographic information. Unfortunately, the post author hadn't disclosed information or source code of this visualization, thus we don't know if the whole process of generating this output is automatic or manual.
+
+![2017 UK general election - `Bloomberg`](images/ref2_figure2_uk.png){fig-align="center"}
 
 ### Relevant Github repositories (including R packages)
 
 [tilegram](https://github.com/PitchInteractiveInc/tilegrams)
 
+BY [*Pitch Interactive Inc*](https://github.com/PitchInteractiveInc)
+
 The author uses the US data to demonstrate the application of the functions in the package (a `JavaScript` one). At the start, it provides some existing tile-grams for user exploration (US map). Users can export the SVG files and the [TopoJSON](https://github.com/topojson/topojson-specification/blob/master/README.md) into a web application for customized display. Users can generate new tilegrams (customized ones) by selecting from a few prepared data sets or inputting their CSV (in a specified format using US FIPS codes). It will start from a conventional geographic map and then resize the regions to the selected data. Meanwhile, users can adjust the number of values for each tile manually or using the `Resolution` slider. (Need to alter the `delta` to `0` to make reasonable tilegrams for inferring.)
 
 After the input of data and initial adjustment, users can move in a single, range or a specific region with a highlight of each region on the sidebar area, or remove or add a tile on the map. As for the statistical accuracy of the display, it is summarized an indicator **"delta"**. If it is positive, it represents the region that has too many tiles than it should have and vice versa. **Delta** is the difference between the calculated proposed number of tiles of each region based on the population (`500,000 per tile`) and the number of tiles in each region's population from the data set.
 
-This package illustrates another way of constructing a hexagonal map with a range of user customization functionalists, which is illuminating yet may not be suitable as this is not the main goal of our project.
+This package illustrates another way of constructing a hexagonal map with a range of user customization functionalists, as it allows users to alter the location of each hexagon tile. Yet this functionality may create mistake adjustments on the geographical information. Thus, even though it is illuminating yet may not be suitable for our project.
 
 [`geogrid`](https://github.com/jbaileyh/geogrid)
+
+BY [*jbaileyh*](https://github.com/jbaileyh)
 
 This `R` package turns geospatial polygons like states, counties or local authorities into regular or hexagonal grids automatically. It uses the [`Hungarian algorithm`](https://en.wikipedia.org/wiki/Hungarian_algorithm) as the core algorithm in determining the allocation of statistical values on the hexagonal grid. This aims to minimize the total distance between the centroid of every original geography and its new centroid on the grid.
 
@@ -87,19 +103,17 @@ This algorithm has also been used in our package functions ([`tile_allocate`](ht
 
 [`tilemaps`](https://github.com/kaerosen/tilemaps)
 
+BY [*Kaelyn Rosenberg*](https://github.com/kaerosen)
+
 This tilemaps `R` package implements an algorithm for generating hexagonal or square maps, in which each region is represented by a single tile of the same shape and size. The algorithm implemented in this package was proposed by Graham McNeill and Scott Hale in the paper ["Generating Tile Maps" (2017)](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13200#:~:text=To%20generate%20multiple%20tile%20maps,well%20as%20their%20boundary%20roughness.).
 
 It shows a reasonable output that we expected in our project, yet there are several limitations in this package. Firstly, the algorithm can only produce a single tile (either hexagonal or square) for each area, and the allocation of tiles to the geographical locations may not be accurate if there are multiple sub-areas for that particular region such as suburbs in each city or state. Secondly, this package can only output a contiguous cartogram and have to manually allocate the separate geographical locations alongside the main map. Thus, it is a useful reference yet not directly related to our project as we wish to visualize the statistical values on a sub-level like electoral in each state.
 
 [`cartogram`](https://github.com/sjewo/cartogram)
 
+BY [*Sebastian Jeworutzki*](https://github.com/sjewo)
+
 This `R` package can construct a continuous area cartogram, non-contiguous area cartogram, and non-overlapping circles cartogram. The main inspiration is the improvement of input data quality for statistical values allocation by distortion on the original map according to a weighting variable. This enlightens us to impose a data pre-processing on input data before implementing computation for the next step. Thus, we designed the input data refinement as the initial step to not only improve the computation efficiency but also enhance the allocation accuracy for statistical values.
-
-## Motivation
-
-Map illustration takes a vital role in exploratory data analysis (EDA), as it not only provides statistical information visualization but also adds geographical information to allow insightful analysis based on a specific region or area. While a map is delivering important information to users, sometimes it conveys misleading information.
-
-With an example illustration on [ABC News release](https://www.abc.net.au/news/2022-05-20/federal-election-map-lying/101076016) on the 2022 Australian election result, it inspires an R package development to automate the conversion of conventional map visualization to a hexagonal grid for an accurate and insightful statistical inference. Therefore, [`hexmap`](https://github.com/numbats/hexmap) will reshape the geographical area into multiple hexagons and allocate the statistics properly thus concluding reasonable and proper inference with an automatic process.
 
 ## Package development - [`hexmap`](https://github.com/numbats/hexmap) Tour
 
@@ -159,9 +173,9 @@ cartogram::cartogram_cont("input data", weight = "weight variable", itermax = 15
 
 #### Step 2 - Determining the number of hexagons
 
-Function `hex_grid` (from [`map_grid`](https://github.com/numbats/hexmap/blob/master/R/map-tile.R)) will compute the proper number of hexagons for the geographic region. This function applies a reverse computation procedure (based on `st_make_grid` function from [`sf`](https://github.com/r-spatial/sf)). The key value to determine the number of hexagons for the map is the **width** of each hexagon as we use a regular (unified size) hexagon. (See detailed derivation of this function in Appendix "hexagon size".) 
+Function `hex_grid` (from [`map_grid`](https://github.com/numbats/hexmap/blob/master/R/map-tile.R)) will compute the proper number of hexagons for the geographic region. This function applies a reverse computation procedure (based on `st_make_grid` function from [`sf`](https://github.com/r-spatial/sf)). The key value to determine the number of hexagons for the map is the **width** of each hexagon as we use a regular (unified size) hexagon. (See detailed derivation of this function in Appendix "hexagon size".)
 
-To show the effect of distortion from "step 1", the example uses two different input data (but the same original `sf` object). There is an obvious difference in the layout of these hexagonal grids, and the distorted one shows a more reasonable hexagon grids location than the normal one’s.
+To show the effect of distortion from "step 1", the example uses two different input data (but the same original `sf` object). There is an obvious difference in the layout of these hexagonal grids, and the distorted one shows a more reasonable hexagon grids location than the normal one's.
 
 ```{r}
 # The input data for this function can be any forms of `sf` objects. 
@@ -200,15 +214,11 @@ hexmap::tile_allocate(object, tile)
 
 ::: columns
 ::: {.column width="50%"}
--   Allocation of statistical values on a **normal choropleth**
-
-![](images/step3-choro.png){fig-align="center"}
+![Allocation of statistical values on a **normal choropleth**](images/step3-choro.png){fig-align="center"}
 :::
 
 ::: {.column width="50%"}
--   Allocation of statistical values on a **distorted cartogram**
-
-![](images/step3-distort.png){fig-align="center"}
+![Allocation of statistical values on a **distorted cartogram**](images/step3-distort.png){fig-align="center"}
 :::
 :::
 
